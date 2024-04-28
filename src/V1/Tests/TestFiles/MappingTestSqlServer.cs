@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace ServiceBricks.Xunit
+namespace ServiceBricks.Xunit.Integration
 {
     [Collection(Constants.SERVICEBRICKS_COLLECTION_NAME)]
     public class MappingTest
