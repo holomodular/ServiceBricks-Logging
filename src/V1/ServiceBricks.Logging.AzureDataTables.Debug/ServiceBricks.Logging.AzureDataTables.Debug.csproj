@@ -1,0 +1,48 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<Version>1.0.4</Version>
+		<Description>ServiceBricks is the cornerstone for building a microservices foundation. Visit http://ServiceBricks.com to learn more.</Description>
+		<AssemblyTitle>ServiceBricks.Logging.AzureDataTables</AssemblyTitle>
+		<Authors>holomodular</Authors>
+		<TargetFrameworks>net6.0;net7.0;net8.0</TargetFrameworks>
+		<Nullable>disable</Nullable>
+		<Copyright>Copyright © 2023 HoloModular LLC. All Rights Reserved. Visit http://HoloModular.com to learn more.</Copyright>
+		<PackageProjectUrl>http://ServiceBricks.com</PackageProjectUrl>
+		<PackageIcon>logo.png</PackageIcon>
+		<PackageTags>service;bricks;logging;azure;azuredatatables</PackageTags>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<SignAssembly>True</SignAssembly>
+		<AssemblyOriginatorKeyFile>ServiceBricks.Logging.AzureDataTables.snk</AssemblyOriginatorKeyFile>
+		<PackageReadmeFile>readme.md</PackageReadmeFile>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
+		<RepositoryType>git</RepositoryType>
+		<RepositoryUrl>https://github.com/holomodular/ServiceBricks</RepositoryUrl>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <Compile Include="..\ServiceBricks.Logging.AzureDataTables\Domain\LogMessage.cs" Link="LogMessage.cs" />
+	  <Compile Include="..\ServiceBricks.Logging.AzureDataTables\Domain\WebRequestMessage.cs" Link="WebRequestMessage.cs" />
+	  <Compile Include="..\ServiceBricks.Logging.AzureDataTables\Extensions\ApplicationBuilderExtensions.cs" Link="ApplicationBuilderExtensions.cs" />
+	  <Compile Include="..\ServiceBricks.Logging.AzureDataTables\Extensions\ServiceCollectionExtensions.cs" Link="ServiceCollectionExtensions.cs" />
+	  <Compile Include="..\ServiceBricks.Logging.AzureDataTables\Mapping\LogMessageMappingProfile.cs" Link="LogMessageMappingProfile.cs" />
+	  <Compile Include="..\ServiceBricks.Logging.AzureDataTables\Mapping\WebRequestMessageMappingProfile.cs" Link="WebRequestMessageMappingProfile.cs" />
+	  <Compile Include="..\ServiceBricks.Logging.AzureDataTables\Model\LoggingAzureDataTablesConstants.cs" Link="LoggingAzureDataTablesConstants.cs" />
+	  <Compile Include="..\ServiceBricks.Logging.AzureDataTables\Model\LoggingAzureDataTablesModule.cs" Link="LoggingAzureDataTablesModule.cs" />
+	  <Compile Include="..\ServiceBricks.Logging.AzureDataTables\Rule\LogMessageCreateRule.cs" Link="LogMessageCreateRule.cs" />
+	  <Compile Include="..\ServiceBricks.Logging.AzureDataTables\Rule\LogMessageQueryRule.cs" Link="LogMessageQueryRule.cs" />
+	  <Compile Include="..\ServiceBricks.Logging.AzureDataTables\Rule\WebRequestMessageCreateRule.cs" Link="WebRequestMessageCreateRule.cs" />
+	  <Compile Include="..\ServiceBricks.Logging.AzureDataTables\Rule\WebRequestMessageQueryRule.cs" Link="WebRequestMessageQueryRule.cs" />
+	  <Compile Include="..\ServiceBricks.Logging.AzureDataTables\Service\LogMessageApiService.cs" Link="LogMessageApiService.cs" />
+	  <Compile Include="..\ServiceBricks.Logging.AzureDataTables\Service\WebRequestMessageApiService.cs" Link="WebRequestMessageApiService.cs" />
+	  <Compile Include="..\ServiceBricks.Logging.AzureDataTables\Storage\LoggingStorageRepository.cs" Link="LoggingStorageRepository.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="ServiceBricks.Storage.AzureDataTables" Version="1.0.4" />
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\ServiceBricks.Logging.Debug\ServiceBricks.Logging.Debug.csproj" />
+	</ItemGroup>
+</Project>
