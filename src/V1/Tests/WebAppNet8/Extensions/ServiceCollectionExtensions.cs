@@ -13,6 +13,9 @@ namespace WebApp.Extensions
     {
         public static IServiceCollection AddCustomWebsite(this IServiceCollection services, IConfiguration Configuration)
         {
+            // Add to module registry
+            ModuleRegistry.Instance.RegisterItem(typeof(WebAppModule), new WebAppModule());
+
             services.AddHttpContextAccessor();
             services.AddControllers().ConfigureApiBehaviorOptions(setup =>
             {
