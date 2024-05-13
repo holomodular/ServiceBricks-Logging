@@ -25,7 +25,7 @@ namespace ServiceBricks.Logging.Postgres
 
             var builder = new DbContextOptionsBuilder<LoggingPostgresContext>();
             string connectionString = configuration.GetPostgresConnectionString(
-                LoggingPostgresConstants.APPSETTING_DATABASE_CONNECTION);
+                LoggingPostgresConstants.APPSETTING_CONNECTION_STRING);
             builder.UseNpgsql(connectionString, x =>
             {
                 x.MigrationsAssembly(typeof(LoggingPostgresContext).Assembly.GetName().Name);
@@ -65,7 +65,7 @@ namespace ServiceBricks.Logging.Postgres
             if (!optionsBuilder.IsConfigured)
             {
                 IConfigurationRoot configuration = new ConfigurationBuilder().AddAppSettingsConfig().Build();
-                string connectionString = configuration.GetPostgresConnectionString(LoggingPostgresConstants.APPSETTING_DATABASE_CONNECTION);
+                string connectionString = configuration.GetPostgresConnectionString(LoggingPostgresConstants.APPSETTING_CONNECTION_STRING);
                 optionsBuilder.UseNpgsql(connectionString, x =>
                 {
                     x.MigrationsAssembly(typeof(LoggingPostgresContext).Assembly.GetName().Name);

@@ -25,7 +25,7 @@ namespace ServiceBricks.Logging.SqlServer
 
             var builder = new DbContextOptionsBuilder<LoggingSqlServerContext>();
             string connectionString = configuration.GetSqlServerConnectionString(
-                LoggingSqlServerConstants.APPSETTING_DATABASE_CONNECTION);
+                LoggingSqlServerConstants.APPSETTING_CONNECTION_STRING);
             builder.UseSqlServer(connectionString, x =>
             {
                 x.MigrationsAssembly(typeof(LoggingSqlServerContext).Assembly.GetName().Name);
@@ -65,7 +65,7 @@ namespace ServiceBricks.Logging.SqlServer
             if (!optionsBuilder.IsConfigured)
             {
                 IConfigurationRoot configuration = new ConfigurationBuilder().AddAppSettingsConfig().Build();
-                string connectionString = configuration.GetSqlServerConnectionString(LoggingSqlServerConstants.APPSETTING_DATABASE_CONNECTION);
+                string connectionString = configuration.GetSqlServerConnectionString(LoggingSqlServerConstants.APPSETTING_CONNECTION_STRING);
                 optionsBuilder.UseSqlServer(connectionString, x =>
                 {
                     x.MigrationsAssembly(typeof(LoggingSqlServerContext).Assembly.GetName().Name);

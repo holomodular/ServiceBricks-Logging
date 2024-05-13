@@ -16,10 +16,25 @@ namespace ServiceBricks.Logging.AzureDataTables
                 .ForMember(x => x.RowKey, y => y.MapFrom<RowKeyResolver>())
                 .ForMember(x => x.ETag, y => y.Ignore())
                 .ForMember(x => x.Timestamp, y => y.Ignore())
-                .ForMember(x => x.Key, y => y.Ignore());
+                .ForMember(x => x.Key, y => y.Ignore())
+                .ForMember(x => x.RequestUserId, y => y.MapFrom<RequestUserIdResolver>());
 
             CreateMap<WebRequestMessage, WebRequestMessageDto>()
                 .ForMember(x => x.StorageKey, y => y.MapFrom<StorageKeyResolver>());
+        }
+
+        public class RequestUserIdResolver : IValueResolver<WebRequestMessageDto, object, Guid?>
+        {
+            public Guid? Resolve(WebRequestMessageDto source, object destination, Guid? sourceMember, ResolutionContext context)
+            {
+                if (string.IsNullOrEmpty(source.RequestUserId))
+                    return new Nullable<Guid>();
+
+                Guid tempKey;
+                if (Guid.TryParse(source.RequestUserId, out tempKey))
+                    return tempKey;
+                return new Nullable<Guid>();
+            }
         }
     }
 }

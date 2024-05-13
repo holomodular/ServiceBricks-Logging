@@ -3,17 +3,17 @@
 	<PropertyGroup>
 		<Version>1.0.6</Version>
 		<Description>ServiceBricks is the cornerstone for building a microservices foundation. Visit http://ServiceBricks.com to learn more.</Description>
-		<AssemblyTitle>ServiceBricks.Logging.EntityFrameworkCore</AssemblyTitle>
+		<AssemblyTitle>ServiceBricks.Logging.InMemory</AssemblyTitle>
 		<Authors>holomodular</Authors>
 		<TargetFrameworks>net6.0;net7.0;net8.0</TargetFrameworks>
 		<Nullable>disable</Nullable>
 		<Copyright>Copyright © 2023 HoloModular LLC. All Rights Reserved. Visit http://HoloModular.com to learn more.</Copyright>
 		<PackageProjectUrl>http://ServiceBricks.com</PackageProjectUrl>
 		<PackageIcon>logo.png</PackageIcon>
-		<PackageTags>service;bricks;logging;entityframeworkcore;efc</PackageTags>
+		<PackageTags>service;bricks;logging;inmemory</PackageTags>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<SignAssembly>True</SignAssembly>
-		<AssemblyOriginatorKeyFile>ServiceBricks.Logging.EntityFrameworkCore.snk</AssemblyOriginatorKeyFile>
+		<AssemblyOriginatorKeyFile>ServiceBricks.Logging.InMemory.snk</AssemblyOriginatorKeyFile>
 		<PackageReadmeFile>readme.md</PackageReadmeFile>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
@@ -27,11 +27,20 @@
 			<PackagePath>\</PackagePath>
 		</EmbeddedResource>
 	</ItemGroup>
-	<ItemGroup>
-	  <PackageReference Include="ServiceBricks.Storage.EntityFrameworkCore" Version="1.0.6" />
-	</ItemGroup>
-	<ItemGroup>
-		<PackageReference Include="ServiceBricks.Logging" Version="1.0.6" />
+  <ItemGroup>
+	  <PackageReference Include="ServiceBricks.Logging.EntityFrameworkCore" Version="1.0.6" />
+  </ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
+		<PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="7.0.16" />
 	</ItemGroup>
 
+	<ItemGroup Condition="'$(TargetFramework)' == 'net7.0'">
+		<PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="7.0.16" />
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'net8.0'">
+		<PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="8.0.2" />
+	</ItemGroup>
+	
 </Project>

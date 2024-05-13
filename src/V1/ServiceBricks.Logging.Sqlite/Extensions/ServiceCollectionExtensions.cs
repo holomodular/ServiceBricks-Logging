@@ -22,7 +22,7 @@ namespace ServiceBricks.Logging.Sqlite
             // Register Database
             var builder = new DbContextOptionsBuilder<LoggingSqliteContext>();
             string connectionString = configuration.GetSqliteConnectionString(
-                LoggingSqliteConstants.APPSETTING_DATABASE_CONNECTION);
+                LoggingSqliteConstants.APPSETTING_CONNECTION_STRING);
             builder.UseSqlite(connectionString, x =>
             {
                 x.MigrationsAssembly(typeof(ServiceCollectionExtensions).Assembly.GetName().Name);

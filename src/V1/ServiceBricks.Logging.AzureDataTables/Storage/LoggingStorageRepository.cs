@@ -17,7 +17,7 @@ namespace ServiceBricks.Logging.AzureDataTables
             : base(logFactory)
         {
             ConnectionString = configuration.GetAzureDataTablesConnectionString(
-                LoggingAzureDataTablesConstants.APPSETTINGS_CONNECTION_STRING);
+                LoggingAzureDataTablesConstants.APPSETTING_CONNECTION_STRING);
             TableName = LoggingAzureDataTablesConstants.GetTableName(typeof(TDomain).Name);
             AzureDataTablesOptions = new ServiceQuery.AzureDataTablesOptions()
             {

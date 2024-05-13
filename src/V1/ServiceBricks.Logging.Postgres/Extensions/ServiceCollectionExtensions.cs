@@ -22,7 +22,7 @@ namespace ServiceBricks.Logging.Postgres
             // Register Database
             var builder = new DbContextOptionsBuilder<LoggingPostgresContext>();
             string connectionString = configuration.GetPostgresConnectionString(
-                LoggingPostgresConstants.APPSETTING_DATABASE_CONNECTION);
+                LoggingPostgresConstants.APPSETTING_CONNECTION_STRING);
             builder.UseNpgsql(connectionString, x =>
             {
                 x.MigrationsAssembly(typeof(ServiceCollectionExtensions).Assembly.GetName().Name);

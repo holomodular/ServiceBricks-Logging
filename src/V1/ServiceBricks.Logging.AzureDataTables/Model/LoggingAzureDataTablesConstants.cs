@@ -5,7 +5,7 @@
     /// </summary>
     public static class LoggingAzureDataTablesConstants
     {
-        public const string APPSETTINGS_CONNECTION_STRING = "ServiceBricks:Logging:AzureDataTables:ConnectionString";
+        public const string APPSETTING_CONNECTION_STRING = "ServiceBricks:Logging:Storage:AzureDataTables:ConnectionString";
 
         public const string TABLENAME_PREFIX = "Logging";
 

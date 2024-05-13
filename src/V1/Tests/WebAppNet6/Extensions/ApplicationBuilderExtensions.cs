@@ -9,8 +9,7 @@ namespace WebApp.Extensions
         {
             app.UseMiddleware<CustomLoggerMiddleware>();
 
-            // This messes with client unit tests
-            //app.UseMiddleware<WebRequestMessageMiddleware>();
+            app.UseMiddleware<WebRequestMessageMiddleware>();
 
             app.UseMiddleware<ExceptionMiddleware>();
             return app;

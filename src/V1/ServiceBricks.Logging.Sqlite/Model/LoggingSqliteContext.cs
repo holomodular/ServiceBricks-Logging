@@ -26,7 +26,7 @@ namespace ServiceBricks.Logging.Sqlite
 
             var builder = new DbContextOptionsBuilder<LoggingSqliteContext>();
             string connectionString = configuration.GetSqliteConnectionString(
-                LoggingSqliteConstants.APPSETTING_DATABASE_CONNECTION);
+                LoggingSqliteConstants.APPSETTING_CONNECTION_STRING);
             builder.UseSqlite(connectionString, x =>
             {
                 x.MigrationsAssembly(typeof(LoggingSqliteContext).Assembly.GetName().Name);
@@ -78,7 +78,7 @@ namespace ServiceBricks.Logging.Sqlite
             if (!optionsBuilder.IsConfigured)
             {
                 IConfigurationRoot configuration = new ConfigurationBuilder().AddAppSettingsConfig().Build();
-                string connectionString = configuration.GetSqlServerConnectionString(LoggingSqliteConstants.APPSETTING_DATABASE_CONNECTION);
+                string connectionString = configuration.GetSqlServerConnectionString(LoggingSqliteConstants.APPSETTING_CONNECTION_STRING);
                 optionsBuilder.UseSqlite(connectionString, x =>
                 {
                     x.MigrationsAssembly(typeof(LoggingSqliteContext).Assembly.GetName().Name);

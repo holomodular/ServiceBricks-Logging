@@ -5,8 +5,8 @@
     /// </summary>
     public static class LoggingMongoDbConstants
     {
-        public const string APPSETTINGS_CONNECTION_STRING = "ServiceBricks:Logging:MongoDb:ConnectionString";
-        public const string APPSETTINGS_DATABASE_NAME = "ServiceBricks:Logging:MongoDb:DatabaseName";
+        public const string APPSETTING_CONNECTION_STRING = "ServiceBricks:Logging:Storage:MongoDb:ConnectionString";
+        public const string APPSETTINGS_DATABASE = "ServiceBricks:Logging:Storage:MongoDb:Database";
 
         public const string COLLECTIONNAME_PREFIX = "Logging";
 

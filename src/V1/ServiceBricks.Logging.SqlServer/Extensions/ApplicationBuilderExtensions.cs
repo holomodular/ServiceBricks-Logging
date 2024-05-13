@@ -18,7 +18,6 @@ namespace ServiceBricks.Logging.SqlServer
             {
                 // Migrate
                 var context = serviceScope.ServiceProvider.GetService<LoggingSqlServerContext>();
-                context.Database.EnsureCreated();
                 context.Database.Migrate();
                 context.SaveChanges();
             }

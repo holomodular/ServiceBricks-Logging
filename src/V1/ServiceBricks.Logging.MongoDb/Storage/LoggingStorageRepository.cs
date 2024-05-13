@@ -17,9 +17,9 @@ namespace ServiceBricks.Logging.MongoDb
             : base(logFactory)
         {
             ConnectionString = configuration.GetMongoDbConnectionString(
-                LoggingMongoDbConstants.APPSETTINGS_CONNECTION_STRING);
-            DatabaseName = configuration.GetMongoDbDatabaseName(
-                LoggingMongoDbConstants.APPSETTINGS_DATABASE_NAME);
+                LoggingMongoDbConstants.APPSETTING_CONNECTION_STRING);
+            DatabaseName = configuration.GetMongoDbDatabase(
+                LoggingMongoDbConstants.APPSETTINGS_DATABASE);
             CollectionName = LoggingMongoDbConstants.GetCollectionName(typeof(TDomain).Name);
         }
     }

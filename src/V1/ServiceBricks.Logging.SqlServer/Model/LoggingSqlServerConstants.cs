@@ -5,7 +5,7 @@
     /// </summary>
     public static class LoggingSqlServerConstants
     {
-        public const string APPSETTING_DATABASE_CONNECTION = "ServiceBricks:Logging:SqlServer:ConnectionString";
+        public const string APPSETTING_CONNECTION_STRING = "ServiceBricks:Logging:Storage:SqlServer:ConnectionString";
 
         public const string DATABASE_SCHEMA_NAME = "Logging";
     }

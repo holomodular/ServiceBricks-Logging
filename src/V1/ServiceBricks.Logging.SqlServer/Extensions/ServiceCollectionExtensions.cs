@@ -22,7 +22,7 @@ namespace ServiceBricks.Logging.SqlServer
             // Register Database
             var builder = new DbContextOptionsBuilder<LoggingSqlServerContext>();
             string connectionString = configuration.GetSqlServerConnectionString(
-                LoggingSqlServerConstants.APPSETTING_DATABASE_CONNECTION);
+                LoggingSqlServerConstants.APPSETTING_CONNECTION_STRING);
             builder.UseSqlServer(connectionString, x =>
             {
                 x.MigrationsAssembly(typeof(ServiceCollectionExtensions).Assembly.GetName().Name);

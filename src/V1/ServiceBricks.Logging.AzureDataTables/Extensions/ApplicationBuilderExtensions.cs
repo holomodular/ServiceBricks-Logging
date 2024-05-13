@@ -19,7 +19,7 @@ namespace ServiceBricks.Logging.AzureDataTables
             {
                 var configuration = serviceScope.ServiceProvider.GetRequiredService<IConfiguration>();
                 var connectionString = configuration.GetAzureDataTablesConnectionString(
-                    LoggingAzureDataTablesConstants.APPSETTINGS_CONNECTION_STRING);
+                    LoggingAzureDataTablesConstants.APPSETTING_CONNECTION_STRING);
 
                 // Create each table if not exists
                 TableClient tableClient = new TableClient(
