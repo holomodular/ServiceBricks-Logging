@@ -102,6 +102,20 @@ None
 ### CustomLoggerMiddleware
 This middleware is responsible for plugging into the pipeline and storing minimal HttpRequest information (such as user, request path, etc) to store along with log messages.
 
+In your program.cs file, add the custom logger with **AddServiceBricksLogging()** in the ConfigureLogging section.
+```csharp
+
+    .ConfigureLogging((hostingContext, logging) =>
+    {
+        logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
+        logging.AddConsole();
+        logging.AddDebug();
+        logging.AddServiceBricksLogging();
+    })
+
+```
+
+
 The following code should be added to your web application's startup. This middleware should be added to the pipeline after UseAuth(), so that any authenticated user is available.
 ```csharp
   app.UseMiddleware<CustomLoggerMiddleware>();
@@ -115,7 +129,7 @@ This middleware is responsible for plugging into the pipeline and pulling the Ht
 The following code should be added to your web application's startup. 
 This middleware should be added to the pipeline after UseAuth(), so that any authenticated user is available.
 ```csharp
-  app.UseMiddleware<CustomLoggerMiddleware>();
+  app.UseMiddleware<WebRequestMessageMiddleware>();
 ```
 [View Source](https://github.com/holomodular/ServiceBricks-Logging/blob/main/src/V1/ServiceBricks.Logging/Middleware/WebRequestMessageMiddleware.cs)
 
@@ -123,7 +137,22 @@ This middleware should be added to the pipeline after UseAuth(), so that any aut
 None
 
 ## Service Bus
-None
+
+### CreateApplicationLogBroadcast
+This microservice subscribes to the CreateApplicationLogBroadcast message.
+It is associated to the [CreateApplicationLogRule](https://github.com/holomodular/ServiceBricks-Logging/blob/main/src/V1/ServiceBricks.Logging/Rule/CreateApplicationLogRule.cs) Business Rule.
+When receiving the message, it will simply create a record in storage.
+```csharp
+
+public class CreateApplicationLogBroadcast : DomainBroadcast<ApplicationLogDto>
+{
+    public CreateApplicationLogBroadcast(ApplicationLogDto obj)
+    {
+        DomainObject = obj;
+    }
+}
+
+```
 
 ## Additional
 None
