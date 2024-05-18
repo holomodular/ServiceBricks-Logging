@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<Version>1.0.6</Version>
+		<Version>1.0.7</Version>
 		<Description>ServiceBricks is the cornerstone for building a microservices foundation. Visit http://ServiceBricks.com to learn more.</Description>
 		<AssemblyTitle>ServiceBricks.Logging</AssemblyTitle>
 		<Authors>holomodular</Authors>
@@ -39,6 +39,7 @@
 	  <Compile Include="..\ServiceBricks.Logging\Interface\IWebRequestMessageApiClient.cs" Link="IWebRequestMessageApiClient.cs" />
 	  <Compile Include="..\ServiceBricks.Logging\Interface\IWebRequestMessageApiController.cs" Link="IWebRequestMessageApiController.cs" />
 	  <Compile Include="..\ServiceBricks.Logging\Interface\IWebRequestMessageApiService.cs" Link="IWebRequestMessageApiService.cs" />
+	  <Compile Include="..\ServiceBricks.Logging\Mapping\LogMessageDtoMappingProfile.cs" Link="LogMessageDtoMappingProfile.cs" />
 	  <Compile Include="..\ServiceBricks.Logging\Middleware\CustomLoggerMiddleware.cs" Link="CustomLoggerMiddleware.cs" />
 	  <Compile Include="..\ServiceBricks.Logging\Middleware\WebRequestMessageMiddleware.cs" Link="WebRequestMessageMiddleware.cs" />
 	  <Compile Include="..\ServiceBricks.Logging\Model\CustomLogger.cs" Link="CustomLogger.cs" />
@@ -47,10 +48,11 @@
 	  <Compile Include="..\ServiceBricks.Logging\Model\LoggingConstants.cs" Link="LoggingConstants.cs" />
 	  <Compile Include="..\ServiceBricks.Logging\Model\LoggingModule.cs" Link="LoggingModule.cs" />
 	  <Compile Include="..\ServiceBricks.Logging\Model\WebRequestMessageOptions.cs" Link="WebRequestMessageOptions.cs" />
+	  <Compile Include="..\ServiceBricks.Logging\Rule\CreateApplicationLogRule.cs" Link="CreateApplicationLogRule.cs" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="ServiceBricks" Version="1.0.6" />
+		<PackageReference Include="ServiceBricks" Version="1.0.7" />
 	</ItemGroup>
 
 </Project>

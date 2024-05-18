@@ -7,9 +7,6 @@ namespace ServiceBricks.Logging.InMemory
     {
         public LoggingInMemoryModule()
         {
-            AdminHtml = string.Empty;
-            Name = "Logging InMemory Brick";
-            Description = @"The Logging InMemory Brick implements the Azure Data Tables provider.";
             AutomapperAssemblies = new List<Assembly>()
             {
                 typeof(LoggingInMemoryModule).Assembly
@@ -19,10 +16,6 @@ namespace ServiceBricks.Logging.InMemory
                 new LoggingEntityFrameworkCoreModule()
             };
         }
-
-        public string Name { get; }
-        public string Description { get; }
-        public string AdminHtml { get; }
 
         public List<IModule> DependentModules { get; }
 

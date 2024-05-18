@@ -6,14 +6,12 @@ namespace ServiceBricks.Logging
     {
         public LoggingModule()
         {
-            AdminHtml = string.Empty;
-            Name = "Logging Brick";
-            Description = @"The Logging Brick is responsible for application logging.";
+            AutomapperAssemblies = new List<Assembly>()
+         {
+             typeof(LoggingModule).Assembly
+         };
         }
 
-        public string Name { get; }
-        public string Description { get; }
-        public string AdminHtml { get; }
         public List<IModule> DependentModules { get; }
         public List<Assembly> AutomapperAssemblies { get; }
         public List<Assembly> ViewAssemblies { get; }

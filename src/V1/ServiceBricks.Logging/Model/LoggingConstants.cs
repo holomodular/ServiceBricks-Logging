@@ -5,7 +5,7 @@
     /// </summary>
     public static class LoggingConstants
     {
-        public const string APPSETTING_CLIENT_APICONFIG = @"ServiceBricks:Logging:Client:ApiConfig";
+        public const string APPSETTING_CLIENT_APICONFIG = @"ServiceBricks:Logging:Client:Api";
         public const string APPSETTING_WEBREQUESTMESSAGE = @"ServiceBricks:Logging:WebRequestMessage";
 
         public const string IPADDRESS_LOCAL_SHORT = "::1";

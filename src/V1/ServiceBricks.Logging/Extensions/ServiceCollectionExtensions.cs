@@ -35,6 +35,13 @@ namespace ServiceBricks.Logging
             // Misc
             services.AddTransient<WebRequestMessageMiddleware>();
 
+            // ServiceBus Rules
+            using (var serviceScope = services.BuildServiceProvider().GetRequiredService<IServiceScopeFactory>().CreateScope())
+            {
+                var serviceBus = serviceScope.ServiceProvider.GetRequiredService<IServiceBus>();
+                CreateApplicationLogRule.RegisterServiceBus(serviceBus);
+            }
+
             return services;
         }
 
