@@ -37,7 +37,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="ServiceBricks.Storage.MongoDb" Version="1.0.9" />
+		<PackageReference Include="ServiceBricks.Storage.MongoDb" Version="1.0.10" />
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\ServiceBricks.Logging.Debug\ServiceBricks.Logging.Debug.csproj" />
