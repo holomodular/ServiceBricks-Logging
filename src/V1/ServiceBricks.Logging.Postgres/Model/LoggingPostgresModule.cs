@@ -3,8 +3,14 @@ using System.Reflection;
 
 namespace ServiceBricks.Logging.Postgres
 {
-    public class LoggingPostgresModule : IModule
+    /// <summary>
+    /// The module for the ServiceBricks Logging Postgres module.
+    /// </summary>
+    public partial class LoggingPostgresModule : IModule
     {
+        /// <summary>
+        /// Constructor.
+        /// </summary>
         public LoggingPostgresModule()
         {
             AutomapperAssemblies = new List<Assembly>()
@@ -17,8 +23,19 @@ namespace ServiceBricks.Logging.Postgres
             };
         }
 
+        /// <summary>
+        /// The list of dependent modules.
+        /// </summary>
         public List<IModule> DependentModules { get; }
+
+        /// <summary>
+        /// The list of Automapper assemblies.
+        /// </summary>
         public List<Assembly> AutomapperAssemblies { get; }
+
+        /// <summary>
+        /// The list of view assemblies.
+        /// </summary>
         public List<Assembly> ViewAssemblies { get; }
     }
 }

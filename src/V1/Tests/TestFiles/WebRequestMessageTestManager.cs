@@ -14,6 +14,7 @@ namespace ServiceBricks.Xunit
             var model = new WebRequestMessageDto()
             {
                 CreateDate = DateTimeOffset.UtcNow,
+                Exception = Guid.NewGuid().ToString(),
                 RequestBody = Guid.NewGuid().ToString(),
                 RequestContentLength = 1,
                 RequestContentType = Guid.NewGuid().ToString(),
@@ -31,7 +32,7 @@ namespace ServiceBricks.Xunit
                 RequestQueryString = Guid.NewGuid().ToString(),
                 RequestRouteValues = Guid.NewGuid().ToString(),
                 RequestScheme = Guid.NewGuid().ToString(),
-                RequestUserId = Guid.NewGuid().ToString(),
+                RequestUserStorageKey = Guid.NewGuid().ToString(),
                 ResponseBody = Guid.NewGuid().ToString(),
                 ResponseContentType = Guid.NewGuid().ToString(),
                 ResponseCookies = Guid.NewGuid().ToString(),
@@ -79,6 +80,7 @@ namespace ServiceBricks.Xunit
         public override void UpdateObject(WebRequestMessageDto dto)
         {
             //dto.CreateDate = DateTimeOffset.UtcNow;
+            dto.Exception = Guid.NewGuid().ToString();
             dto.RequestBody = Guid.NewGuid().ToString();
             dto.RequestContentLength = 2;
             dto.RequestContentType = Guid.NewGuid().ToString();
@@ -96,7 +98,7 @@ namespace ServiceBricks.Xunit
             dto.RequestQueryString = Guid.NewGuid().ToString();
             dto.RequestRouteValues = Guid.NewGuid().ToString();
             dto.RequestScheme = Guid.NewGuid().ToString();
-            dto.RequestUserId = Guid.NewGuid().ToString();
+            dto.RequestUserStorageKey = Guid.NewGuid().ToString();
             dto.ResponseBody = Guid.NewGuid().ToString();
             dto.ResponseContentType = Guid.NewGuid().ToString();
             dto.ResponseCookies = Guid.NewGuid().ToString();
@@ -114,6 +116,7 @@ namespace ServiceBricks.Xunit
             else
                 Assert.True(serviceDto.CreateDate == clientDto.CreateDate);
 
+            Assert.True(serviceDto.Exception == clientDto.Exception);
             Assert.True(serviceDto.RequestBody == clientDto.RequestBody);
             Assert.True(serviceDto.RequestContentLength == clientDto.RequestContentLength);
             Assert.True(serviceDto.RequestContentType == clientDto.RequestContentType);
@@ -131,7 +134,7 @@ namespace ServiceBricks.Xunit
             Assert.True(serviceDto.RequestQueryString == clientDto.RequestQueryString);
             Assert.True(serviceDto.RequestRouteValues == clientDto.RequestRouteValues);
             Assert.True(serviceDto.RequestScheme == clientDto.RequestScheme);
-            Assert.True(serviceDto.RequestUserId == clientDto.RequestUserId);
+            Assert.True(serviceDto.RequestUserStorageKey == clientDto.RequestUserStorageKey);
             Assert.True(serviceDto.ResponseBody == clientDto.ResponseBody);
             Assert.True(serviceDto.ResponseContentType == clientDto.ResponseContentType);
             Assert.True(serviceDto.ResponseCookies == clientDto.ResponseCookies);
@@ -153,6 +156,10 @@ namespace ServiceBricks.Xunit
 
             var qb = ServiceQueryRequestBuilder.New().
                 IsEqual(nameof(WebRequestMessageDto.CreateDate), dto.CreateDate.ToString("o"));
+            queries.Add(qb.Build());
+
+            qb = ServiceQueryRequestBuilder.New().
+                IsEqual(nameof(WebRequestMessageDto.Exception), dto.Exception);
             queries.Add(qb.Build());
 
             qb = ServiceQueryRequestBuilder.New().
@@ -224,7 +231,7 @@ namespace ServiceBricks.Xunit
             queries.Add(qb.Build());
 
             qb = ServiceQueryRequestBuilder.New().
-                IsEqual(nameof(WebRequestMessageDto.RequestUserId), dto.RequestUserId);
+                IsEqual(nameof(WebRequestMessageDto.RequestUserStorageKey), dto.RequestUserStorageKey);
             queries.Add(qb.Build());
 
             qb = ServiceQueryRequestBuilder.New().

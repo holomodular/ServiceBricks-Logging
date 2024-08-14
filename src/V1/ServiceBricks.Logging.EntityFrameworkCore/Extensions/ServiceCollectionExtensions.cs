@@ -4,26 +4,32 @@ using Microsoft.Extensions.DependencyInjection;
 namespace ServiceBricks.Logging.EntityFrameworkCore
 {
     /// <summary>
-    /// IServiceCollection extensions for the Log module.
+    /// Extensions to add the ServiceBricks Logging EntityFrameworkCore module to the IServiceCollection.
     /// </summary>
-    public static class ServiceCollectionExtensions
+    public static partial class ServiceCollectionExtensions
     {
+        /// <summary>
+        /// Add the ServiceBricks Logging EntityFrameworkCore module to the IServiceCollection.
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="configuration"></param>
+        /// <returns></returns>
         public static IServiceCollection AddServiceBricksLoggingEntityFrameworkCore(this IServiceCollection services, IConfiguration configuration)
         {
-            // Add to module registry for automapper
+            // AI: Add the module to the ModuleRegistry
             ModuleRegistry.Instance.RegisterItem(typeof(LoggingEntityFrameworkCoreModule), new LoggingEntityFrameworkCoreModule());
 
-            // Add Core Logging
+            // AI: Add the parent module
             services.AddServiceBricksLogging(configuration);
 
-            // API Services
+            // AI: Add API services for the module. Each DTO should have two registrations, one for the generic IApiService<> and one for the named interface
             services.AddScoped<IApiService<LogMessageDto>, LogMessageApiService>();
             services.AddScoped<ILogMessageApiService, LogMessageApiService>();
 
             services.AddScoped<IApiService<WebRequestMessageDto>, WebRequestMessageApiService>();
             services.AddScoped<IWebRequestMessageApiService, WebRequestMessageApiService>();
 
-            // Register Business rules
+            // AI: Register business rules for the module
             DomainCreateDateRule<LogMessage>.RegisterRule(BusinessRuleRegistry.Instance);
             DomainQueryPropertyRenameRule<LogMessage>.RegisterRule(BusinessRuleRegistry.Instance, "StorageKey", "Key");
 

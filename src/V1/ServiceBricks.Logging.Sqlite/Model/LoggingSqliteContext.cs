@@ -9,7 +9,7 @@ namespace ServiceBricks.Logging.Sqlite
     // dotnet ef migrations add LoggingV1 --context LoggingSqliteContext --startup-project ../Test/MigrationsHost
 
     /// <summary>
-    /// The database context for Logging.
+    /// The database context for the ServiceBricks.Logging.Sqlite module.
     /// </summary>
     public partial class LoggingSqliteContext : DbContext
     {
@@ -43,8 +43,14 @@ namespace ServiceBricks.Logging.Sqlite
             _options = options;
         }
 
+        /// <summary>
+        /// Log Messages.
+        /// </summary>
         public virtual DbSet<LogMessage> LogMessages { get; set; }
 
+        /// <summary>
+        /// Web Request Messages.
+        /// </summary>
         public virtual DbSet<WebRequestMessage> WebRequestMessages { get; set; }
 
         /// <summary>
@@ -61,6 +67,10 @@ namespace ServiceBricks.Logging.Sqlite
             builder.Entity<WebRequestMessage>().ToTable("WebRequestMessage").HasKey(key => key.Key);
         }
 
+        /// <summary>
+        /// ConfigureConventions.
+        /// </summary>
+        /// <param name="configurationBuilder"></param>
         protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
         {
             base.ConfigureConventions(configurationBuilder);
@@ -73,17 +83,14 @@ namespace ServiceBricks.Logging.Sqlite
                 .HaveConversion<DateTimeOffsetToBytesConverter>();
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        /// <summary>
+        /// Create context.
+        /// </summary>
+        /// <param name="args"></param>
+        /// <returns></returns>
+        public virtual LoggingSqliteContext CreateDbContext(string[] args)
         {
-            if (!optionsBuilder.IsConfigured)
-            {
-                IConfigurationRoot configuration = new ConfigurationBuilder().AddAppSettingsConfig().Build();
-                string connectionString = configuration.GetSqlServerConnectionString(LoggingSqliteConstants.APPSETTING_CONNECTION_STRING);
-                optionsBuilder.UseSqlite(connectionString, x =>
-                {
-                    x.MigrationsAssembly(typeof(LoggingSqliteContext).Assembly.GetName().Name);
-                });
-            }
+            return new LoggingSqliteContext(_options);
         }
     }
 }

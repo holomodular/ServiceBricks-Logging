@@ -7,19 +7,25 @@ using ServiceBricks.Storage.EntityFrameworkCore;
 namespace ServiceBricks.Logging.SqlServer
 {
     /// <summary>
-    /// IServiceCollection extensions for the Log module.
+    /// Extensions to add the ServiceBricks Logging SqlServer module to the service collection.
     /// </summary>
-    public static class ServiceCollectionExtensions
+    public static partial class ServiceCollectionExtensions
     {
+        /// <summary>
+        /// Add the ServiceBricks Logging SqlServer module to the service collection.
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="configuration"></param>
+        /// <returns></returns>
         public static IServiceCollection AddServiceBricksLoggingSqlServer(this IServiceCollection services, IConfiguration configuration)
         {
-            // Add to module registry for automapper
+            // AI: Add the module to the ModuleRegistry
             ModuleRegistry.Instance.RegisterItem(typeof(LoggingSqlServerModule), new LoggingSqlServerModule());
 
-            // Add Core Logging
+            // AI: Add parent module
             services.AddServiceBricksLoggingEntityFrameworkCore(configuration);
 
-            // Register Database
+            // AI: Register the database for the module
             var builder = new DbContextOptionsBuilder<LoggingSqlServerContext>();
             string connectionString = configuration.GetSqlServerConnectionString(
                 LoggingSqlServerConstants.APPSETTING_CONNECTION_STRING);
@@ -32,7 +38,7 @@ namespace ServiceBricks.Logging.SqlServer
             services.AddSingleton<DbContextOptions<LoggingSqlServerContext>>(builder.Options);
             services.AddDbContext<LoggingSqlServerContext>(c => { c = builder; }, ServiceLifetime.Scoped);
 
-            // Storage Services
+            // AI: Add storage services for the module. Each domain object should have its own storage repository.
             services.AddScoped<IStorageRepository<LogMessage>, LoggingStorageRepository<LogMessage>>();
             services.AddScoped<IStorageRepository<WebRequestMessage>, LoggingStorageRepository<WebRequestMessage>>();
 

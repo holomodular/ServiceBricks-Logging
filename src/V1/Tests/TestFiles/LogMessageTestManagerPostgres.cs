@@ -1,10 +1,4 @@
-﻿using AutoMapper.Execution;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using ServiceBricks.Logging;
-using ServiceQuery;
+﻿using ServiceBricks.Logging;
 
 namespace ServiceBricks.Xunit
 {

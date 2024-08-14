@@ -1,20 +1,23 @@
 ﻿using AutoMapper;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Threading.Tasks;
 
 namespace ServiceBricks.Logging
 {
     /// <summary>
-    /// This business rule occurs when an email needs to be created.
+    /// This business rule occurs when an CreateApplicationLogBroadcast servicebus event is received.
     /// </summary>
-    public partial class CreateApplicationLogRule : BusinessRule
+    public sealed class CreateApplicationLogRule : BusinessRule
     {
         private readonly ILogMessageApiService _logMessageApiService;
         private readonly IMapper _mapper;
         private readonly ILogger<CreateApplicationLogRule> _logger;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="loggerFactory"></param>
+        /// <param name="logMessageApiService"></param>
+        /// <param name="mapper"></param>
         public CreateApplicationLogRule(
             ILoggerFactory loggerFactory,
             ILogMessageApiService logMessageApiService,
@@ -27,8 +30,9 @@ namespace ServiceBricks.Logging
         }
 
         /// <summary>
-        /// Register the business rule.
+        /// Register the service bus broadcast event.
         /// </summary>
+        /// <param name="serviceBus"></param>
         public static void RegisterServiceBus(IServiceBus serviceBus)
         {
             serviceBus.Subscribe(
@@ -47,13 +51,18 @@ namespace ServiceBricks.Logging
 
             try
             {
+                // AI: Make sure the context object is the correct type
                 var e = context.Object as CreateApplicationLogBroadcast;
                 if (e == null || e.DomainObject == null)
                     return response;
 
-                // Map and Create
+                // AI: Map the ApplicationLogBroadcast to a LogMessageDto
                 var message = _mapper.Map<LogMessageDto>(e.DomainObject);
+
+                // AI: Call the API service to create the log message
                 var respCreate = _logMessageApiService.Create(message);
+
+                // AI: Copy the API response to the business rule response
                 response.CopyFrom(respCreate);
                 return response;
             }
@@ -80,7 +89,7 @@ namespace ServiceBricks.Logging
                 if (e == null || e.DomainObject == null)
                     return response;
 
-                // Map and Create
+                // AI: Map the CreateApplicationLogBroadcast to a LogMessageDto and call the LogMessageApiService.CreateAsync method.
                 var message = _mapper.Map<LogMessageDto>(e.DomainObject);
                 var respCreate = await _logMessageApiService.CreateAsync(message);
                 response.CopyFrom(respCreate);

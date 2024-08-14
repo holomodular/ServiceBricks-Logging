@@ -3,17 +3,26 @@
 namespace ServiceBricks.Logging.EntityFrameworkCore
 {
     /// <summary>
-    /// IApplicationBuilder extensions for the Logging Module.
+    /// Extensions to start the ServiceBricks Logging EntityFrameworkCore module.
     /// </summary>
     public static partial class ApplicationBuilderExtensions
     {
+        /// <summary>
+        /// Flag to determine if the module has started.
+        /// </summary>
         public static bool ModuleStarted = false;
 
+        /// <summary>
+        /// Start the ServiceBricks Logging EntityFrameworkCore module.
+        /// </summary>
+        /// <param name="applicationBuilder"></param>
+        /// <returns></returns>
         public static IApplicationBuilder StartServiceBricksLoggingEntityFrameworkCore(this IApplicationBuilder applicationBuilder)
         {
+            // AI: Set the module started flag when complete
             ModuleStarted = true;
 
-            // Start Core Logging
+            // AI: Start the parent module
             applicationBuilder.StartServiceBricksLogging();
 
             return applicationBuilder;

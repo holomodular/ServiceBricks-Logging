@@ -6,12 +6,13 @@ using StateProp = ServiceBricks.Logging.LoggingConstants.MiddlewareStateProperty
 namespace ServiceBricks.Logging
 {
     /// <summary>
-    /// This will put a log message onto a shared queue.
-    /// A background task will write the messages to the database.
+    /// This class is a custom logger that logs messages to an in-memory queue.
     /// </summary>
     public sealed class CustomLogger : ILogger
     {
-        // Queue to hold all log messages
+        /// <summary>
+        /// This is the queue where log messages are stored.
+        /// </summary>
         public static ConcurrentQueue<CustomLoggerMessage> MessageQueue =
             new ConcurrentQueue<CustomLoggerMessage>();
 
@@ -19,6 +20,12 @@ namespace ServiceBricks.Logging
         private readonly string _applicationName;
         private readonly IExternalScopeProvider _externalScopeProvider;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="categoryName"></param>
+        /// <param name="applicationName"></param>
+        /// <param name="externalScopeProvider"></param>
         public CustomLogger(
             string categoryName,
             string applicationName,
@@ -29,6 +36,12 @@ namespace ServiceBricks.Logging
             _externalScopeProvider = externalScopeProvider;
         }
 
+        /// <summary>
+        /// Begin scope
+        /// </summary>
+        /// <typeparam name="TState"></typeparam>
+        /// <param name="state"></param>
+        /// <returns></returns>
         public IDisposable BeginScope<TState>(TState state)
         {
             if (state == null || _externalScopeProvider == null)
@@ -36,11 +49,25 @@ namespace ServiceBricks.Logging
             return _externalScopeProvider.Push(state);
         }
 
+        /// <summary>
+        /// Is enabled
+        /// </summary>
+        /// <param name="logLevel"></param>
+        /// <returns></returns>
         public bool IsEnabled(LogLevel logLevel)
         {
             return true;
         }
 
+        /// <summary>
+        /// Log a message
+        /// </summary>
+        /// <typeparam name="TState"></typeparam>
+        /// <param name="logLevel"></param>
+        /// <param name="eventId"></param>
+        /// <param name="state"></param>
+        /// <param name="exception"></param>
+        /// <param name="formatter"></param>
         public void Log<TState>(
             LogLevel logLevel,
             EventId eventId,
@@ -53,10 +80,11 @@ namespace ServiceBricks.Logging
             if (!IsEnabled(logLevel))
                 return;
 
+            // AI: Create a new CustomLoggerMessage
             var msg = new CustomLoggerMessage()
             {
                 Application = _applicationName,
-                DateTime = DateTime.UtcNow,
+                CreateDate = DateTimeOffset.UtcNow,
                 Category = _categoryName,
                 EventId = eventId,
                 Exception = exception,
@@ -66,7 +94,7 @@ namespace ServiceBricks.Logging
                 Server = Dns.GetHostName(),
             };
 
-            // Get properties added by CustomLoggerMiddleware
+            // AI: Get properties added by CustomLoggerMiddleware
             if (_externalScopeProvider != null)
             {
                 _externalScopeProvider.ForEachScope<object>((scope, callback) =>
@@ -77,6 +105,7 @@ namespace ServiceBricks.Logging
                         msg.Properties = msg.Properties.Concat(scopeProperties);
                 }, null);
 
+                // AI: Extract properties from state to named properties
                 if (msg.Properties != null)
                 {
                     int count = 0;
@@ -99,13 +128,15 @@ namespace ServiceBricks.Logging
                             msg.IpAddress = property.Value as string;
                             foundCount++;
                         }
-                        if (foundCount == 3) //found all we are after
+
+                        // AI: We only need to find 3 properties (listed above), break if we found them all
+                        if (foundCount == 3)
                             break;
                     }
                 }
             }
 
-            // Add message to queue
+            // AI: Finally, add the message to queue
             MessageQueue.Enqueue(msg);
         }
     }

@@ -180,6 +180,7 @@ None
       // WebRequestMessageMiddleware options
       "WebRequestMessage": {
         "EnableLogging": true,
+        "EnableLocalIpRequests": true,
         "EnableRequestIPAddress": true,
         "EnableRequestBody": false,
         "EnableRequestBodyOnError": true,

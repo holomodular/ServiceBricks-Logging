@@ -3,8 +3,14 @@ using System.Reflection;
 
 namespace ServiceBricks.Logging.Cosmos
 {
-    public class LoggingCosmosModule : IModule
+    /// <summary>
+    /// Logging Cosmos Module.
+    /// </summary>
+    public partial class LoggingCosmosModule : IModule
     {
+        /// <summary>
+        /// Constructor.
+        /// </summary>
         public LoggingCosmosModule()
         {
             AutomapperAssemblies = new List<Assembly>()
@@ -17,10 +23,19 @@ namespace ServiceBricks.Logging.Cosmos
             };
         }
 
+        /// <summary>
+        /// The list of dependent modules.
+        /// </summary>
         public List<IModule> DependentModules { get; }
 
+        /// <summary>
+        /// The list of assemblies that contain Automapper profiles.
+        /// </summary>
         public List<Assembly> AutomapperAssemblies { get; }
 
+        /// <summary>
+        /// The list of view assemblies.
+        /// </summary>
         public List<Assembly> ViewAssemblies { get; }
     }
 }

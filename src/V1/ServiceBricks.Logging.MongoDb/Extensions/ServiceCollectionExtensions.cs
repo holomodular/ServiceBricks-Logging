@@ -4,30 +4,36 @@ using Microsoft.Extensions.DependencyInjection;
 namespace ServiceBricks.Logging.MongoDb
 {
     /// <summary>
-    /// IServiceCollection extensions for the Log module.
+    /// Extensions to add the ServiceBricks Logging MongoDb module to the IServiceCollection.
     /// </summary>
-    public static class ServiceCollectionExtensions
+    public static partial class ServiceCollectionExtensions
     {
+        /// <summary>
+        /// Add the ServiceBricks Logging MongoDb module to the IServiceCollection.
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="configuration"></param>
+        /// <returns></returns>
         public static IServiceCollection AddServiceBricksLoggingMongoDb(this IServiceCollection services, IConfiguration configuration)
         {
-            // Add to module registry for automapper
+            // AI: Add the module to the ModuleRegistry
             ModuleRegistry.Instance.RegisterItem(typeof(LoggingMongoDbModule), new LoggingMongoDbModule());
 
-            // Add Core Logging
+            // AI: Add the parent module
             services.AddServiceBricksLogging(configuration);
 
-            // Storage Services
+            // AI: Add the storage services for the module for each domain object
             services.AddScoped<IStorageRepository<LogMessage>, LoggingStorageRepository<LogMessage>>();
             services.AddScoped<IStorageRepository<WebRequestMessage>, LoggingStorageRepository<WebRequestMessage>>();
 
-            // API Services
+            // AI: Add API services for the module. Each DTO should have two registrations, one for the generic IApiService<> and one for the named interface
             services.AddScoped<IApiService<LogMessageDto>, LogMessageApiService>();
             services.AddScoped<ILogMessageApiService, LogMessageApiService>();
 
             services.AddScoped<IApiService<WebRequestMessageDto>, WebRequestMessageApiService>();
             services.AddScoped<IWebRequestMessageApiService, WebRequestMessageApiService>();
 
-            // Business Rules
+            // AI: Add business rules for the module
             DomainCreateDateRule<LogMessage>.RegisterRule(BusinessRuleRegistry.Instance);
             DomainQueryPropertyRenameRule<LogMessage>.RegisterRule(BusinessRuleRegistry.Instance, "StorageKey", "Key");
 

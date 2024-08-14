@@ -4,15 +4,11 @@ using ServiceBricks.Storage.AzureDataTables;
 namespace ServiceBricks.Logging.AzureDataTables
 {
     /// <summary>
-    /// This is a business rule for the WebRequestMessage object to set the
-    /// partitionkey and rowkey of the object before create.
+    /// This is a business rule for creating a WebRequestMessage domain object. It will set the Key, PartitionKey, and RowKey.
     /// </summary>
-    public partial class WebRequestMessageCreateRule : BusinessRule
+    public sealed class WebRequestMessageCreateRule : BusinessRule
     {
-        /// <summary>
-        /// Internal.
-        /// </summary>
-        protected readonly ILogger _logger;
+        private readonly ILogger _logger;
 
         /// <summary>
         /// Constructor.
@@ -25,8 +21,9 @@ namespace ServiceBricks.Logging.AzureDataTables
         }
 
         /// <summary>
-        /// Register a rule for a domain object.
+        /// Register the business rule to the DomainCreateBeforeEvent.
         /// </summary>
+        /// <param name="registry"></param>
         public static void RegisterRule(IBusinessRuleRegistry registry)
         {
             registry.RegisterItem(
@@ -45,11 +42,17 @@ namespace ServiceBricks.Logging.AzureDataTables
 
             try
             {
+                // AI: Make sure the context object is the correct type
                 if (context.Object is DomainCreateBeforeEvent<WebRequestMessage> ei)
                 {
+                    // AI: Set the Key, PartitionKey, and RowKey
                     var item = ei.DomainObject;
                     item.Key = Guid.NewGuid();
+
+                    // AI: Set the PartitionKey to be the year and month so that the data is partitioned
                     item.PartitionKey = item.CreateDate.ToString("yyyyMM");
+
+                    // AI: Set the RowKey to be the reverse date and time so that the newest items are at the top when querying
                     var reverseDate = DateTimeOffset.MaxValue.Ticks - item.CreateDate.Ticks;
                     item.RowKey =
                         reverseDate.ToString("d19") +

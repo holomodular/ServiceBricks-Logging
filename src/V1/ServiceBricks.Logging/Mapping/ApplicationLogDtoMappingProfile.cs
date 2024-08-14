@@ -2,10 +2,17 @@
 
 namespace ServiceBricks.Logging
 {
-    public class NotifyMessageDtoMappingProfile : Profile
+    /// <summary>
+    /// This is a mapping profile for the ApplicationLogDto.
+    /// </summary>
+    public partial class ApplicationLogDtoMappingProfile : Profile
     {
-        public NotifyMessageDtoMappingProfile() : base()
+        /// <summary>
+        /// Creates a mapping profile for the ApplicationLogDto.
+        /// </summary>
+        public ApplicationLogDtoMappingProfile() : base()
         {
+            // AI: Create a automapper mapping for the ApplicationLogDto and LogMessageDto.
             CreateMap<ApplicationLogDto, LogMessageDto>()
                 .ForMember(x => x.Application, y => y.MapFrom(z => z.Application))
                 .ForMember(x => x.Category, y => y.MapFrom(z => z.Category))

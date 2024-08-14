@@ -5,12 +5,17 @@ using ServiceBricks.Storage.MongoDb;
 namespace ServiceBricks.Logging.MongoDb
 {
     /// <summary>
-    /// This is the storage repository for the Log module.
+    /// This is the storage repository for the ServiceBricks Logging MongoDb module.
     /// </summary>
     /// <typeparam name="TDomain"></typeparam>
-    public class LoggingStorageRepository<TDomain> : MongoDbStorageRepository<TDomain>
+    public partial class LoggingStorageRepository<TDomain> : MongoDbStorageRepository<TDomain>
         where TDomain : class, IMongoDbDomainObject<TDomain>, new()
     {
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="logFactory"></param>
+        /// <param name="configuration"></param>
         public LoggingStorageRepository(
             ILoggerFactory logFactory,
             IConfiguration configuration)

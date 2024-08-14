@@ -1,9 +1,9 @@
 ﻿namespace ServiceBricks.Logging
 {
     /// <summary>
-    /// This is a REST API controller for the LogMessage domain object.
+    /// This is a REST API controller for the LogMessageDto.
     /// </summary>
-    public interface ILogMessageApiController : IApiController<LogMessageDto>
+    public partial interface ILogMessageApiController : IApiController<LogMessageDto>
     {
     }
 }

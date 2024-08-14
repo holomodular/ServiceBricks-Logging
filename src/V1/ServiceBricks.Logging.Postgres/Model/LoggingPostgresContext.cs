@@ -8,7 +8,7 @@ namespace ServiceBricks.Logging.Postgres
     // dotnet ef migrations add LoggingV1 --context LoggingPostgresContext --startup-project ../Test/MigrationsHost
 
     /// <summary>
-    /// The database context for Logging.
+    /// The database context for the ServiceBricks Logging Postgres module.
     /// </summary>
     public partial class LoggingPostgresContext : DbContext
     {
@@ -43,7 +43,14 @@ namespace ServiceBricks.Logging.Postgres
             _options = options;
         }
 
+        /// <summary>
+        /// Log Messages
+        /// </summary>
         public virtual DbSet<LogMessage> LogMessages { get; set; }
+
+        /// <summary>
+        /// Web Request Messages
+        /// </summary>
         public virtual DbSet<WebRequestMessage> WebRequestMessages { get; set; }
 
         /// <summary>
@@ -52,14 +59,19 @@ namespace ServiceBricks.Logging.Postgres
         /// <param name="builder"></param>
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            //Set default schema
+            // AI: Set default schema
             builder.HasDefaultSchema(LoggingPostgresConstants.DATABASE_SCHEMA_NAME);
 
+            // AI: Set up the table definitions
             builder.Entity<LogMessage>().ToTable("LogMessage").HasKey(key => key.Key);
 
             builder.Entity<WebRequestMessage>().ToTable("WebRequestMessage").HasKey(key => key.Key);
         }
 
+        /// <summary>
+        /// OnConfiguring.
+        /// </summary>
+        /// <param name="optionsBuilder"></param>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)

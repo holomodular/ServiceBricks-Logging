@@ -3,12 +3,12 @@ using ServiceBricks.Storage.AzureDataTables;
 
 namespace ServiceBricks.Logging.AzureDataTables
 {
-    public partial class LogMessageQueryRule : BusinessRule
+    /// <summary>
+    /// This is a business rule for the LogMessage domain object used to modify the query before it is executed.
+    /// </summary>
+    public sealed class LogMessageQueryRule : BusinessRule
     {
-        /// <summary>
-        /// Internal.
-        /// </summary>
-        protected readonly ILogger _logger;
+        private readonly ILogger _logger;
 
         /// <summary>
         /// Constructor.
@@ -21,8 +21,9 @@ namespace ServiceBricks.Logging.AzureDataTables
         }
 
         /// <summary>
-        /// Register a rule for a domain object.
+        /// Register the business rule to the DomainQueryBeforeEvent.
         /// </summary>
+        /// <param name="registry"></param>
         public static void RegisterRule(IBusinessRuleRegistry registry)
         {
             registry.RegisterItem(
@@ -41,11 +42,14 @@ namespace ServiceBricks.Logging.AzureDataTables
 
             try
             {
+                // AI: Make sure the context object is the correct type
                 if (context.Object is DomainQueryBeforeEvent<LogMessage> ei)
                 {
                     var item = ei.DomainObject;
                     if (ei.ServiceQueryRequest == null || ei.ServiceQueryRequest.Filters == null)
                         return response;
+
+                    // AI: Iterate through the filters and modify the property name for StorageKey and change it to Key
                     foreach (var filter in ei.ServiceQueryRequest.Filters)
                     {
                         if (filter.Properties != null &&
@@ -62,6 +66,7 @@ namespace ServiceBricks.Logging.AzureDataTables
                             }
                             if (found)
                             {
+                                // AI: Iterate through the values. Split each one using the delimiter and re-set the value to use the second part. See LogMessageCreateRule for more information.
                                 if (filter.Values != null && filter.Values.Count > 0)
                                 {
                                     for (int i = 0; i < filter.Values.Count; i++)

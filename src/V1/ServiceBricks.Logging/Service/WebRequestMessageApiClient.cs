@@ -3,10 +3,17 @@ using Microsoft.Extensions.Logging;
 
 namespace ServiceBricks.Logging
 {
-    public class WebRequestMessageApiClient : ApiClient<WebRequestMessageDto>, IWebRequestMessageApiClient
+    /// <summary>
+    /// This class is an API client for the WebRequestMessageDto.
+    /// </summary>
+    public partial class WebRequestMessageApiClient : ApiClient<WebRequestMessageDto>, IWebRequestMessageApiClient
     {
-        protected readonly IConfiguration _configuration;
-
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="loggerFactory"></param>
+        /// <param name="httpClientFactory"></param>
+        /// <param name="configuration"></param>
         public WebRequestMessageApiClient(
             ILoggerFactory loggerFactory,
             IHttpClientFactory httpClientFactory,

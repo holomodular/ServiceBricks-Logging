@@ -3,8 +3,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ServiceBricks.Logging;
 using ServiceBricks.Logging.Postgres;
-using ServiceBricks.Logging.Sqlite;
-using ServiceBricks.Logging.SqlServer;
 
 namespace ServiceBricks.Xunit
 {
@@ -25,7 +23,7 @@ namespace ServiceBricks.Xunit
             //services.AddServiceBricksLoggingSqlite(Configuration);
 
             // Remove all background tasks/timers for unit testing
-            var logtimer = services.Where(x => x.ImplementationType == typeof(LoggingWriteMessageTimer)).FirstOrDefault();
+            var logtimer = services.Where(x => x.ImplementationType == typeof(CustomLoggerWriteMessageTimer)).FirstOrDefault();
             if (logtimer != null)
                 services.Remove(logtimer);
 

@@ -3,8 +3,14 @@ using System.Reflection;
 
 namespace ServiceBricks.Logging.SqlServer
 {
-    public class LoggingSqlServerModule : IModule
+    /// <summary>
+    /// The module definition for the ServiceBricks.Logging.SqlServer module.
+    /// </summary>
+    public partial class LoggingSqlServerModule : IModule
     {
+        /// <summary>
+        /// Constructor.
+        /// </summary>
         public LoggingSqlServerModule()
         {
             AutomapperAssemblies = new List<Assembly>()
@@ -17,8 +23,19 @@ namespace ServiceBricks.Logging.SqlServer
             };
         }
 
+        /// <summary>
+        /// The list of dependent modules.
+        /// </summary>
         public List<IModule> DependentModules { get; }
+
+        /// <summary>
+        /// The list of Automapper assemblies.
+        /// </summary>
         public List<Assembly> AutomapperAssemblies { get; }
+
+        /// <summary>
+        /// The list of view assemblies.
+        /// </summary>
         public List<Assembly> ViewAssemblies { get; }
     }
 }

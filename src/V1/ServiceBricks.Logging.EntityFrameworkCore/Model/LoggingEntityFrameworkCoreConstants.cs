@@ -1,9 +1,9 @@
 ﻿namespace ServiceBricks.Logging.EntityFrameworkCore
 {
     /// <summary>
-    /// This is constants for the Log module.
+    /// These are constants for the ServiceBricks Logging EntityFrameworkCore module.
     /// </summary>
-    public static class LoggingEntityFrameworkCoreConstants
+    public static partial class LoggingEntityFrameworkCoreConstants
     {
     }
 }

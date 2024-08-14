@@ -4,12 +4,16 @@ using ServiceBricks.Storage.AzureDataTables;
 namespace ServiceBricks.Logging.AzureDataTables
 {
     /// <summary>
-    /// This is an automapper profile for the LogMessage domain object.
+    /// This is a mapping profile for the LogMessage domain object.
     /// </summary>
-    public class LogMessageMappingProfile : Profile
+    public partial class LogMessageMappingProfile : Profile
     {
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public LogMessageMappingProfile()
         {
+            // AI: Create a mapping profile for LogMessageDto and LogMessage.
             CreateMap<LogMessageDto, LogMessage>()
                 .ForMember(x => x.CreateDate, y => y.Ignore())
                 .ForMember(x => x.PartitionKey, y => y.MapFrom<PartitionKeyResolver>())

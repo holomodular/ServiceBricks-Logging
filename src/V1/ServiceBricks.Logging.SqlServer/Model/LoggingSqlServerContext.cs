@@ -8,7 +8,7 @@ namespace ServiceBricks.Logging.SqlServer
     // dotnet ef migrations add LoggingV1 --context LoggingSqlServerContext --startup-project ../Test/MigrationsHost
 
     /// <summary>
-    /// The database context for Logging.
+    /// The database context for the ServiceBricks.Logging.SqlServer module.
     /// </summary>
     public partial class LoggingSqlServerContext : DbContext
     {
@@ -43,7 +43,14 @@ namespace ServiceBricks.Logging.SqlServer
             _options = options;
         }
 
+        /// <summary>
+        /// Log Messages.
+        /// </summary>
         public virtual DbSet<LogMessage> LogMessages { get; set; }
+
+        /// <summary>
+        /// Web Request Messages.
+        /// </summary>
         public virtual DbSet<WebRequestMessage> WebRequestMessages { get; set; }
 
         /// <summary>
@@ -52,26 +59,25 @@ namespace ServiceBricks.Logging.SqlServer
         /// <param name="builder"></param>
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            //Set default schema
+            base.OnModelCreating(builder);
+
+            // AI: Set the default schema
             builder.HasDefaultSchema(LoggingSqlServerConstants.DATABASE_SCHEMA_NAME);
 
+            // AI: Setup the entities to the model
             builder.Entity<LogMessage>().ToTable("LogMessage").HasKey(key => key.Key);
 
             builder.Entity<WebRequestMessage>().ToTable("WebRequestMessage").HasKey(key => key.Key);
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        /// <summary>
+        /// Create context.
+        /// </summary>
+        /// <param name="args"></param>
+        /// <returns></returns>
+        public virtual LoggingSqlServerContext CreateDbContext(string[] args)
         {
-            if (!optionsBuilder.IsConfigured)
-            {
-                IConfigurationRoot configuration = new ConfigurationBuilder().AddAppSettingsConfig().Build();
-                string connectionString = configuration.GetSqlServerConnectionString(LoggingSqlServerConstants.APPSETTING_CONNECTION_STRING);
-                optionsBuilder.UseSqlServer(connectionString, x =>
-                {
-                    x.MigrationsAssembly(typeof(LoggingSqlServerContext).Assembly.GetName().Name);
-                    x.EnableRetryOnFailure();
-                });
-            }
+            return new LoggingSqlServerContext(_options);
         }
     }
 }

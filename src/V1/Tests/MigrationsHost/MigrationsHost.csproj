@@ -21,9 +21,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\ServiceBricks.Logging.Postgres\ServiceBricks.Logging.Postgres.csproj" />
-    <ProjectReference Include="..\..\ServiceBricks.Logging.Sqlite\ServiceBricks.Logging.Sqlite.csproj" />
-    <ProjectReference Include="..\..\ServiceBricks.Logging.SqlServer\ServiceBricks.Logging.SqlServer.csproj" />
+    <ProjectReference Include="..\..\ServiceBricks.Logging.Postgres.Debug\ServiceBricks.Logging.Postgres.Debug.csproj" />
+    <ProjectReference Include="..\..\ServiceBricks.Logging.Sqlite.Debug\ServiceBricks.Logging.Sqlite.Debug.csproj" />
+    <ProjectReference Include="..\..\ServiceBricks.Logging.SqlServer.Debug\ServiceBricks.Logging.SqlServer.Debug.csproj" />
   </ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="Microsoft.AspNetCore.TestHost" Version="8.0.2" />

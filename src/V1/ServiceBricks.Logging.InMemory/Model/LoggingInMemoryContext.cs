@@ -4,10 +4,8 @@ using ServiceBricks.Logging.EntityFrameworkCore;
 
 namespace ServiceBricks.Logging.InMemory
 {
-    // dotnet ef migrations add LoggingV1 --context LoggingContext --startup-project ../../Web/ServiceBrick.WebApp
-
     /// <summary>
-    /// The database context for Logging.
+    /// The database context for the Logging InMemory module.
     /// </summary>
     public partial class LoggingInMemoryContext : DbContext
     {
@@ -36,8 +34,14 @@ namespace ServiceBricks.Logging.InMemory
             _options = options;
         }
 
+        /// <summary>
+        /// The LogMessages DbSet.
+        /// </summary>
         public virtual DbSet<LogMessage> LogMessages { get; set; }
 
+        /// <summary>
+        /// The WebRequestMessages DbSet.
+        /// </summary>
         public virtual DbSet<WebRequestMessage> WebRequestMessages { get; set; }
 
         /// <summary>
@@ -46,9 +50,22 @@ namespace ServiceBricks.Logging.InMemory
         /// <param name="builder"></param>
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            base.OnModelCreating(builder);
+
+            // AI: Setup the entities to the model
             builder.Entity<LogMessage>().HasKey(key => key.Key);
 
             builder.Entity<WebRequestMessage>().HasKey(key => key.Key);
+        }
+
+        /// <summary>
+        /// Create context.
+        /// </summary>
+        /// <param name="args"></param>
+        /// <returns></returns>
+        public virtual LoggingInMemoryContext CreateDbContext(string[] args)
+        {
+            return new LoggingInMemoryContext(_options);
         }
     }
 }

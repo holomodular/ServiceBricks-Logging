@@ -1,9 +1,9 @@
 ﻿namespace ServiceBricks.Logging
 {
     /// <summary>
-    /// This is a API service for the LogMessage domain object.
+    /// This is a REST API service for the LogMessageDto.
     /// </summary>
-    public interface ILogMessageApiService : IApiService<LogMessageDto>
+    public partial interface ILogMessageApiService : IApiService<LogMessageDto>
     {
     }
 }

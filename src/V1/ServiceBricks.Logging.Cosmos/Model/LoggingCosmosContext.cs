@@ -37,7 +37,14 @@ namespace ServiceBricks.Logging.Cosmos
             _options = options;
         }
 
+        /// <summary>
+        /// Log Messages.
+        /// </summary>
         public virtual DbSet<LogMessage> LogMessages { get; set; }
+
+        /// <summary>
+        /// Web Request Messages.
+        /// </summary>
         public virtual DbSet<WebRequestMessage> WebRequestMessages { get; set; }
 
         /// <summary>
@@ -46,12 +53,27 @@ namespace ServiceBricks.Logging.Cosmos
         /// <param name="builder"></param>
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            base.OnModelCreating(builder);
+
+            // AI: Set the default container name
             builder.Model.SetDefaultContainer(LoggingCosmosConstants.DEFAULT_CONTAINER_NAME);
+
+            // AI: Create the model for each table
             builder.Entity<LogMessage>().HasKey(p => p.Key);
             builder.Entity<LogMessage>().Property(p => p.Key).ValueGeneratedOnAdd();
 
             builder.Entity<WebRequestMessage>().HasKey(p => p.Key);
             builder.Entity<WebRequestMessage>().Property(p => p.Key).ValueGeneratedOnAdd();
+        }
+
+        /// <summary>
+        /// Create context.
+        /// </summary>
+        /// <param name="args"></param>
+        /// <returns></returns>
+        public virtual LoggingCosmosContext CreateDbContext(string[] args)
+        {
+            return new LoggingCosmosContext(_options);
         }
     }
 }

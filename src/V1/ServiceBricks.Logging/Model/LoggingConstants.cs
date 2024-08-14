@@ -1,14 +1,28 @@
 ﻿namespace ServiceBricks.Logging
 {
     /// <summary>
-    /// This is constants for the Log module.
+    /// These are constants for the ServiceBricks Logging module.
     /// </summary>
-    public static class LoggingConstants
+    public static partial class LoggingConstants
     {
+        /// <summary>
+        /// Application settings keys for client API configuration.
+        /// </summary>
         public const string APPSETTING_CLIENT_APICONFIG = @"ServiceBricks:Logging:Client:Api";
+
+        /// <summary>
+        /// Application settings keys for web request message configuration.
+        /// </summary>
         public const string APPSETTING_WEBREQUESTMESSAGE = @"ServiceBricks:Logging:WebRequestMessage";
 
+        /// <summary>
+        /// Short IP address for local host.
+        /// </summary>
         public const string IPADDRESS_LOCAL_SHORT = "::1";
+
+        /// <summary>
+        /// Long IP address for local host.
+        /// </summary>
         public const string IPADDRESS_LOCAL_FULL = "127.0.0.1";
 
         /// <summary>

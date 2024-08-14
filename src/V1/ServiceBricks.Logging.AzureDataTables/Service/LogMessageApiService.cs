@@ -3,10 +3,16 @@
 namespace ServiceBricks.Logging.AzureDataTables
 {
     /// <summary>
-    /// This is an API service for the LogMessage domain object.
+    /// This is a REST API service for the LogMessage domain object.
     /// </summary>
-    public class LogMessageApiService : ApiService<LogMessage, LogMessageDto>, ILogMessageApiService
+    public partial class LogMessageApiService : ApiService<LogMessage, LogMessageDto>, ILogMessageApiService
     {
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="mapper"></param>
+        /// <param name="businessRuleService"></param>
+        /// <param name="repository"></param>
         public LogMessageApiService(
             IMapper mapper,
             IBusinessRuleService businessRuleService,

@@ -1,9 +1,9 @@
 ﻿namespace ServiceBricks.Logging
 {
     /// <summary>
-    /// This is a API service for the WebRequestMessage domain object.
+    /// This is a REST API service for the WebRequestMessageDto.
     /// </summary>
-    public interface IWebRequestMessageApiService : IApiService<WebRequestMessageDto>
+    public partial interface IWebRequestMessageApiService : IApiService<WebRequestMessageDto>
     {
     }
 }

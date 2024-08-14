@@ -3,8 +3,14 @@ using System.Reflection;
 
 namespace ServiceBricks.Logging.Sqlite
 {
-    public class LoggingSqliteModule : IModule
+    /// <summary>
+    /// The module definition for the ServiceBricks.Logging.Sqlite module.
+    /// </summary>
+    public partial class LoggingSqliteModule : IModule
     {
+        /// <summary>
+        /// Constructor.
+        /// </summary>
         public LoggingSqliteModule()
         {
             AutomapperAssemblies = new List<Assembly>()
@@ -17,9 +23,19 @@ namespace ServiceBricks.Logging.Sqlite
             };
         }
 
+        /// <summary>
+        /// The list of dependent modules.
+        /// </summary>
         public List<IModule> DependentModules { get; }
 
+        /// <summary>
+        /// The list of Automapper assemblies.
+        /// </summary>
         public List<Assembly> AutomapperAssemblies { get; }
+
+        /// <summary>
+        /// The list of view assemblies.
+        /// </summary>
         public List<Assembly> ViewAssemblies { get; }
     }
 }

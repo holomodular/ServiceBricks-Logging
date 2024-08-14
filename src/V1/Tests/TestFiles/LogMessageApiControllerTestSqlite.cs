@@ -39,6 +39,9 @@ namespace ServiceBricks.Xunit.Integration
             }
             else
                 Assert.Fail("");
+
+            // Cleanup
+            DeleteBase(dto);
         }
     }
 }

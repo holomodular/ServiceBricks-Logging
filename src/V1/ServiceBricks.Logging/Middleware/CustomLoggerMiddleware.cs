@@ -5,19 +5,29 @@ using StateProp = ServiceBricks.Logging.LoggingConstants.MiddlewareStateProperty
 namespace ServiceBricks.Logging
 {
     /// <summary>
-    /// This is middleware used by the custom database logger.
+    /// This is a custom logger middleware component used to add http request properties to the request pipeline.
     /// </summary>
-    public class CustomLoggerMiddleware
+    public sealed class CustomLoggerMiddleware
     {
         private readonly RequestDelegate _next;
         private readonly ILogger<CustomLoggerMiddleware> _logger;
 
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="next"></param>
+        /// <param name="logger"></param>
         public CustomLoggerMiddleware(RequestDelegate next, ILogger<CustomLoggerMiddleware> logger)
         {
             _logger = logger;
             _next = next;
         }
 
+        /// <summary>
+        /// This method is called by the runtime. Use this method to add middleware to the HTTP request pipeline.
+        /// </summary>
+        /// <param name="httpContext"></param>
+        /// <returns></returns>
         public async Task InvokeAsync(HttpContext httpContext)
         {
             var logState = GetStateObject(httpContext);
@@ -27,9 +37,16 @@ namespace ServiceBricks.Logging
             }
         }
 
-        public virtual Dictionary<string, object> GetStateObject(HttpContext httpContext)
+        /// <summary>
+        /// This method is used to get the state object for the logger.
+        /// </summary>
+        /// <param name="httpContext"></param>
+        /// <returns></returns>
+        private Dictionary<string, object> GetStateObject(HttpContext httpContext)
         {
             var logState = new Dictionary<string, object>();
+
+            // AI: Add properties to the log state object that we want to log
             logState.TryAdd(StateProp.IPADDRESS, IpAddressService.GetIPAddress(httpContext));
             logState.TryAdd(StateProp.USER_STORAGE_KEY, GetUserStorageKey(httpContext));
             logState.TryAdd(StateProp.USER_NAME, GetUsername(httpContext));
@@ -44,32 +61,62 @@ namespace ServiceBricks.Logging
             return logState;
         }
 
-        protected string GetUserStorageKey(HttpContext context)
+        /// <summary>
+        /// Get the user storage key from the http context.
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        private string GetUserStorageKey(HttpContext context)
         {
             return context?.User?.Claims?.Where(x => x.Type == System.Security.Claims.ClaimTypes.NameIdentifier).FirstOrDefault()?.Value;
         }
 
-        protected string GetUsername(HttpContext context)
+        /// <summary>
+        /// Get the username from the http context.
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        private string GetUsername(HttpContext context)
         {
             return context?.User?.Identity?.Name;
         }
 
-        protected string GetStatusCode(HttpContext context)
+        /// <summary>
+        /// Get the status code from the http context.
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        private string GetStatusCode(HttpContext context)
         {
             return context?.Response.StatusCode.ToString();
         }
 
-        protected string GetPath(HttpContext context)
+        /// <summary>
+        /// Get the path from the http context.
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        private string GetPath(HttpContext context)
         {
             return context?.Request?.Path.Value;
         }
 
-        protected string GetMethod(HttpContext context)
+        /// <summary>
+        /// Get the method from the http context.
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        private string GetMethod(HttpContext context)
         {
             return context?.Request?.Method;
         }
 
-        protected Dictionary<string, string> GetQueryString(HttpContext context)
+        /// <summary>
+        /// Get the query string from the http context.
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        private Dictionary<string, string> GetQueryString(HttpContext context)
         {
             try
             {
@@ -81,7 +128,12 @@ namespace ServiceBricks.Logging
             }
         }
 
-        protected Dictionary<string, string> GetForm(HttpContext context)
+        /// <summary>
+        /// Get the form from the http context.
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        private Dictionary<string, string> GetForm(HttpContext context)
         {
             try
             {
@@ -93,17 +145,32 @@ namespace ServiceBricks.Logging
             }
         }
 
-        protected string GetContentType(HttpContext context)
+        /// <summary>
+        /// Get the content type from the request.
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        private string GetContentType(HttpContext context)
         {
             return context?.Request?.ContentType;
         }
 
-        protected string GetProtocol(HttpContext context)
+        /// <summary>
+        /// Get the protocol from the request.
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        private string GetProtocol(HttpContext context)
         {
             return context?.Request?.Protocol;
         }
 
-        protected Dictionary<string, string> GetHeaders(HttpContext context)
+        /// <summary>
+        /// Get the headers from the request.
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        private Dictionary<string, string> GetHeaders(HttpContext context)
         {
             try
             {
