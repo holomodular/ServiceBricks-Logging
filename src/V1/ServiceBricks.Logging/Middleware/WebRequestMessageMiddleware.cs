@@ -13,9 +13,9 @@ namespace ServiceBricks.Logging
     /// </summary>
     public sealed class WebRequestMessageMiddleware : IMiddleware
     {
-        private readonly ILogger<WebRequestMessageMiddleware> _logger;
         private readonly IWebRequestMessageApiService _webRequestMessageApiService;
         private readonly WebRequestMessageOptions _webRequestOptions;
+        private readonly ApplicationOptions _applicationOptions;
 
         private Stopwatch _watch = null;
         private string _requestBody = null;
@@ -25,16 +25,16 @@ namespace ServiceBricks.Logging
         /// Constructor.
         /// </summary>
         /// <param name="webRequestMessageApiService"></param>
-        /// <param name="logger"></param>
         /// <param name="webRequestOptions"></param>
+        /// <param name="applicationOptions"></param>
         public WebRequestMessageMiddleware(
             IWebRequestMessageApiService webRequestMessageApiService,
-            ILogger<WebRequestMessageMiddleware> logger,
-            IOptions<WebRequestMessageOptions> webRequestOptions)
+            IOptions<WebRequestMessageOptions> webRequestOptions,
+            IOptions<ApplicationOptions> applicationOptions)
         {
             _webRequestMessageApiService = webRequestMessageApiService;
-            _logger = logger;
             _webRequestOptions = webRequestOptions.Value;
+            _applicationOptions = applicationOptions.Value;
         }
 
         /// <summary>
@@ -145,6 +145,8 @@ namespace ServiceBricks.Logging
             await _webRequestMessageApiService.CreateAsync(new WebRequestMessageDto()
             {
                 CreateDate = DateTimeOffset.UtcNow,
+                Application = _applicationOptions.Name,
+                Server = System.Net.Dns.GetHostName(),
                 RequestIPAddress = ipaddress,
                 RequestBody = _webRequestOptions.EnableRequestBody || (_webRequestOptions.EnableRequestBodyOnError && exception != null) ? _requestBody : null,
                 RequestContentLength = _webRequestOptions.EnableRequestContentLength ? context.Request.ContentLength : null,
@@ -169,7 +171,7 @@ namespace ServiceBricks.Logging
                 ResponseCookies = _webRequestOptions.EnableResponseCookies && context.Response.Cookies != null ? JsonConvert.SerializeObject(context.Response.Cookies) : null,
                 ResponseHeaders = _webRequestOptions.EnableResponseHeaders && context.Response.Headers != null ? JsonConvert.SerializeObject(context.Response.Headers) : null,
                 ResponseStatusCode = _webRequestOptions.EnableResponseStatusCode ? context.Response.StatusCode : null,
-                ResponseTotalMilliseconds = _webRequestOptions.EnableResponseTotalMilliseconds ? _watch.ElapsedMilliseconds : new Nullable<long>(),
+                ResponseTotalMilliseconds = _webRequestOptions.EnableResponseTotalMilliseconds ? _watch.ElapsedMilliseconds : null,
                 Exception = _webRequestOptions.EnableExceptions && exception != null ? exception.ToString() : null
             });
         }

@@ -11,6 +11,16 @@
         public virtual DateTimeOffset CreateDate { get; set; }
 
         /// <summary>
+        /// The name of the application that created the log message.
+        /// </summary>
+        public virtual string Application { get; set; }
+
+        /// <summary>
+        /// The name of the server that created the log message.
+        /// </summary>
+        public virtual string Server { get; set; }
+
+        /// <summary>
         /// The Request IP Address.
         /// </summary>
         public virtual string RequestIPAddress { get; set; }
