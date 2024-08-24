@@ -3,6 +3,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ServiceBricks.Logging;
 using ServiceBricks.Logging.Postgres;
+using ServiceBricks.Logging.Sqlite;
+using ServiceBricks.Logging.SqlServer;
 
 namespace ServiceBricks.Xunit
 {
@@ -18,8 +20,11 @@ namespace ServiceBricks.Xunit
             services.AddSingleton(Configuration);
             services.AddServiceBricks(Configuration);
 
-            services.AddServiceBricksLoggingPostgres(Configuration);
-            //services.AddServiceBricksLoggingSqlServer(Configuration);
+            //**************************
+            //UNCOMMENT THE ONE YOU NEED
+            //**************************
+            //services.AddServiceBricksLoggingPostgres(Configuration);
+            services.AddServiceBricksLoggingSqlServer(Configuration);
             //services.AddServiceBricksLoggingSqlite(Configuration);
 
             // Remove all background tasks/timers for unit testing
@@ -35,8 +40,11 @@ namespace ServiceBricks.Xunit
             base.CustomConfigure(app);
             app.StartServiceBricks();
 
-            app.StartServiceBricksLoggingPostgres();
-            //app.StartServiceBricksLoggingSqlServer();
+            //**************************
+            //UNCOMMENT THE ONE YOU NEED
+            //**************************
+            //app.StartServiceBricksLoggingPostgres();
+            app.StartServiceBricksLoggingSqlServer();
             //app.StartServiceBricksLoggingSqlite();
         }
     }

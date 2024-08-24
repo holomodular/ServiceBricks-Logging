@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using ServiceBricks.Logging.EntityFrameworkCore;
 using ServiceBricks.Storage.EntityFrameworkCore;
 
 namespace ServiceBricks.Logging.Cosmos
@@ -22,8 +23,7 @@ namespace ServiceBricks.Logging.Cosmos
             ModuleRegistry.Instance.RegisterItem(typeof(LoggingCosmosModule), new LoggingCosmosModule());
 
             // AI: Add the parent module
-            // AI: If the primary keys of the Cosmos models do not match the EFC module, we can't use EFC rules, so skip EFC and call start on the core module instead.
-            services.AddServiceBricksLogging(configuration); // Skip EFC
+            services.AddServiceBricksLoggingEntityFrameworkCore(configuration);
 
             // AI: Register the database for the module
             var builder = new DbContextOptionsBuilder<LoggingCosmosContext>();
@@ -40,21 +40,21 @@ namespace ServiceBricks.Logging.Cosmos
             services.AddScoped<IStorageRepository<LogMessage>, LoggingStorageRepository<LogMessage>>();
             services.AddScoped<IStorageRepository<WebRequestMessage>, LoggingStorageRepository<WebRequestMessage>>();
 
-            // AI: Register business rules for the module
-            // AI: If the primary keys of the Cosmos models match the EFC module, we can use the EFC rules
-            DomainCreateDateRule<LogMessage>.RegisterRule(BusinessRuleRegistry.Instance);
-            DomainQueryPropertyRenameRule<LogMessage>.RegisterRule(BusinessRuleRegistry.Instance, "StorageKey", "Key");
-
-            DomainCreateDateRule<WebRequestMessage>.RegisterRule(BusinessRuleRegistry.Instance);
-            DomainQueryPropertyRenameRule<WebRequestMessage>.RegisterRule(BusinessRuleRegistry.Instance, "StorageKey", "Key");
-
             // AI: Add API services for the module. Each DTO should have two registrations, one for the generic IApiService<> and one for the named interface
-            // AI: If the primary keys of the Cosmos models match the EFC module, we can use the EFC rules
             services.AddScoped<IApiService<LogMessageDto>, LogMessageApiService>();
             services.AddScoped<ILogMessageApiService, LogMessageApiService>();
 
             services.AddScoped<IApiService<WebRequestMessageDto>, WebRequestMessageApiService>();
             services.AddScoped<IWebRequestMessageApiService, WebRequestMessageApiService>();
+
+            // AI: Register business rules for the module
+            DomainCreateDateRule<LogMessage>.RegisterRule(BusinessRuleRegistry.Instance);
+            DomainQueryPropertyRenameRule<LogMessage>.RegisterRule(BusinessRuleRegistry.Instance, "StorageKey", "Key");
+            LogMessageCreateRule.RegisterRule(BusinessRuleRegistry.Instance);
+
+            DomainCreateDateRule<WebRequestMessage>.RegisterRule(BusinessRuleRegistry.Instance);
+            DomainQueryPropertyRenameRule<WebRequestMessage>.RegisterRule(BusinessRuleRegistry.Instance, "StorageKey", "Key");
+            WebRequestMessageCreateRule.RegisterRule(BusinessRuleRegistry.Instance);
 
             return services;
         }

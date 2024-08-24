@@ -23,7 +23,7 @@
 	  <Compile Include="..\ServiceBricks.Logging\Interface\IWebRequestMessageApiController.cs" Link="IWebRequestMessageApiController.cs" />
 	  <Compile Include="..\ServiceBricks.Logging\Interface\IWebRequestMessageApiService.cs" Link="IWebRequestMessageApiService.cs" />
 	  <Compile Include="..\ServiceBricks.Logging\Mapping\ApplicationLogDtoMappingProfile.cs" Link="ApplicationLogDtoMappingProfile.cs" />
-	  <Compile Include="..\ServiceBricks.Logging\Middleware\CustomLoggerMiddleware.cs" Link="CustomLoggerMiddleware.cs" />
+	  <Compile Include="..\ServiceBricks.Logging\Middleware\LogMessageMiddleware.cs" Link="LogMessageMiddleware.cs" />
 	  <Compile Include="..\ServiceBricks.Logging\Middleware\WebRequestMessageMiddleware.cs" Link="WebRequestMessageMiddleware.cs" />
 	  <Compile Include="..\ServiceBricks.Logging\Model\CustomLogger.cs" Link="CustomLogger.cs" />
 	  <Compile Include="..\ServiceBricks.Logging\Model\CustomLoggerMessage.cs" Link="CustomLoggerMessage.cs" />
@@ -37,7 +37,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="ServiceBricks" Version="1.0.11" />
+		<PackageReference Include="ServiceBricks" Version="1.1.0-b" />
 	</ItemGroup>
 
 </Project>

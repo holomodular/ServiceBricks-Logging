@@ -36,7 +36,7 @@ namespace ServiceBricks.Xunit
             Assert.True(serviceDto.RequestQueryString == clientDto.RequestQueryString);
             Assert.True(serviceDto.RequestRouteValues == clientDto.RequestRouteValues);
             Assert.True(serviceDto.RequestScheme == clientDto.RequestScheme);
-            Assert.True(serviceDto.RequestUserStorageKey == clientDto.RequestUserStorageKey);
+            Assert.True(serviceDto.UserStorageKey == clientDto.UserStorageKey);
             Assert.True(serviceDto.ResponseBody == clientDto.ResponseBody);
             Assert.True(serviceDto.ResponseContentType == clientDto.ResponseContentType);
             Assert.True(serviceDto.ResponseCookies == clientDto.ResponseCookies);

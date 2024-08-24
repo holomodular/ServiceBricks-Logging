@@ -21,6 +21,11 @@
         public virtual string Server { get; set; }
 
         /// <summary>
+        /// The User storage key associated with the Request.
+        /// </summary>
+        public virtual string UserStorageKey { get; set; }
+
+        /// <summary>
         /// The Request IP Address.
         /// </summary>
         public virtual string RequestIPAddress { get; set; }
@@ -104,11 +109,6 @@
         /// Determine if the Request Is Https.
         /// </summary>
         public virtual bool? RequestIsHttps { get; set; }
-
-        /// <summary>
-        /// The User storage key associated with the Request.
-        /// </summary>
-        public virtual string RequestUserStorageKey { get; set; }
 
         /// <summary>
         /// The status code of the response.

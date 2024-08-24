@@ -49,8 +49,8 @@ namespace ServiceBricks.Logging.AzureDataTables
                     var item = e.DomainObject;
                     item.Key = Guid.NewGuid();
 
-                    // AI: Set the PartitionKey to be the year and month so that the data is partitioned
-                    item.PartitionKey = item.CreateDate.ToString("yyyyMM");
+                    // AI: Set the PartitionKey to be the year, month and day so that the data is partitioned
+                    item.PartitionKey = item.CreateDate.ToString("yyyyMMdd");
 
                     // AI: Set the RowKey to be the reverse date and time so that the newest items are at the top when querying
                     var reverseDate = DateTimeOffset.MaxValue.Ticks - item.CreateDate.Ticks;

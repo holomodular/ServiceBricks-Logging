@@ -6,7 +6,7 @@ using ServiceBricks.Storage.EntityFrameworkCore;
 
 namespace ServiceBricks.Logging.Sqlite
 {
-    // dotnet ef migrations add LoggingV1 --context LoggingSqliteContext --startup-project ../Test/MigrationsHost
+    // dotnet ef migrations add LoggingV1 --context LoggingSqliteContext --startup-project ../Tests/MigrationsHost
 
     /// <summary>
     /// The database context for the ServiceBricks.Logging.Sqlite module.
@@ -59,12 +59,17 @@ namespace ServiceBricks.Logging.Sqlite
         /// <param name="builder"></param>
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            //Set default schema
-            builder.HasDefaultSchema(LoggingSqliteConstants.DATABASE_SCHEMA_NAME);
+            base.OnModelCreating(builder);
 
-            builder.Entity<LogMessage>().ToTable("LogMessage").HasKey(key => key.Key);
+            // AI: Set the default schema (SQLite does not support schemas)
+            //builder.HasDefaultSchema(LoggingSqliteConstants.DATABASE_SCHEMA_NAME);
 
-            builder.Entity<WebRequestMessage>().ToTable("WebRequestMessage").HasKey(key => key.Key);
+            // AI: Setup the entities to the model
+            builder.Entity<LogMessage>().HasKey(key => key.Key);
+            builder.Entity<LogMessage>().HasIndex(key => new { key.Application, key.Level, key.CreateDate });
+
+            builder.Entity<WebRequestMessage>().HasKey(key => key.Key);
+            builder.Entity<WebRequestMessage>().HasIndex(key => new { key.Application, key.UserStorageKey, key.CreateDate });
         }
 
         /// <summary>
@@ -73,8 +78,6 @@ namespace ServiceBricks.Logging.Sqlite
         /// <param name="configurationBuilder"></param>
         protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
         {
-            base.ConfigureConventions(configurationBuilder);
-
             configurationBuilder
                 .Properties<DateTimeOffset>()
                 .HaveConversion<DateTimeOffsetToBytesConverter>();

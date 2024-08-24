@@ -110,7 +110,7 @@ namespace ServiceBricks.Logging
 
             // AI: Get IP Address
             string ipaddress = null;
-            if (context.Connection != null)
+            if (context.Connection != null && context.Connection.RemoteIpAddress != null)
             {
                 ipaddress = context.Connection.RemoteIpAddress.ToString();
                 if (ipaddress == LoggingConstants.IPADDRESS_LOCAL_SHORT)
@@ -121,13 +121,9 @@ namespace ServiceBricks.Logging
             if (!_webRequestOptions.EnableLocalIpRequests && ipaddress == LoggingConstants.IPADDRESS_LOCAL_FULL)
                 return;
 
-            // AI: Check options if we should log the request IP address
-            if (!_webRequestOptions.EnableRequestIPAddress)
-                ipaddress = null;
-
             // AI: Check options if we should log the user associated with the request
             string userId = null;
-            if (_webRequestOptions.EnableRequestUserId && context.User != null && context.User.Claims != null)
+            if (_webRequestOptions.EnableUserStorageKey && context.User != null && context.User.Claims != null)
             {
                 var claim = context.User.Claims.Where(x => x.Type == System.Security.Claims.ClaimTypes.NameIdentifier).FirstOrDefault();
                 if (claim != null)
@@ -147,7 +143,8 @@ namespace ServiceBricks.Logging
                 CreateDate = DateTimeOffset.UtcNow,
                 Application = _applicationOptions.Name,
                 Server = System.Net.Dns.GetHostName(),
-                RequestIPAddress = ipaddress,
+                UserStorageKey = _webRequestOptions.EnableUserStorageKey ? userId : null,
+                RequestIPAddress = _webRequestOptions.EnableRequestIPAddress ? ipaddress : null,
                 RequestBody = _webRequestOptions.EnableRequestBody || (_webRequestOptions.EnableRequestBodyOnError && exception != null) ? _requestBody : null,
                 RequestContentLength = _webRequestOptions.EnableRequestContentLength ? context.Request.ContentLength : null,
                 RequestContentType = _webRequestOptions.EnableRequestContentType ? context.Request.ContentType : null,
@@ -155,7 +152,7 @@ namespace ServiceBricks.Logging
                 RequestHasFormContentType = _webRequestOptions.EnableRequestHasFormContentType ? context.Request.HasFormContentType : new Nullable<bool>(),
                 RequestHeaders = _webRequestOptions.EnableRequestHeaders && context.Request.Headers != null ? JsonConvert.SerializeObject(context.Request.Headers) : null,
                 RequestHost = _webRequestOptions.EnableRequestHost ? JsonConvert.SerializeObject(context.Request.Host) : null,
-                RequestIsHttps = _webRequestOptions.EnableRequestIsHttps ? context.Request.IsHttps : new Nullable<bool>(),
+                RequestIsHttps = _webRequestOptions.EnableRequestIsHttps ? context.Request.IsHttps : null,
                 RequestMethod = _webRequestOptions.EnableRequestMethod ? context.Request.Method : null,
                 RequestPath = _webRequestOptions.EnableRequestPath && context.Request.Path.HasValue ? context.Request.Path.Value : null,
                 RequestPathBase = _webRequestOptions.EnableRequestPathBase && context.Request.PathBase.HasValue ? context.Request.PathBase.Value : null,
@@ -164,7 +161,6 @@ namespace ServiceBricks.Logging
                 RequestQueryString = _webRequestOptions.EnableRequestQueryString && context.Request.QueryString.HasValue ? context.Request.QueryString.Value : null,
                 RequestRouteValues = _webRequestOptions.EnableRequestRouteValues && context.Request.RouteValues != null ? JsonConvert.SerializeObject(context.Request.RouteValues) : null,
                 RequestScheme = _webRequestOptions.EnableRequestScheme ? context.Request.Scheme : null,
-                RequestUserStorageKey = _webRequestOptions.EnableRequestUserId ? userId : null,
                 ResponseBody = _webRequestOptions.EnableResponseBody ? _responseBody : null,
                 ResponseContentLength = responseContentLength,
                 ResponseContentType = _webRequestOptions.EnableResponseContentType ? context.Response.ContentType : null,

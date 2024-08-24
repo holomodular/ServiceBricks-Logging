@@ -54,8 +54,10 @@ namespace ServiceBricks.Logging.InMemory
 
             // AI: Setup the entities to the model
             builder.Entity<LogMessage>().HasKey(key => key.Key);
+            builder.Entity<LogMessage>().HasIndex(key => new { key.Application, key.Level, key.CreateDate });
 
             builder.Entity<WebRequestMessage>().HasKey(key => key.Key);
+            builder.Entity<WebRequestMessage>().HasIndex(key => new { key.Application, key.UserStorageKey, key.CreateDate });
         }
 
         /// <summary>

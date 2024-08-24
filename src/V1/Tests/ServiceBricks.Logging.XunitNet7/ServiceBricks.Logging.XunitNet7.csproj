@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -10,12 +10,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+	  <Compile Include="..\TestFiles\LogMessageApiControllerTest.cs" Link="LogMessageApiControllerTest.cs" />
     <Compile Include="..\TestFiles\LogMessageTestManager.cs" Link="LogMessageTestManager.cs" />
+	  <Compile Include="..\TestFiles\WebRequestMessageApiControllerTest.cs" Link="WebRequestMessageApiControllerTest.cs" />
     <Compile Include="..\TestFiles\WebRequestMessageTestManager.cs" Link="WebRequestMessageTestManager.cs" />
   </ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="ServiceBricks.Xunit" Version="1.0.11" />
+		<PackageReference Include="ServiceBricks.Xunit" Version="1.1.0-b" />
 	</ItemGroup>
 
 	<ItemGroup>

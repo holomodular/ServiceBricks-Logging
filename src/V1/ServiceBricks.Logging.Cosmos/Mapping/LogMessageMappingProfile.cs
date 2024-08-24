@@ -15,6 +15,7 @@ namespace ServiceBricks.Logging.Cosmos
             // AI: Add mappings for LogMessageDto and LogMessage
             CreateMap<LogMessageDto, LogMessage>()
                 .ForMember(x => x.CreateDate, y => y.Ignore())
+                .ForMember(x => x.PartitionKey, y => y.Ignore())
                 .ForMember(x => x.Key, y => y.MapFrom<KeyResolver>());
 
             CreateMap<LogMessage, LogMessageDto>()

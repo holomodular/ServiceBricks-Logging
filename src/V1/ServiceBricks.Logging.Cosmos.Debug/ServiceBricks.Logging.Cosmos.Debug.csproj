@@ -16,6 +16,8 @@
 	  <Compile Include="..\ServiceBricks.Logging.Cosmos\Model\LoggingCosmosConstants.cs" Link="LoggingCosmosConstants.cs" />
 	  <Compile Include="..\ServiceBricks.Logging.Cosmos\Model\LoggingCosmosContext.cs" Link="LoggingCosmosContext.cs" />
 	  <Compile Include="..\ServiceBricks.Logging.Cosmos\Model\LoggingCosmosModule.cs" Link="LoggingCosmosModule.cs" />
+	  <Compile Include="..\ServiceBricks.Logging.Cosmos\Rule\LogMessageCreateRule.cs" Link="LogMessageCreateRule.cs" />
+	  <Compile Include="..\ServiceBricks.Logging.Cosmos\Rule\WebRequestMessageCreateRule.cs" Link="WebRequestMessageCreateRule.cs" />
 	  <Compile Include="..\ServiceBricks.Logging.Cosmos\Service\LogMessageApiService.cs" Link="LogMessageApiService.cs" />
 	  <Compile Include="..\ServiceBricks.Logging.Cosmos\Service\WebRequestMessageApiService.cs" Link="WebRequestMessageApiService.cs" />
 	  <Compile Include="..\ServiceBricks.Logging.Cosmos\Storage\LoggingStorageRepository.cs" Link="LoggingStorageRepository.cs" />
@@ -25,15 +27,8 @@
 		<ProjectReference Include="..\ServiceBricks.Logging.EntityFrameworkCore.Debug\ServiceBricks.Logging.EntityFrameworkCore.Debug.csproj" />
 	</ItemGroup>
 
-	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Cosmos" Version="7.0.20" />
+	<ItemGroup>
+		<PackageReference Include="ServiceBricks.Storage.Cosmos" Version="1.1.0-b" />
 	</ItemGroup>
-
-	<ItemGroup Condition="'$(TargetFramework)' == 'net7.0'">
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Cosmos" Version="7.0.20" />
-	</ItemGroup>
-
-	<ItemGroup Condition="'$(TargetFramework)' == 'net8.0'">
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Cosmos" Version="8.0.7" />
-	</ItemGroup>
+	
 </Project>

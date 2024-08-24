@@ -5,7 +5,7 @@ using ServiceBricks.Storage.EntityFrameworkCore;
 
 namespace ServiceBricks.Logging.SqlServer
 {
-    // dotnet ef migrations add LoggingV1 --context LoggingSqlServerContext --startup-project ../Test/MigrationsHost
+    // dotnet ef migrations add LoggingV1 --context LoggingSqlServerContext --startup-project ../Tests/MigrationsHost
 
     /// <summary>
     /// The database context for the ServiceBricks.Logging.SqlServer module.
@@ -65,9 +65,11 @@ namespace ServiceBricks.Logging.SqlServer
             builder.HasDefaultSchema(LoggingSqlServerConstants.DATABASE_SCHEMA_NAME);
 
             // AI: Setup the entities to the model
-            builder.Entity<LogMessage>().ToTable("LogMessage").HasKey(key => key.Key);
+            builder.Entity<LogMessage>().HasKey(key => key.Key);
+            builder.Entity<LogMessage>().HasIndex(key => new { key.Application, key.Level, key.CreateDate });
 
-            builder.Entity<WebRequestMessage>().ToTable("WebRequestMessage").HasKey(key => key.Key);
+            builder.Entity<WebRequestMessage>().HasKey(key => key.Key);
+            builder.Entity<WebRequestMessage>().HasIndex(key => new { key.Application, key.UserStorageKey, key.CreateDate });
         }
 
         /// <summary>

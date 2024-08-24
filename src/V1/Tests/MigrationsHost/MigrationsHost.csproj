@@ -14,19 +14,19 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.7">
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.8">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\ServiceBricks.Logging.Postgres.Debug\ServiceBricks.Logging.Postgres.Debug.csproj" />
-    <ProjectReference Include="..\..\ServiceBricks.Logging.Sqlite.Debug\ServiceBricks.Logging.Sqlite.Debug.csproj" />
-    <ProjectReference Include="..\..\ServiceBricks.Logging.SqlServer.Debug\ServiceBricks.Logging.SqlServer.Debug.csproj" />
+    <ProjectReference Include="..\..\ServiceBricks.Logging.Postgres\ServiceBricks.Logging.Postgres.csproj" />
+    <ProjectReference Include="..\..\ServiceBricks.Logging.Sqlite\ServiceBricks.Logging.Sqlite.csproj" />
+    <ProjectReference Include="..\..\ServiceBricks.Logging.SqlServer\ServiceBricks.Logging.SqlServer.csproj" />
   </ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="Microsoft.AspNetCore.TestHost" Version="8.0.2" />
+		<PackageReference Include="Microsoft.AspNetCore.TestHost" Version="8.0.8" />
 	</ItemGroup>
 
 </Project>

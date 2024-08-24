@@ -7,7 +7,7 @@ namespace WebApp.Extensions
     {
         private static IApplicationBuilder RegisterMiddleware(this IApplicationBuilder app)
         {
-            app.UseMiddleware<CustomLoggerMiddleware>();
+            app.UseMiddleware<LogMessageMiddleware>();
 
             app.UseMiddleware<WebRequestMessageMiddleware>();
 

@@ -7,17 +7,17 @@ namespace ServiceBricks.Logging
     /// <summary>
     /// This is a custom logger middleware component used to add http request properties to the request pipeline.
     /// </summary>
-    public sealed class CustomLoggerMiddleware
+    public sealed class LogMessageMiddleware
     {
         private readonly RequestDelegate _next;
-        private readonly ILogger<CustomLoggerMiddleware> _logger;
+        private readonly ILogger<LogMessageMiddleware> _logger;
 
         /// <summary>
         /// Constructor.
         /// </summary>
         /// <param name="next"></param>
         /// <param name="logger"></param>
-        public CustomLoggerMiddleware(RequestDelegate next, ILogger<CustomLoggerMiddleware> logger)
+        public LogMessageMiddleware(RequestDelegate next, ILogger<LogMessageMiddleware> logger)
         {
             _logger = logger;
             _next = next;

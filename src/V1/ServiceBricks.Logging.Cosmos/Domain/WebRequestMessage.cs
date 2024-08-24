@@ -14,6 +14,11 @@ namespace ServiceBricks.Logging.Cosmos
         public Guid Key { get; set; }
 
         /// <summary>
+        /// Internal Partition Key
+        /// </summary>
+        public string PartitionKey { get; set; }
+
+        /// <summary>
         /// The date and time the message was created in UTC.
         /// </summary>
         public DateTimeOffset CreateDate { get; set; }
@@ -27,6 +32,11 @@ namespace ServiceBricks.Logging.Cosmos
         /// The name of the server that created the log message.
         /// </summary>
         public virtual string Server { get; set; }
+
+        /// <summary>
+        /// The User storage key associated with the Request.
+        /// </summary>
+        public string UserStorageKey { get; set; }
 
         /// <summary>
         /// The Request IP Address.
@@ -112,11 +122,6 @@ namespace ServiceBricks.Logging.Cosmos
         /// Determine if the Request Is Https.
         /// </summary>
         public bool? RequestIsHttps { get; set; }
-
-        /// <summary>
-        /// The User storage key associated with the Request.
-        /// </summary>
-        public string RequestUserStorageKey { get; set; }
 
         /// <summary>
         /// The status code of the response.

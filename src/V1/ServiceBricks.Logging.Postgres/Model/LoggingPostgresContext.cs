@@ -5,7 +5,7 @@ using ServiceBricks.Storage.EntityFrameworkCore;
 
 namespace ServiceBricks.Logging.Postgres
 {
-    // dotnet ef migrations add LoggingV1 --context LoggingPostgresContext --startup-project ../Test/MigrationsHost
+    // dotnet ef migrations add LoggingV1 --context LoggingPostgresContext --startup-project ../Tests/MigrationsHost
 
     /// <summary>
     /// The database context for the ServiceBricks Logging Postgres module.
@@ -63,27 +63,21 @@ namespace ServiceBricks.Logging.Postgres
             builder.HasDefaultSchema(LoggingPostgresConstants.DATABASE_SCHEMA_NAME);
 
             // AI: Set up the table definitions
-            builder.Entity<LogMessage>().ToTable("LogMessage").HasKey(key => key.Key);
+            builder.Entity<LogMessage>().HasKey(key => key.Key);
+            builder.Entity<LogMessage>().HasIndex(key => new { key.Application, key.Level, key.CreateDate });
 
-            builder.Entity<WebRequestMessage>().ToTable("WebRequestMessage").HasKey(key => key.Key);
+            builder.Entity<WebRequestMessage>().HasKey(key => key.Key);
+            builder.Entity<WebRequestMessage>().HasIndex(key => new { key.Application, key.UserStorageKey, key.CreateDate });
         }
 
         /// <summary>
-        /// OnConfiguring.
+        /// Create context.
         /// </summary>
-        /// <param name="optionsBuilder"></param>
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        /// <param name="args"></param>
+        /// <returns></returns>
+        public virtual LoggingPostgresContext CreateDbContext(string[] args)
         {
-            if (!optionsBuilder.IsConfigured)
-            {
-                IConfigurationRoot configuration = new ConfigurationBuilder().AddAppSettingsConfig().Build();
-                string connectionString = configuration.GetPostgresConnectionString(LoggingPostgresConstants.APPSETTING_CONNECTION_STRING);
-                optionsBuilder.UseNpgsql(connectionString, x =>
-                {
-                    x.MigrationsAssembly(typeof(LoggingPostgresContext).Assembly.GetName().Name);
-                    x.EnableRetryOnFailure();
-                });
-            }
+            return new LoggingPostgresContext(_options);
         }
     }
 }

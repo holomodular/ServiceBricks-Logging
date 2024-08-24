@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
+using ServiceBricks.Logging.EntityFrameworkCore;
 
 namespace ServiceBricks.Logging.Cosmos
 {
@@ -31,8 +32,7 @@ namespace ServiceBricks.Logging.Cosmos
             ModuleStarted = true;
 
             // AI: Start the parent module.
-            // AI: If the primary keys of the Cosmos models do not match the EFC module, we can't use it rules, so skip EFC and call start on the core module instead.
-            applicationBuilder.StartServiceBricksLogging(); // Skip EFC
+            applicationBuilder.StartServiceBricksLoggingEntityFrameworkCore();
 
             return applicationBuilder;
         }

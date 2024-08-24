@@ -18,6 +18,16 @@
         /// <summary>
         /// Default Container Name.
         /// </summary>
-        public const string DEFAULT_CONTAINER_NAME = "Logging";
+        public const string CONTAINER_PREFIX = "Logging";
+
+        /// <summary>
+        /// Get the container name for the given table name.
+        /// </summary>
+        /// <param name="tableName"></param>
+        /// <returns></returns>
+        public static string GetContainerName(string tableName)
+        {
+            return CONTAINER_PREFIX + tableName;
+        }
     }
 }

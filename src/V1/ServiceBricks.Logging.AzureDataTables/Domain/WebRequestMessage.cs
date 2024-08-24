@@ -28,6 +28,11 @@ namespace ServiceBricks.Logging.AzureDataTables
         public virtual string Server { get; set; }
 
         /// <summary>
+        /// The User storage key associated with the Request.
+        /// </summary>
+        public string UserStorageKey { get; set; }
+
+        /// <summary>
         /// The Request IP Address.
         /// </summary>
         public string RequestIPAddress { get; set; }
@@ -111,11 +116,6 @@ namespace ServiceBricks.Logging.AzureDataTables
         /// Determine if the Request Is Https.
         /// </summary>
         public bool? RequestIsHttps { get; set; }
-
-        /// <summary>
-        /// The User storage key associated with the Request.
-        /// </summary>
-        public string RequestUserStorageKey { get; set; }
 
         /// <summary>
         /// The status code of the response.

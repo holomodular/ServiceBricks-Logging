@@ -19,9 +19,19 @@
         public bool EnableLogging { get; set; }
 
         /// <summary>
+        /// Determine if exceptions will be logged. If false, the exception will not be logged.
+        /// </summary>
+        public bool EnableExceptions { get; set; }
+
+        /// <summary>
         /// Determines if logging is enabled for local IP addresses. If false, no logging will occur for local IP addresses requests.
         /// </summary>
         public bool EnableLocalIpRequests { get; set; }
+
+        /// <summary>
+        /// Determines if logging is enabled for the request user storage key. If false, the user storage key will not be stored.
+        /// </summary>
+        public bool EnableUserStorageKey { get; set; }
 
         /// <summary>
         /// Determines if logging is enabled for remote IP addresses. If false, the IP Address will not be stored.
@@ -114,11 +124,6 @@
         public bool EnableRequestIsHttps { get; set; }
 
         /// <summary>
-        /// Determines if logging is enabled for the request user storage key. If false, the user storage key will not be stored.
-        /// </summary>
-        public bool EnableRequestUserId { get; set; }
-
-        /// <summary>
         /// Determines if logging is enabled for the response status code. If false, the status code will not be stored.
         /// </summary>
         public bool EnableResponseStatusCode { get; set; }
@@ -167,10 +172,5 @@
         /// The list of excluded request paths.
         /// </summary>
         public List<string> ExcludeRequestPaths { get; set; }
-
-        /// <summary>
-        /// Determine if exceptions will be logged. If false, the exception will not be logged.
-        /// </summary>
-        public bool EnableExceptions { get; set; }
     }
 }

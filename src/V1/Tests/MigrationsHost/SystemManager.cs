@@ -48,23 +48,26 @@ namespace ServiceBricks.Xunit
         private CancellationTokenSource CancellationTokenSource;
         private SemaphoreSlim _signal = new SemaphoreSlim(0);
 
-        public virtual IWebHostBuilder CreateWebHostBuilder(Type startupType)
+        public virtual IHostBuilder CreateWebHostBuilder(Type startupType)
         {
-            return new WebHostBuilder()
-                .UseContentRoot(Directory.GetCurrentDirectory())
-                .ConfigureAppConfiguration(config =>
-                {
-                    config.AddAppSettingsConfig();
-                })
-                .ConfigureLogging((hostingContext, logging) =>
-                {
-                    logging.ClearProviders();
-                    logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
-                    logging.AddConsole();
-                    logging.AddDebug();
-                })
-                .UseEnvironment("Development")
-                .UseStartup(startupType);
+            return Host.CreateDefaultBuilder()
+                    .ConfigureWebHostDefaults(builder =>
+                    {
+                        builder.UseContentRoot(Directory.GetCurrentDirectory())
+                    .ConfigureAppConfiguration(config =>
+                    {
+                        config.AddAppSettingsConfig();
+                    })
+                    .ConfigureLogging((hostingContext, logging) =>
+                    {
+                        logging.ClearProviders();
+                        logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
+                        logging.AddConsole();
+                        logging.AddDebug();
+                    })
+                    .UseEnvironment("Development")
+                    .UseStartup(startupType);
+                    });
         }
 
         public virtual void StopSystem()
@@ -78,15 +81,16 @@ namespace ServiceBricks.Xunit
             ServiceBrickStartup.ConfigureCompleteEvent += Startup_ConfigureCompleteEvent;
 
             // Create host builder
-            var webHostBuilder = CreateWebHostBuilder(startupType);
+            var hostBuilder = CreateWebHostBuilder(startupType);
 
-            //var build = webHostBuilder.Build();
-            //ServiceProvider = build.Services;
-            //Configuration = (IConfiguration)build.Services.GetService(typeof(IConfiguration));
+            var build = hostBuilder.Build();
+            ServiceProvider = build.Services;
+            Configuration = (IConfiguration)build.Services.GetService(typeof(IConfiguration));
+            build.Start();
 
-            TestServer = new Microsoft.AspNetCore.TestHost.TestServer(webHostBuilder);
-            ServiceProvider = TestServer.Services;
-            Configuration = (IConfiguration)TestServer.Host.Services.GetService(typeof(IConfiguration));
+            //TestServer = new Microsoft.AspNetCore.TestHost.TestServer(webHostBuilder);
+            //ServiceProvider = TestServer.Services;
+            //Configuration = (IConfiguration)TestServer.Host.Services.GetService(typeof(IConfiguration));
 
             CancellationTokenSource = new CancellationTokenSource();
 

@@ -55,15 +55,16 @@ namespace ServiceBricks.Logging.Cosmos
         {
             base.OnModelCreating(builder);
 
-            // AI: Set the default container name
-            builder.Model.SetDefaultContainer(LoggingCosmosConstants.DEFAULT_CONTAINER_NAME);
-
             // AI: Create the model for each table
             builder.Entity<LogMessage>().HasKey(p => p.Key);
-            builder.Entity<LogMessage>().Property(p => p.Key).ValueGeneratedOnAdd();
+            builder.Entity<LogMessage>().HasPartitionKey(p => p.PartitionKey);
+            builder.Entity<LogMessage>().HasIndex(key => new { key.Application, key.Level, key.CreateDate });
+            builder.Entity<LogMessage>().ToContainer(LoggingCosmosConstants.GetContainerName(nameof(LogMessage)));
 
             builder.Entity<WebRequestMessage>().HasKey(p => p.Key);
-            builder.Entity<WebRequestMessage>().Property(p => p.Key).ValueGeneratedOnAdd();
+            builder.Entity<WebRequestMessage>().HasPartitionKey(p => p.PartitionKey);
+            builder.Entity<WebRequestMessage>().HasIndex(key => new { key.Application, key.UserStorageKey, key.CreateDate });
+            builder.Entity<WebRequestMessage>().ToContainer(LoggingCosmosConstants.GetContainerName(nameof(WebRequestMessage)));
         }
 
         /// <summary>

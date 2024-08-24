@@ -14,6 +14,11 @@ namespace ServiceBricks.Logging.Cosmos
         public Guid Key { get; set; }
 
         /// <summary>
+        /// Internal Partition Key
+        /// </summary>
+        public string PartitionKey { get; set; }
+
+        /// <summary>
         /// The date and time the log message was created in UTC.
         /// </summary>
         public DateTimeOffset CreateDate { get; set; }

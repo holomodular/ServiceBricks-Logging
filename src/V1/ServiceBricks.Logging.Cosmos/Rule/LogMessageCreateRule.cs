@@ -1,12 +1,12 @@
 ﻿using Microsoft.Extensions.Logging;
-using ServiceBricks.Storage.AzureDataTables;
+using ServiceBricks.Storage.EntityFrameworkCore;
 
-namespace ServiceBricks.Logging.AzureDataTables
+namespace ServiceBricks.Logging.Cosmos
 {
     /// <summary>
-    /// This is a business rule for creating a WebRequestMessage domain object. It will set the Key, PartitionKey, and RowKey.
+    /// This is a business rule for creating a LogMessage domain object. It will set the Key and PartitionKey.
     /// </summary>
-    public sealed class WebRequestMessageCreateRule : BusinessRule
+    public sealed class LogMessageCreateRule : BusinessRule
     {
         private readonly ILogger _logger;
 
@@ -14,9 +14,9 @@ namespace ServiceBricks.Logging.AzureDataTables
         /// Constructor.
         /// </summary>
         /// <param name="loggerFactory"></param>
-        public WebRequestMessageCreateRule(ILoggerFactory loggerFactory)
+        public LogMessageCreateRule(ILoggerFactory loggerFactory)
         {
-            _logger = loggerFactory.CreateLogger<WebRequestMessageCreateRule>();
+            _logger = loggerFactory.CreateLogger<LogMessageCreateRule>();
             Priority = PRIORITY_LOW;
         }
 
@@ -27,8 +27,8 @@ namespace ServiceBricks.Logging.AzureDataTables
         public static void RegisterRule(IBusinessRuleRegistry registry)
         {
             registry.RegisterItem(
-                typeof(DomainCreateBeforeEvent<WebRequestMessage>),
-                typeof(WebRequestMessageCreateRule));
+                typeof(DomainCreateBeforeEvent<LogMessage>),
+                typeof(LogMessageCreateRule));
         }
 
         /// <summary>
@@ -43,21 +43,14 @@ namespace ServiceBricks.Logging.AzureDataTables
             try
             {
                 // AI: Make sure the context object is the correct type
-                if (context.Object is DomainCreateBeforeEvent<WebRequestMessage> ei)
+                if (context.Object is DomainCreateBeforeEvent<LogMessage> e)
                 {
-                    // AI: Set the Key, PartitionKey, and RowKey
-                    var item = ei.DomainObject;
+                    // AI: Set the Key and PartitionKey
+                    var item = e.DomainObject;
                     item.Key = Guid.NewGuid();
 
                     // AI: Set the PartitionKey to be the year, month and day so that the data is partitioned
                     item.PartitionKey = item.CreateDate.ToString("yyyyMMdd");
-
-                    // AI: Set the RowKey to be the reverse date and time so that the newest items are at the top when querying
-                    var reverseDate = DateTimeOffset.MaxValue.Ticks - item.CreateDate.Ticks;
-                    item.RowKey =
-                        reverseDate.ToString("d19") +
-                        StorageAzureDataTablesConstants.KEY_DELIMITER +
-                        item.Key.ToString();
                 }
             }
             catch (Exception ex)
@@ -67,6 +60,17 @@ namespace ServiceBricks.Logging.AzureDataTables
             }
 
             return response;
+        }
+
+        /// <summary>
+        /// Execute the business rule.
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        public override Task<IResponse> ExecuteRuleAsync(IBusinessRuleContext context)
+        {
+            // AI: There is no async work, so just call the sync method
+            return Task.FromResult<IResponse>(ExecuteRule(context));
         }
     }
 }

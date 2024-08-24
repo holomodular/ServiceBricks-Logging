@@ -85,14 +85,20 @@ namespace ServiceBricks.Logging
 
             try
             {
+                // AI: Make sure the context object is the correct type
                 var e = context.Object as CreateApplicationLogBroadcast;
                 if (e == null || e.DomainObject == null)
                     return response;
 
-                // AI: Map the CreateApplicationLogBroadcast to a LogMessageDto and call the LogMessageApiService.CreateAsync method.
+                // AI: Map the ApplicationLogBroadcast to a LogMessageDto
                 var message = _mapper.Map<LogMessageDto>(e.DomainObject);
+
+                // AI: Call the API service to create the log message
                 var respCreate = await _logMessageApiService.CreateAsync(message);
+
+                // AI: Copy the API response to the business rule response
                 response.CopyFrom(respCreate);
+
                 return response;
             }
             catch (Exception ex)
