@@ -13,10 +13,6 @@ namespace ServiceBricks.Logging.Postgres
         /// </summary>
         public LoggingPostgresModule()
         {
-            AutomapperAssemblies = new List<Assembly>()
-            {
-                typeof(LoggingPostgresModule).Assembly
-            };
             DependentModules = new List<IModule>()
             {
                 new LoggingEntityFrameworkCoreModule()

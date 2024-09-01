@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using System.Diagnostics;
@@ -45,7 +44,7 @@ namespace ServiceBricks.Logging
         /// <returns></returns>
         public async Task InvokeAsync(HttpContext context, RequestDelegate next)
         {
-            // AI: Check if we should log this message
+            // AI: Check if we should log at all
             if (!_webRequestOptions.EnableLogging)
             {
                 await next(context);
@@ -68,7 +67,8 @@ namespace ServiceBricks.Logging
                 catch (Exception ex)
                 {
                     await WriteMessage(context, ex);
-                    throw;
+                    await responseBody.CopyToAsync(originalBodyStream);
+                    return;
                 }
                 await WriteMessage(context, null);
                 await responseBody.CopyToAsync(originalBodyStream);
@@ -87,7 +87,7 @@ namespace ServiceBricks.Logging
             _watch.Stop();
 
             // AI: Check options if request path is excluded, if so return and do not log message
-            if (_webRequestOptions.EnableExcludeRequestPaths && context.Request.Path.HasValue && _webRequestOptions.ExcludeRequestPaths != null && _webRequestOptions.ExcludeRequestPaths.Count > 0)
+            if (context.Request.Path.HasValue && _webRequestOptions.ExcludeRequestPaths != null && _webRequestOptions.ExcludeRequestPaths.Count > 0)
             {
                 foreach (var exclude in _webRequestOptions.ExcludeRequestPaths)
                 {
@@ -96,7 +96,7 @@ namespace ServiceBricks.Logging
                         return;
 
                     // AI: Check if we should use regex expressions to exclude the path. If found, return and do not log message
-                    if (_webRequestOptions.EnableExcludeRegExExpressions)
+                    if (_webRequestOptions.EnableExcludeRequestPathsRegExExpressions)
                     {
                         try
                         {
@@ -113,13 +113,29 @@ namespace ServiceBricks.Logging
             if (context.Connection != null && context.Connection.RemoteIpAddress != null)
             {
                 ipaddress = context.Connection.RemoteIpAddress.ToString();
-                if (ipaddress == LoggingConstants.IPADDRESS_LOCAL_SHORT)
-                    ipaddress = LoggingConstants.IPADDRESS_LOCAL_FULL;
-            }
 
-            // AI: Check options if we should log local IP address requests
-            if (!_webRequestOptions.EnableLocalIpRequests && ipaddress == LoggingConstants.IPADDRESS_LOCAL_FULL)
-                return;
+                // AI: Check options if we should log excluded IP address requests
+                if (_webRequestOptions.ExcludeIpAddresses != null && _webRequestOptions.ExcludeIpAddresses.Count > 0)
+                {
+                    foreach (var exclude in _webRequestOptions.ExcludeIpAddresses)
+                    {
+                        // AI: Check if we should exclude the path. If found, return and do not log message
+                        if (ipaddress == exclude)
+                            return;
+
+                        // AI: Check if we should use regex expressions to exclude the IP Address. If found, return and do not log message
+                        if (_webRequestOptions.EnableExcludeIpAddressesRegExExpressions)
+                        {
+                            try
+                            {
+                                if (Regex.Match(ipaddress, exclude).Success)
+                                    return;
+                            }
+                            catch { }
+                        }
+                    }
+                }
+            }
 
             // AI: Check options if we should log the user associated with the request
             string userId = null;
@@ -130,12 +146,12 @@ namespace ServiceBricks.Logging
                     userId = claim.Value;
             }
 
-            // AI: Check options if we should log response content length
+            // AI: Get content length
             long? responseContentLength = null;
-            if (_webRequestOptions.EnableResponseContentLength && context.Response.ContentLength.HasValue)
+            if (context.Response.ContentLength.HasValue)
                 responseContentLength = context.Response.ContentLength.Value;
-            else if (_webRequestOptions.EnableResponseContentLength && !string.IsNullOrEmpty(_responseBody))
-                responseContentLength = _responseBody.Length;
+            else if (!string.IsNullOrEmpty(_responseBody))
+                responseContentLength = Encoding.UTF8.GetBytes(_responseBody).Length;
 
             // AI: Create record in the WebRequestMessageDto API service
             await _webRequestMessageApiService.CreateAsync(new WebRequestMessageDto()
@@ -162,7 +178,7 @@ namespace ServiceBricks.Logging
                 RequestRouteValues = _webRequestOptions.EnableRequestRouteValues && context.Request.RouteValues != null ? JsonConvert.SerializeObject(context.Request.RouteValues) : null,
                 RequestScheme = _webRequestOptions.EnableRequestScheme ? context.Request.Scheme : null,
                 ResponseBody = _webRequestOptions.EnableResponseBody ? _responseBody : null,
-                ResponseContentLength = responseContentLength,
+                ResponseContentLength = _webRequestOptions.EnableResponseContentLength ? responseContentLength : null,
                 ResponseContentType = _webRequestOptions.EnableResponseContentType ? context.Response.ContentType : null,
                 ResponseCookies = _webRequestOptions.EnableResponseCookies && context.Response.Cookies != null ? JsonConvert.SerializeObject(context.Response.Cookies) : null,
                 ResponseHeaders = _webRequestOptions.EnableResponseHeaders && context.Response.Headers != null ? JsonConvert.SerializeObject(context.Response.Headers) : null,

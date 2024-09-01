@@ -16,6 +16,10 @@ namespace ServiceBricks.Logging.EntityFrameworkCore
             {
                 typeof(LoggingEntityFrameworkCoreModule).Assembly
             };
+            DependentModules = new List<IModule>()
+            {
+                new LoggingModule()
+            };
         }
 
         /// <summary>

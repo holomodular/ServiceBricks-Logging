@@ -24,11 +24,6 @@
         public bool EnableExceptions { get; set; }
 
         /// <summary>
-        /// Determines if logging is enabled for local IP addresses. If false, no logging will occur for local IP addresses requests.
-        /// </summary>
-        public bool EnableLocalIpRequests { get; set; }
-
-        /// <summary>
         /// Determines if logging is enabled for the request user storage key. If false, the user storage key will not be stored.
         /// </summary>
         public bool EnableUserStorageKey { get; set; }
@@ -159,18 +154,23 @@
         public bool EnableResponseBody { get; set; }
 
         /// <summary>
-        /// Determines if logging will exclude any request paths. If false, no paths will be excluded.
-        /// </summary>
-        public bool EnableExcludeRequestPaths { get; set; }
-
-        /// <summary>
         /// Determines if logging will exclude any request paths using regex expressions. If false, no regex comparisons will be used.
         /// </summary>
-        public bool EnableExcludeRegExExpressions { get; set; }
+        public bool EnableExcludeRequestPathsRegExExpressions { get; set; }
 
         /// <summary>
         /// The list of excluded request paths.
         /// </summary>
         public List<string> ExcludeRequestPaths { get; set; }
+
+        /// <summary>
+        /// Determines if logging will exclude any request paths using regex expressions. If false, no regex comparisons will be used.
+        /// </summary>
+        public bool EnableExcludeIpAddressesRegExExpressions { get; set; }
+
+        /// <summary>
+        /// The list of excluded IP Addresses.
+        /// </summary>
+        public List<string> ExcludeIpAddresses { get; set; }
     }
 }

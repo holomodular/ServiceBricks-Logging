@@ -16,19 +16,9 @@
         public const string APPSETTING_WEBREQUESTMESSAGE = @"ServiceBricks:Logging:WebRequestMessage";
 
         /// <summary>
-        /// Short IP address for local host.
-        /// </summary>
-        public const string IPADDRESS_LOCAL_SHORT = "::1";
-
-        /// <summary>
-        /// Long IP address for local host.
-        /// </summary>
-        public const string IPADDRESS_LOCAL_FULL = "127.0.0.1";
-
-        /// <summary>
         /// Property names in state dictionary.
         /// </summary>
-        public static class MiddlewareStateProperty
+        public static partial class MiddlewareStateProperty
         {
             public const string IPADDRESS = "IpAddress";
             public const string USER_STORAGE_KEY = "UserStorageKey";

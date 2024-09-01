@@ -13,10 +13,6 @@ namespace ServiceBricks.Logging.InMemory
         /// </summary>
         public LoggingInMemoryModule()
         {
-            AutomapperAssemblies = new List<Assembly>()
-            {
-                typeof(LoggingInMemoryModule).Assembly
-            };
             DependentModules = new List<IModule>()
             {
                 new LoggingEntityFrameworkCoreModule()

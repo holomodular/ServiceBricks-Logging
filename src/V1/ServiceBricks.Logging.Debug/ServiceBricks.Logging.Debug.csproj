@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFrameworks>net6.0;net7.0;net8.0</TargetFrameworks>
@@ -7,12 +7,12 @@
 	</PropertyGroup>
 
 	<ItemGroup>	  
-	  <Compile Include="..\ServiceBricks.Logging\Api\LogMessageDto.cs" Link="LogMessageDto.cs" />	  
-	  <Compile Include="..\ServiceBricks.Logging\Api\WebRequestMessageDto.cs" Link="WebRequestMessageDto.cs" />
+	  <Compile Include="..\ServiceBricks.Logging\Dto\LogMessageDto.cs" Link="LogMessageDto.cs" />	  
+	  <Compile Include="..\ServiceBricks.Logging\Dto\WebRequestMessageDto.cs" Link="WebRequestMessageDto.cs" />
 	  <Compile Include="..\ServiceBricks.Logging\Background\CustomLoggerWriteMessageTask.cs" Link="CustomLoggerWriteMessageTask.cs" />
 	  <Compile Include="..\ServiceBricks.Logging\Background\CustomLoggerWriteMessageTimer.cs" Link="CustomLoggerWriteMessageTimer.cs" />
-	  <Compile Include="..\ServiceBricks.Logging\Controllers\LogMessageApiController.cs" Link="LogMessageApiController.cs" />
-	  <Compile Include="..\ServiceBricks.Logging\Controllers\WebRequestMessageApiController.cs" Link="WebRequestMessageApiController.cs" />
+	  <Compile Include="..\ServiceBricks.Logging\Controller\LogMessageApiController.cs" Link="LogMessageApiController.cs" />
+	  <Compile Include="..\ServiceBricks.Logging\Controller\WebRequestMessageApiController.cs" Link="WebRequestMessageApiController.cs" />
 	  <Compile Include="..\ServiceBricks.Logging\Extensions\ApplicationBuilderExtensions.cs" Link="ApplicationBuilderExtensions.cs" />
 	  <Compile Include="..\ServiceBricks.Logging\Extensions\LoggingBuilderExtensions.cs" Link="LoggingBuilderExtensions.cs" />
 	  <Compile Include="..\ServiceBricks.Logging\Extensions\ServiceCollectionExtensions.cs" Link="ServiceCollectionExtensions.cs" />
@@ -37,7 +37,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="ServiceBricks" Version="1.1.0-b" />
+		<PackageReference Include="ServiceBricks" Version="1.1.0-c" />
 	</ItemGroup>
 
 </Project>

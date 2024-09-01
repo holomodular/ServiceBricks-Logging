@@ -16,6 +16,10 @@ namespace ServiceBricks.Logging.AzureDataTables
             {
                 typeof(LoggingAzureDataTablesModule).Assembly
             };
+            DependentModules = new List<IModule>()
+            {
+                new LoggingModule()
+            };
         }
 
         /// <summary>

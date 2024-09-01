@@ -16,10 +16,10 @@ namespace ServiceBricks.Logging
         /// Constructor.
         /// </summary>
         /// <param name="next"></param>
-        /// <param name="logger"></param>
-        public LogMessageMiddleware(RequestDelegate next, ILogger<LogMessageMiddleware> logger)
+        /// <param name="loggerFactory"></param>
+        public LogMessageMiddleware(RequestDelegate next, ILoggerFactory loggerFactory)
         {
-            _logger = logger;
+            _logger = loggerFactory.CreateLogger<LogMessageMiddleware>();
             _next = next;
         }
 

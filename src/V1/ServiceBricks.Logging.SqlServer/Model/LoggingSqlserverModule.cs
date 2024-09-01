@@ -13,10 +13,6 @@ namespace ServiceBricks.Logging.SqlServer
         /// </summary>
         public LoggingSqlServerModule()
         {
-            AutomapperAssemblies = new List<Assembly>()
-            {
-                typeof(LoggingSqlServerModule).Assembly
-            };
             DependentModules = new List<IModule>()
             {
                 new LoggingEntityFrameworkCoreModule()

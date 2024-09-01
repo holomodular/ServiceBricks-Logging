@@ -13,10 +13,6 @@ namespace ServiceBricks.Logging.Sqlite
         /// </summary>
         public LoggingSqliteModule()
         {
-            AutomapperAssemblies = new List<Assembly>()
-            {
-                typeof(LoggingSqliteModule).Assembly
-            };
             DependentModules = new List<IModule>()
             {
                 new LoggingEntityFrameworkCoreModule()

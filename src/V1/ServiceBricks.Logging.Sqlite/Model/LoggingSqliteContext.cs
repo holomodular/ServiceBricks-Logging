@@ -61,9 +61,6 @@ namespace ServiceBricks.Logging.Sqlite
         {
             base.OnModelCreating(builder);
 
-            // AI: Set the default schema (SQLite does not support schemas)
-            //builder.HasDefaultSchema(LoggingSqliteConstants.DATABASE_SCHEMA_NAME);
-
             // AI: Setup the entities to the model
             builder.Entity<LogMessage>().HasKey(key => key.Key);
             builder.Entity<LogMessage>().HasIndex(key => new { key.Application, key.Level, key.CreateDate });

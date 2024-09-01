@@ -16,6 +16,10 @@ namespace ServiceBricks.Logging.MongoDb
             {
                 typeof(LoggingMongoDbModule).Assembly
             };
+            DependentModules = new List<IModule>()
+            {
+                new LoggingModule()
+            };
         }
 
         /// <summary>
