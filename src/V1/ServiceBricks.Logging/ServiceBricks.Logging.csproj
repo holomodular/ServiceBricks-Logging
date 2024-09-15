@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<Version>1.1.0-c</Version>
+		<Version>1.1.0-f</Version>
 		<Description>The open source microservices platform. Visit https://ServiceBricks.com to learn more.</Description>
 		<PackageId>ServiceBricks.Logging</PackageId>
 		<Title>ServiceBricks.Logging</Title>
@@ -14,7 +14,7 @@
 		<Copyright>Copyright © 2024 HoloModular LLC. All Rights Reserved. Visit https://HoloModular.com to learn more.</Copyright>
 		<PackageProjectUrl>https://ServiceBricks.com</PackageProjectUrl>
 		<PackageIcon>logo.png</PackageIcon>
-		<PackageTags>service;bricks;logging</PackageTags>
+		<PackageTags>servicebricks;logging</PackageTags>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<SignAssembly>True</SignAssembly>
 		<AssemblyOriginatorKeyFile>Resource\ServiceBricks.Logging.snk</AssemblyOriginatorKeyFile>
@@ -33,7 +33,7 @@
 		</None>
 	</ItemGroup>
 	<ItemGroup>
-	  <PackageReference Include="ServiceBricks" Version="1.1.0-c" />
+	  <PackageReference Include="ServiceBricks" Version="1.1.0-f" />
 	</ItemGroup>
 	
 

@@ -39,10 +39,10 @@ namespace ServiceBricks.Logging
             /// <param name="logger"></param>
             /// <param name="logMessageApiService"></param>
             public Worker(
-                ILogger<Worker> logger,
+                ILoggerFactory loggerFactory,
                 ILogMessageApiService logMessageApiService)
             {
-                _logger = logger;
+                _logger = loggerFactory.CreateLogger<Worker>();
                 _logMessageApiService = logMessageApiService;
             }
 

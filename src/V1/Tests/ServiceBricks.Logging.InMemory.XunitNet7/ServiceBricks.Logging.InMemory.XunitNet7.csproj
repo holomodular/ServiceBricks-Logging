@@ -9,12 +9,15 @@
     <IsTestProject>true</IsTestProject>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Include="..\TestFiles\LogMessageApiControllerTestInMemory.cs" Link="LogMessageApiControllerTestInMemory.cs" />
-    <Compile Include="..\TestFiles\MappingTestInMemory.cs" Link="MappingTestInMemory.cs" />
-    <Compile Include="..\TestFiles\StartupInMemory.cs" Link="StartupInMemory.cs" />
-	  <Compile Include="..\TestFiles\WebRequestMessageApiControllerTestInMemory.cs" Link="WebRequestMessageApiControllerTestInMemory.cs" />
-  </ItemGroup>
+	<ItemGroup>
+		<Compile Include="..\TestFiles\LogMessageApiControllerTestInMemory.cs" Link="LogMessageApiControllerTestInMemory.cs" />
+		<Compile Include="..\TestFiles\LogMessageStubApiClientTests.cs" Link="LogMessageStubApiClientTests.cs" />
+		<Compile Include="..\TestFiles\MappingTestInMemory.cs" Link="MappingTestInMemory.cs" />
+		<Compile Include="..\TestFiles\ObjectTests.cs" Link="ObjectTests.cs" />
+		<Compile Include="..\TestFiles\StartupInMemory.cs" Link="StartupInMemory.cs" />
+		<Compile Include="..\TestFiles\WebRequestMessageApiControllerTestInMemory.cs" Link="WebRequestMessageApiControllerTestInMemory.cs" />
+		<Compile Include="..\TestFiles\WebRequestMessageStubApiClientTests.cs" Link="WebRequestMessageStubApiClientTests.cs" />
+	</ItemGroup>
 
   <ItemGroup>
     <Content Include="..\TestFiles\appsettings.json" Link="appsettings.json">
@@ -29,7 +32,7 @@
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net7.0'">
 		<PackageReference Include="Microsoft.AspNetCore.TestHost" Version="7.0.20" />
-		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.0" />
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
 		<PackageReference Include="xunit" Version="2.9.0" />
 		<PackageReference Include="xunit.runner.visualstudio" Version="2.8.2">
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

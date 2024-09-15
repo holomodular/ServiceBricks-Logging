@@ -20,12 +20,9 @@ namespace ServiceBricks.Xunit
             services.AddSingleton(Configuration);
             services.AddServiceBricks(Configuration);
 
-            //**************************
-            //UNCOMMENT THE ONE YOU NEED
-            //**************************
-            //services.AddServiceBricksLoggingPostgres(Configuration);
+            services.AddServiceBricksLoggingPostgres(Configuration);
             services.AddServiceBricksLoggingSqlServer(Configuration);
-            //services.AddServiceBricksLoggingSqlite(Configuration);
+            services.AddServiceBricksLoggingSqlite(Configuration);
 
             // Remove all background tasks/timers for unit testing
             var logtimer = services.Where(x => x.ImplementationType == typeof(CustomLoggerWriteMessageTimer)).FirstOrDefault();
@@ -40,12 +37,9 @@ namespace ServiceBricks.Xunit
             base.CustomConfigure(app);
             app.StartServiceBricks();
 
-            //**************************
-            //UNCOMMENT THE ONE YOU NEED
-            //**************************
-            //app.StartServiceBricksLoggingPostgres();
+            app.StartServiceBricksLoggingPostgres();
             app.StartServiceBricksLoggingSqlServer();
-            //app.StartServiceBricksLoggingSqlite();
+            app.StartServiceBricksLoggingSqlite();
         }
     }
 }

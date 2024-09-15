@@ -8,10 +8,8 @@ namespace WebApp.Extensions
         private static IApplicationBuilder RegisterMiddleware(this IApplicationBuilder app)
         {
             app.UseMiddleware<LogMessageMiddleware>();
-
             app.UseMiddleware<WebRequestMessageMiddleware>();
-
-            app.UseMiddleware<ExceptionMiddleware>();
+            app.UseMiddleware<PropogateExceptionResponseMiddleware>();
             return app;
         }
 

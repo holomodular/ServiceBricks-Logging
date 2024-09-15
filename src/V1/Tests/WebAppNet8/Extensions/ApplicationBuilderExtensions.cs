@@ -9,7 +9,7 @@ namespace WebApp.Extensions
         {
             app.UseMiddleware<LogMessageMiddleware>();
             app.UseMiddleware<WebRequestMessageMiddleware>();
-            app.UseMiddleware<ExceptionMiddleware>();
+            app.UseMiddleware<PropogateExceptionResponseMiddleware>();
             return app;
         }
 

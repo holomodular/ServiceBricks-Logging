@@ -41,6 +41,17 @@ namespace ServiceBricks.Logging
         }
 
         /// <summary>
+        /// Register the service bus broadcast event.
+        /// </summary>
+        /// <param name="serviceBus"></param>
+        public static void UnRegisterServiceBus(IServiceBus serviceBus)
+        {
+            serviceBus.Unsubscribe(
+                typeof(CreateApplicationLogBroadcast),
+                typeof(CreateApplicationLogRule));
+        }
+
+        /// <summary>
         /// Execute the business rule.
         /// </summary>
         /// <param name="context"></param>

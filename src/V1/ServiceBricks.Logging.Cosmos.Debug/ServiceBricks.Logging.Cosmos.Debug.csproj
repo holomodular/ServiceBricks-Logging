@@ -28,7 +28,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="ServiceBricks.Storage.Cosmos" Version="1.1.0-c" />
+		<PackageReference Include="ServiceBricks.Storage.Cosmos" Version="1.1.0-f" />
 	</ItemGroup>
 	
 </Project>

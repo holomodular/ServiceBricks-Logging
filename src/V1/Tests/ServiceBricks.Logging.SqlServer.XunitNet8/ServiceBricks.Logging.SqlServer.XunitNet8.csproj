@@ -25,12 +25,13 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\..\ServiceBricks.Logging.SqlServer.Debug\ServiceBricks.Logging.SqlServer.Debug.csproj" />
+	  <ProjectReference Include="..\ServiceBricks.Logging.Sqlite.XunitNet8\ServiceBricks.Logging.Sqlite.XunitNet8.csproj" />
 	  <ProjectReference Include="..\ServiceBricks.Logging.XunitNet8\ServiceBricks.Logging.XunitNet8.csproj" />
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net8.0'">
 		<PackageReference Include="Microsoft.AspNetCore.TestHost" Version="8.0.8" />
-		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.0" />
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
 		<PackageReference Include="xunit" Version="2.9.0" />
 		<PackageReference Include="xunit.runner.visualstudio" Version="2.8.2">
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

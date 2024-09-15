@@ -9,15 +9,15 @@
     <IsTestProject>true</IsTestProject>
   </PropertyGroup>
 
-  <ItemGroup>
-	  <Compile Include="..\TestFiles\LogMessageApiControllerTest.cs" Link="LogMessageApiControllerTest.cs" />
-    <Compile Include="..\TestFiles\LogMessageTestManager.cs" Link="LogMessageTestManager.cs" />
-	  <Compile Include="..\TestFiles\WebRequestMessageApiControllerTest.cs" Link="WebRequestMessageApiControllerTest.cs" />
-    <Compile Include="..\TestFiles\WebRequestMessageTestManager.cs" Link="WebRequestMessageTestManager.cs" />
-  </ItemGroup>
+	<ItemGroup>
+		<Compile Include="..\TestFiles\LogMessageApiControllerTest.cs" Link="LogMessageApiControllerTest.cs" />
+		<Compile Include="..\TestFiles\LogMessageTestManager.cs" Link="LogMessageTestManager.cs" />
+		<Compile Include="..\TestFiles\WebRequestMessageApiControllerTest.cs" Link="WebRequestMessageApiControllerTest.cs" />
+		<Compile Include="..\TestFiles\WebRequestMessageTestManager.cs" Link="WebRequestMessageTestManager.cs" />
+	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="ServiceBricks.Xunit" Version="1.1.0-c" />
+		<PackageReference Include="ServiceBricks.Xunit" Version="1.1.0-f" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -26,7 +26,7 @@
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net7.0'">
 		<PackageReference Include="Microsoft.AspNetCore.TestHost" Version="7.0.20" />
-		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.0" />
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
 		<PackageReference Include="xunit" Version="2.9.0" />
 		<PackageReference Include="xunit.runner.visualstudio" Version="2.8.2">
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
