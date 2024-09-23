@@ -34,11 +34,11 @@ namespace ServiceBricks.Logging.MongoDb
             services.AddScoped<IWebRequestMessageApiService, WebRequestMessageApiService>();
 
             // AI: Add business rules for the module
-            DomainCreateDateRule<LogMessage>.RegisterRule(BusinessRuleRegistry.Instance);
-            DomainQueryPropertyRenameRule<LogMessage>.RegisterRule(BusinessRuleRegistry.Instance, "StorageKey", "Key");
+            DomainCreateDateRule<LogMessage>.Register(BusinessRuleRegistry.Instance);
+            DomainQueryPropertyRenameRule<LogMessage>.Register(BusinessRuleRegistry.Instance, "StorageKey", "Key");
 
-            DomainCreateDateRule<WebRequestMessage>.RegisterRule(BusinessRuleRegistry.Instance);
-            DomainQueryPropertyRenameRule<WebRequestMessage>.RegisterRule(BusinessRuleRegistry.Instance, "StorageKey", "Key");
+            DomainCreateDateRule<WebRequestMessage>.Register(BusinessRuleRegistry.Instance);
+            DomainQueryPropertyRenameRule<WebRequestMessage>.Register(BusinessRuleRegistry.Instance, "StorageKey", "Key");
 
             return services;
         }

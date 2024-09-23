@@ -48,13 +48,13 @@ namespace ServiceBricks.Logging.Cosmos
             services.AddScoped<IWebRequestMessageApiService, WebRequestMessageApiService>();
 
             // AI: Register business rules for the module
-            DomainCreateDateRule<LogMessage>.RegisterRule(BusinessRuleRegistry.Instance);
-            DomainQueryPropertyRenameRule<LogMessage>.RegisterRule(BusinessRuleRegistry.Instance, "StorageKey", "Key");
-            LogMessageCreateRule.RegisterRule(BusinessRuleRegistry.Instance);
+            DomainCreateDateRule<LogMessage>.Register(BusinessRuleRegistry.Instance);
+            DomainQueryPropertyRenameRule<LogMessage>.Register(BusinessRuleRegistry.Instance, "StorageKey", "Key");
+            LogMessageCreateRule.Register(BusinessRuleRegistry.Instance);
 
-            DomainCreateDateRule<WebRequestMessage>.RegisterRule(BusinessRuleRegistry.Instance);
-            DomainQueryPropertyRenameRule<WebRequestMessage>.RegisterRule(BusinessRuleRegistry.Instance, "StorageKey", "Key");
-            WebRequestMessageCreateRule.RegisterRule(BusinessRuleRegistry.Instance);
+            DomainCreateDateRule<WebRequestMessage>.Register(BusinessRuleRegistry.Instance);
+            DomainQueryPropertyRenameRule<WebRequestMessage>.Register(BusinessRuleRegistry.Instance, "StorageKey", "Key");
+            WebRequestMessageCreateRule.Register(BusinessRuleRegistry.Instance);
 
             return services;
         }

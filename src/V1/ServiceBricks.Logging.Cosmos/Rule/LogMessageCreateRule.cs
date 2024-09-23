@@ -24,9 +24,20 @@ namespace ServiceBricks.Logging.Cosmos
         /// Register the business rule to the DomainCreateBeforeEvent.
         /// </summary>
         /// <param name="registry"></param>
-        public static void RegisterRule(IBusinessRuleRegistry registry)
+        public static void Register(IBusinessRuleRegistry registry)
         {
-            registry.RegisterItem(
+            registry.Register(
+                typeof(DomainCreateBeforeEvent<LogMessage>),
+                typeof(LogMessageCreateRule));
+        }
+
+        /// <summary>
+        /// Unregister the rule
+        /// </summary>
+        /// <param name="registry"></param>
+        public static void UnRegister(IBusinessRuleRegistry registry)
+        {
+            registry.UnRegister(
                 typeof(DomainCreateBeforeEvent<LogMessage>),
                 typeof(LogMessageCreateRule));
         }

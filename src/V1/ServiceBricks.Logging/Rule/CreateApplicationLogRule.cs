@@ -33,7 +33,7 @@ namespace ServiceBricks.Logging
         /// Register the service bus broadcast event.
         /// </summary>
         /// <param name="serviceBus"></param>
-        public static void RegisterServiceBus(IServiceBus serviceBus)
+        public static void Register(IServiceBus serviceBus)
         {
             serviceBus.Subscribe(
                 typeof(CreateApplicationLogBroadcast),
@@ -44,9 +44,9 @@ namespace ServiceBricks.Logging
         /// Register the service bus broadcast event.
         /// </summary>
         /// <param name="serviceBus"></param>
-        public static void UnRegisterServiceBus(IServiceBus serviceBus)
+        public static void UnRegister(IServiceBus serviceBus)
         {
-            serviceBus.Unsubscribe(
+            serviceBus.UnSubscribe(
                 typeof(CreateApplicationLogBroadcast),
                 typeof(CreateApplicationLogRule));
         }

@@ -24,9 +24,20 @@ namespace ServiceBricks.Logging.AzureDataTables
         /// Register the business rule to the DomainQueryBeforeEvent.
         /// </summary>
         /// <param name="registry"></param>
-        public static void RegisterRule(IBusinessRuleRegistry registry)
+        public static void Register(IBusinessRuleRegistry registry)
         {
-            registry.RegisterItem(
+            registry.Register(
+                typeof(DomainQueryBeforeEvent<LogMessage>),
+                typeof(LogMessageQueryRule));
+        }
+
+        /// <summary>
+        /// Unregister the rule
+        /// </summary>
+        /// <param name="registry"></param>
+        public static void UnRegister(IBusinessRuleRegistry registry)
+        {
+            registry.UnRegister(
                 typeof(DomainQueryBeforeEvent<LogMessage>),
                 typeof(LogMessageQueryRule));
         }

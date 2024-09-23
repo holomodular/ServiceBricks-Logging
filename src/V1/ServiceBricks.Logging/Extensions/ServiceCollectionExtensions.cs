@@ -44,7 +44,7 @@ namespace ServiceBricks.Logging
             using (var serviceScope = services.BuildServiceProvider().GetRequiredService<IServiceScopeFactory>().CreateScope())
             {
                 var serviceBus = serviceScope.ServiceProvider.GetRequiredService<IServiceBus>();
-                CreateApplicationLogRule.RegisterServiceBus(serviceBus);
+                CreateApplicationLogRule.Register(serviceBus);
             }
 
             return services;

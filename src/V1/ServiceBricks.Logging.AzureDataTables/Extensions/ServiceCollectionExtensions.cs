@@ -36,13 +36,13 @@ namespace ServiceBricks.Logging.AzureDataTables
             services.AddScoped<IWebRequestMessageApiService, WebRequestMessageApiService>();
 
             // AI: Register business rules for the module
-            DomainCreateDateRule<LogMessage>.RegisterRule(BusinessRuleRegistry.Instance);
-            LogMessageCreateRule.RegisterRule(BusinessRuleRegistry.Instance);
-            LogMessageQueryRule.RegisterRule(BusinessRuleRegistry.Instance);
+            DomainCreateDateRule<LogMessage>.Register(BusinessRuleRegistry.Instance);
+            LogMessageCreateRule.Register(BusinessRuleRegistry.Instance);
+            LogMessageQueryRule.Register(BusinessRuleRegistry.Instance);
 
-            DomainCreateDateRule<WebRequestMessage>.RegisterRule(BusinessRuleRegistry.Instance);
-            WebRequestMessageCreateRule.RegisterRule(BusinessRuleRegistry.Instance);
-            WebRequestMessageQueryRule.RegisterRule(BusinessRuleRegistry.Instance);
+            DomainCreateDateRule<WebRequestMessage>.Register(BusinessRuleRegistry.Instance);
+            WebRequestMessageCreateRule.Register(BusinessRuleRegistry.Instance);
+            WebRequestMessageQueryRule.Register(BusinessRuleRegistry.Instance);
 
             return services;
         }
