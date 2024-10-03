@@ -18,13 +18,12 @@ namespace WebApp
             services.AddServiceBricks(Configuration);
             services.AddServiceBricksLoggingInMemory(Configuration);
             services.AddCustomWebsite(Configuration);
-            services.AddServiceBricksComplete();
+            services.AddServiceBricksComplete(Configuration);
         }
 
         public virtual void Configure(IApplicationBuilder app, IWebHostEnvironment webHostEnvironment)
         {
             app.StartServiceBricks();
-            app.StartServiceBricksLoggingInMemory();
             app.StartCustomWebsite(webHostEnvironment);
             var logger = app.ApplicationServices.GetRequiredService<ILogger<StartupInMemory>>();
             logger.LogInformation("Application Started");

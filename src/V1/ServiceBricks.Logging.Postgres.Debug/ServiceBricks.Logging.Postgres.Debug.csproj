@@ -7,7 +7,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <Compile Include="..\ServiceBricks.Logging.Postgres\Extensions\ApplicationBuilderExtensions.cs" Link="ApplicationBuilderExtensions.cs" />
 	  <Compile Include="..\ServiceBricks.Logging.Postgres\Extensions\ServiceCollectionExtensions.cs" Link="ServiceCollectionExtensions.cs" />
 	  <Compile Include="..\ServiceBricks.Logging.Postgres\Migrations\20240913102131_LoggingV1.cs" Link="20240913102131_LoggingV1.cs" />
 	  <Compile Include="..\ServiceBricks.Logging.Postgres\Migrations\20240913102131_LoggingV1.Designer.cs" Link="20240913102131_LoggingV1.Designer.cs" />
@@ -15,6 +14,7 @@
 	  <Compile Include="..\ServiceBricks.Logging.Postgres\Model\LoggingPostgresConstants.cs" Link="LoggingPostgresConstants.cs" />
 	  <Compile Include="..\ServiceBricks.Logging.Postgres\Model\LoggingPostgresContext.cs" Link="LoggingPostgresContext.cs" />
 	  <Compile Include="..\ServiceBricks.Logging.Postgres\Model\LoggingPostgresModule.cs" Link="LoggingPostgresModule.cs" />
+	  <Compile Include="..\ServiceBricks.Logging.Postgres\Rule\LoggingPostgresModuleAddRule.cs" Link="LoggingPostgresModuleAddRule.cs" />
 	  <Compile Include="..\ServiceBricks.Logging.Postgres\Storage\LoggingStorageRepository.cs" Link="LoggingStorageRepository.cs" />
 	</ItemGroup>
 
@@ -24,6 +24,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="ServiceBricks.Storage.Postgres" Version="1.1.0-g" />
+		<PackageReference Include="ServiceBricks.Storage.Postgres" Version="1.1.0-l" />
 	</ItemGroup>
 </Project>

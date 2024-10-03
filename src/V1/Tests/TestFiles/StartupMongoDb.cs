@@ -28,14 +28,13 @@ namespace ServiceBricks.Xunit
             services.AddScoped<ITestManager<LogMessageDto>, LogMessageTestManagerMongoDb>();
             services.AddScoped<ITestManager<WebRequestMessageDto>, WebRequestMessageTestManagerMongoDb>();
 
-            services.AddServiceBricksComplete();
+            services.AddServiceBricksComplete(Configuration);
         }
 
         public virtual void Configure(IApplicationBuilder app)
         {
             base.CustomConfigure(app);
             app.StartServiceBricks();
-            app.StartServiceBricksLoggingMongoDb();
         }
     }
 }

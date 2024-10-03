@@ -1,0 +1,45 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+	  <Nullable>disable</Nullable>
+
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+  </PropertyGroup>
+
+  <ItemGroup>
+	<Compile Include="..\TestFiles\LogMessageApiControllerTest.cs" Link="LogMessageApiControllerTest.cs" />
+	<Compile Include="..\TestFiles\LogMessageTestManager.cs" Link="LogMessageTestManager.cs" />
+	<Compile Include="..\TestFiles\WebRequestMessageApiControllerTest.cs" Link="WebRequestMessageApiControllerTest.cs" />
+    <Compile Include="..\TestFiles\WebRequestMessageTestManager.cs" Link="WebRequestMessageTestManager.cs" />
+  </ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="ServiceBricks.Xunit" Version="1.1.0-h" />
+	</ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\ServiceBricks.Logging.Debug\ServiceBricks.Logging.Debug.csproj" />
+  </ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
+		<PackageReference Include="Microsoft.AspNetCore.TestHost" Version="6.0.33" />
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
+		<PackageReference Include="xunit" Version="2.9.1" />
+		<PackageReference Include="xunit.runner.visualstudio" Version="2.8.2">
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+			<PrivateAssets>all</PrivateAssets>
+		</PackageReference>
+		<PackageReference Include="coverlet.collector" Version="6.0.2">
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+			<PrivateAssets>all</PrivateAssets>
+		</PackageReference>
+		<PackageReference Include="coverlet.msbuild" Version="6.0.2">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
+	
+</Project>

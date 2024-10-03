@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ServiceBricks.Logging.EntityFrameworkCore;
 
@@ -18,22 +17,15 @@ namespace ServiceBricks.Logging.InMemory
         /// <returns></returns>
         public static IServiceCollection AddServiceBricksLoggingInMemory(this IServiceCollection services, IConfiguration configuration)
         {
-            // AI: Add the module to the ModuleRegistry
-            ModuleRegistry.Instance.RegisterItem(typeof(LoggingInMemoryModule), new LoggingInMemoryModule());
-
             // AI: Add the parent module
             services.AddServiceBricksLoggingEntityFrameworkCore(configuration);
 
-            // AI: Register the database for the module
-            var builder = new DbContextOptionsBuilder<LoggingInMemoryContext>();
-            builder.UseInMemoryDatabase(Guid.NewGuid().ToString());
-            services.Configure<DbContextOptions<LoggingInMemoryContext>>(o => { o = builder.Options; });
-            services.AddSingleton<DbContextOptions<LoggingInMemoryContext>>(builder.Options);
-            services.AddDbContext<LoggingInMemoryContext>(c => { c = builder; }, ServiceLifetime.Scoped);
+            // AI: Add the module to the ModuleRegistry
+            ModuleRegistry.Instance.Register(LoggingInMemoryModule.Instance);
 
-            // AI: Add the storage services for the module for each domain object
-            services.AddScoped<IStorageRepository<LogMessage>, LoggingStorageRepository<LogMessage>>();
-            services.AddScoped<IStorageRepository<WebRequestMessage>, LoggingStorageRepository<WebRequestMessage>>();
+            // AI: Add module business rules
+            LoggingInMemoryModuleAddRule.Register(BusinessRuleRegistry.Instance);
+            ModuleSetStartedRule<LoggingInMemoryModule>.Register(BusinessRuleRegistry.Instance);
 
             return services;
         }

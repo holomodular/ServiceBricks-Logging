@@ -6,8 +6,13 @@ namespace ServiceBricks.Logging.Cosmos
     /// <summary>
     /// Logging Cosmos Module.
     /// </summary>
-    public partial class LoggingCosmosModule : IModule
+    public partial class LoggingCosmosModule : ServiceBricks.Module
     {
+        /// <summary>
+        /// Instance
+        /// </summary>
+        public static LoggingCosmosModule Instance = new LoggingCosmosModule();
+
         /// <summary>
         /// Constructor.
         /// </summary>
@@ -22,20 +27,5 @@ namespace ServiceBricks.Logging.Cosmos
                 new LoggingEntityFrameworkCoreModule()
             };
         }
-
-        /// <summary>
-        /// The list of dependent modules.
-        /// </summary>
-        public List<IModule> DependentModules { get; }
-
-        /// <summary>
-        /// The list of assemblies that contain Automapper profiles.
-        /// </summary>
-        public List<Assembly> AutomapperAssemblies { get; }
-
-        /// <summary>
-        /// The list of view assemblies.
-        /// </summary>
-        public List<Assembly> ViewAssemblies { get; }
     }
 }

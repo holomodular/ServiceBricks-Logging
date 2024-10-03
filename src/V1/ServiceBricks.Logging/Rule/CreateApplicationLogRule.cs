@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Microsoft.Extensions.Logging;
 
 namespace ServiceBricks.Logging
 {
@@ -10,20 +9,16 @@ namespace ServiceBricks.Logging
     {
         private readonly ILogMessageApiService _logMessageApiService;
         private readonly IMapper _mapper;
-        private readonly ILogger<CreateApplicationLogRule> _logger;
 
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="loggerFactory"></param>
         /// <param name="logMessageApiService"></param>
         /// <param name="mapper"></param>
         public CreateApplicationLogRule(
-            ILoggerFactory loggerFactory,
             ILogMessageApiService logMessageApiService,
             IMapper mapper)
         {
-            _logger = loggerFactory.CreateLogger<CreateApplicationLogRule>();
             _mapper = mapper;
             _logMessageApiService = logMessageApiService;
             Priority = PRIORITY_NORMAL;
@@ -32,10 +27,10 @@ namespace ServiceBricks.Logging
         /// <summary>
         /// Register the service bus broadcast event.
         /// </summary>
-        /// <param name="serviceBus"></param>
-        public static void Register(IServiceBus serviceBus)
+        /// <param name="registry"></param>
+        public static void Register(IBusinessRuleRegistry registry)
         {
-            serviceBus.Subscribe(
+            registry.Register(
                 typeof(CreateApplicationLogBroadcast),
                 typeof(CreateApplicationLogRule));
         }
@@ -43,10 +38,10 @@ namespace ServiceBricks.Logging
         /// <summary>
         /// Register the service bus broadcast event.
         /// </summary>
-        /// <param name="serviceBus"></param>
-        public static void UnRegister(IServiceBus serviceBus)
+        /// <param name="registry"></param>
+        public static void UnRegister(IBusinessRuleRegistry registry)
         {
-            serviceBus.UnSubscribe(
+            registry.UnRegister(
                 typeof(CreateApplicationLogBroadcast),
                 typeof(CreateApplicationLogRule));
         }
@@ -60,29 +55,28 @@ namespace ServiceBricks.Logging
         {
             var response = new Response();
 
-            try
+            // AI: Make sure the context object is the correct type
+            if (context == null || context.Object == null)
             {
-                // AI: Make sure the context object is the correct type
-                var e = context.Object as CreateApplicationLogBroadcast;
-                if (e == null || e.DomainObject == null)
-                    return response;
-
-                // AI: Map the ApplicationLogBroadcast to a LogMessageDto
-                var message = _mapper.Map<LogMessageDto>(e.DomainObject);
-
-                // AI: Call the API service to create the log message
-                var respCreate = _logMessageApiService.Create(message);
-
-                // AI: Copy the API response to the business rule response
-                response.CopyFrom(respCreate);
+                response.AddMessage(ResponseMessage.CreateError(LocalizationResource.PARAMETER_MISSING, "context"));
                 return response;
             }
-            catch (Exception ex)
+            var e = context.Object as CreateApplicationLogBroadcast;
+            if (e == null || e.DomainObject == null)
             {
-                _logger.LogError(ex, ex.Message);
-                response.AddMessage(ResponseMessage.CreateError(LocalizationResource.ERROR_BUSINESS_RULE));
+                response.AddMessage(ResponseMessage.CreateError(LocalizationResource.PARAMETER_MISSING, "context"));
                 return response;
             }
+
+            // AI: Map the ApplicationLogBroadcast to a LogMessageDto
+            var message = _mapper.Map<LogMessageDto>(e.DomainObject);
+
+            // AI: Call the API service to create the log message
+            var respCreate = _logMessageApiService.Create(message);
+
+            // AI: Copy the API response to the business rule response
+            response.CopyFrom(respCreate);
+            return response;
         }
 
         /// <summary>
@@ -94,30 +88,29 @@ namespace ServiceBricks.Logging
         {
             var response = new Response();
 
-            try
+            // AI: Make sure the context object is the correct type
+            if (context == null || context.Object == null)
             {
-                // AI: Make sure the context object is the correct type
-                var e = context.Object as CreateApplicationLogBroadcast;
-                if (e == null || e.DomainObject == null)
-                    return response;
-
-                // AI: Map the ApplicationLogBroadcast to a LogMessageDto
-                var message = _mapper.Map<LogMessageDto>(e.DomainObject);
-
-                // AI: Call the API service to create the log message
-                var respCreate = await _logMessageApiService.CreateAsync(message);
-
-                // AI: Copy the API response to the business rule response
-                response.CopyFrom(respCreate);
-
+                response.AddMessage(ResponseMessage.CreateError(LocalizationResource.PARAMETER_MISSING, "context"));
                 return response;
             }
-            catch (Exception ex)
+            var e = context.Object as CreateApplicationLogBroadcast;
+            if (e == null || e.DomainObject == null)
             {
-                _logger.LogError(ex, ex.Message);
-                response.AddMessage(ResponseMessage.CreateError(LocalizationResource.ERROR_BUSINESS_RULE));
+                response.AddMessage(ResponseMessage.CreateError(LocalizationResource.PARAMETER_MISSING, "context"));
                 return response;
             }
+
+            // AI: Map the ApplicationLogBroadcast to a LogMessageDto
+            var message = _mapper.Map<LogMessageDto>(e.DomainObject);
+
+            // AI: Call the API service to create the log message
+            var respCreate = await _logMessageApiService.CreateAsync(message);
+
+            // AI: Copy the API response to the business rule response
+            response.CopyFrom(respCreate);
+
+            return response;
         }
     }
 }

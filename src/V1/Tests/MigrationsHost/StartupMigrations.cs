@@ -29,17 +29,13 @@ namespace ServiceBricks.Xunit
             if (logtimer != null)
                 services.Remove(logtimer);
 
-            services.AddServiceBricksComplete();
+            services.AddServiceBricksComplete(Configuration);
         }
 
         public virtual void Configure(IApplicationBuilder app)
         {
             base.CustomConfigure(app);
             app.StartServiceBricks();
-
-            app.StartServiceBricksLoggingPostgres();
-            app.StartServiceBricksLoggingSqlServer();
-            app.StartServiceBricksLoggingSqlite();
         }
     }
 }

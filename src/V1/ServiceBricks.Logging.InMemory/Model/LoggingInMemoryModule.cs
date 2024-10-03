@@ -1,13 +1,17 @@
 ﻿using ServiceBricks.Logging.EntityFrameworkCore;
-using System.Reflection;
 
 namespace ServiceBricks.Logging.InMemory
 {
     /// <summary>
     /// The module definition for the Logging InMemory module.
     /// </summary>
-    public partial class LoggingInMemoryModule : IModule
+    public partial class LoggingInMemoryModule : ServiceBricks.Module
     {
+        /// <summary>
+        /// Instance
+        /// </summary>
+        public static LoggingInMemoryModule Instance = new LoggingInMemoryModule();
+
         /// <summary>
         /// Constructor.
         /// </summary>
@@ -18,20 +22,5 @@ namespace ServiceBricks.Logging.InMemory
                 new LoggingEntityFrameworkCoreModule()
             };
         }
-
-        /// <summary>
-        /// The list of dependent modules.
-        /// </summary>
-        public List<IModule> DependentModules { get; }
-
-        /// <summary>
-        /// The list of Automapper assemblies.
-        /// </summary>
-        public List<Assembly> AutomapperAssemblies { get; }
-
-        /// <summary>
-        /// The list of View assemblies.
-        /// </summary>
-        public List<Assembly> ViewAssemblies { get; }
     }
 }

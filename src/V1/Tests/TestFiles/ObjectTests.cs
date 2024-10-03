@@ -1,12 +1,9 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using ServiceBricks.Logging;
-using ServiceQuery;
-using static ServiceBricks.Xunit.BusinessRuleTests;
 
 namespace ServiceBricks.Xunit
 {
@@ -179,7 +176,6 @@ namespace ServiceBricks.Xunit
         public virtual Task CreateApplicationLogRuleTests()
         {
             CreateApplicationLogRule rule = new CreateApplicationLogRule(
-                SystemManager.ServiceProvider.GetRequiredService<ILoggerFactory>(),
                 SystemManager.ServiceProvider.GetRequiredService<ILogMessageApiService>(),
                 SystemManager.ServiceProvider.GetRequiredService<IMapper>());
 
@@ -188,7 +184,19 @@ namespace ServiceBricks.Xunit
             {
             });
 
-            rule.ExecuteRule(context);
+            // Execute error rules
+            var response = rule.ExecuteRule(null);
+            Assert.True(response.Error);
+            response = rule.ExecuteRule(new BusinessRuleContext(null));
+            Assert.True(response.Error);
+            response = rule.ExecuteRule(new BusinessRuleContext(new CreateApplicationLogBroadcast(null)));
+            Assert.True(response.Error);
+
+            // Execute rule
+            response = rule.ExecuteRule(context);
+
+            // Assert
+            Assert.True(response.Success);
 
             return Task.CompletedTask;
         }
@@ -197,7 +205,6 @@ namespace ServiceBricks.Xunit
         public virtual async Task CreateApplicationLogRuleTestsAsync()
         {
             CreateApplicationLogRule rule = new CreateApplicationLogRule(
-                SystemManager.ServiceProvider.GetRequiredService<ILoggerFactory>(),
                 SystemManager.ServiceProvider.GetRequiredService<ILogMessageApiService>(),
                 SystemManager.ServiceProvider.GetRequiredService<IMapper>());
 
@@ -206,7 +213,19 @@ namespace ServiceBricks.Xunit
             {
             });
 
-            await rule.ExecuteRuleAsync(context);
+            // Execute error rules
+            var response = await rule.ExecuteRuleAsync(null);
+            Assert.True(response.Error);
+            response = await rule.ExecuteRuleAsync(new BusinessRuleContext(null));
+            Assert.True(response.Error);
+            response = await rule.ExecuteRuleAsync(new BusinessRuleContext(new CreateApplicationLogBroadcast(null)));
+            Assert.True(response.Error);
+
+            // Execute rule
+            response = await rule.ExecuteRuleAsync(context);
+
+            // Assert
+            Assert.True(response.Success);
         }
     }
 }

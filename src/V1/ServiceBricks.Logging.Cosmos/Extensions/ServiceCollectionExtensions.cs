@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ServiceBricks.Logging.EntityFrameworkCore;
 using ServiceBricks.Storage.EntityFrameworkCore;
@@ -19,42 +18,16 @@ namespace ServiceBricks.Logging.Cosmos
         /// <returns></returns>
         public static IServiceCollection AddServiceBricksLoggingCosmos(this IServiceCollection services, IConfiguration configuration)
         {
-            // AI: Add the module to the ModuleRegistry
-            ModuleRegistry.Instance.RegisterItem(typeof(LoggingCosmosModule), new LoggingCosmosModule());
-
             // AI: Add the parent module
             services.AddServiceBricksLoggingEntityFrameworkCore(configuration);
 
-            // AI: Register the database for the module
-            var builder = new DbContextOptionsBuilder<LoggingCosmosContext>();
-            string connectionString = configuration.GetCosmosConnectionString(
-                LoggingCosmosConstants.APPSETTING_CONNECTION_STRING);
-            string database = configuration.GetCosmosDatabase(
-                LoggingCosmosConstants.APPSETTING_DATABASE);
-            builder.UseCosmos(connectionString, database);
-            services.Configure<DbContextOptions<LoggingCosmosContext>>(o => { o = builder.Options; });
-            services.AddSingleton<DbContextOptions<LoggingCosmosContext>>(builder.Options);
-            services.AddDbContext<LoggingCosmosContext>(c => { c = builder; }, ServiceLifetime.Scoped);
+            // AI: Add the module to the ModuleRegistry
+            ModuleRegistry.Instance.Register(LoggingCosmosModule.Instance);
 
-            // AI: Storage Services for the module for each domain object
-            services.AddScoped<IStorageRepository<LogMessage>, LoggingStorageRepository<LogMessage>>();
-            services.AddScoped<IStorageRepository<WebRequestMessage>, LoggingStorageRepository<WebRequestMessage>>();
-
-            // AI: Add API services for the module. Each DTO should have two registrations, one for the generic IApiService<> and one for the named interface
-            services.AddScoped<IApiService<LogMessageDto>, LogMessageApiService>();
-            services.AddScoped<ILogMessageApiService, LogMessageApiService>();
-
-            services.AddScoped<IApiService<WebRequestMessageDto>, WebRequestMessageApiService>();
-            services.AddScoped<IWebRequestMessageApiService, WebRequestMessageApiService>();
-
-            // AI: Register business rules for the module
-            DomainCreateDateRule<LogMessage>.Register(BusinessRuleRegistry.Instance);
-            DomainQueryPropertyRenameRule<LogMessage>.Register(BusinessRuleRegistry.Instance, "StorageKey", "Key");
-            LogMessageCreateRule.Register(BusinessRuleRegistry.Instance);
-
-            DomainCreateDateRule<WebRequestMessage>.Register(BusinessRuleRegistry.Instance);
-            DomainQueryPropertyRenameRule<WebRequestMessage>.Register(BusinessRuleRegistry.Instance, "StorageKey", "Key");
-            WebRequestMessageCreateRule.Register(BusinessRuleRegistry.Instance);
+            // AI: Add module business rules
+            LoggingCosmosModuleAddRule.Register(BusinessRuleRegistry.Instance);
+            EntityFrameworkCoreDatabaseEnsureCreatedRule<LoggingCosmosModule, LoggingCosmosContext>.Register(BusinessRuleRegistry.Instance);
+            ModuleSetStartedRule<LoggingCosmosModule>.Register(BusinessRuleRegistry.Instance);
 
             return services;
         }

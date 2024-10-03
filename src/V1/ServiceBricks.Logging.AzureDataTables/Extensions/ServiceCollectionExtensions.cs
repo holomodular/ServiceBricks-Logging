@@ -16,33 +16,16 @@ namespace ServiceBricks.Logging.AzureDataTables
         /// <returns></returns>
         public static IServiceCollection AddServiceBricksLoggingAzureDataTables(this IServiceCollection services, IConfiguration configuration)
         {
-            // AI: Add the module to the ModuleRegistry
-            ModuleRegistry.Instance.RegisterItem(typeof(LoggingAzureDataTablesModule), new LoggingAzureDataTablesModule());
-
             // AI: Add parent module
             services.AddServiceBricksLogging(configuration);
 
-            // AI: Configure all options for the module
+            // AI: Add the module to the ModuleRegistry
+            ModuleRegistry.Instance.Register(LoggingAzureDataTablesModule.Instance);
 
-            // AI: Add storage services for the module. Each domain object should have its own storage repository
-            services.AddScoped<IStorageRepository<LogMessage>, LoggingStorageRepository<LogMessage>>();
-            services.AddScoped<IStorageRepository<WebRequestMessage>, LoggingStorageRepository<WebRequestMessage>>();
-
-            // AI: Add API services for the module. Each DTO should have two registrations, one for the generic IApiService<> and one for the named interface
-            services.AddScoped<IApiService<LogMessageDto>, LogMessageApiService>();
-            services.AddScoped<ILogMessageApiService, LogMessageApiService>();
-
-            services.AddScoped<IApiService<WebRequestMessageDto>, WebRequestMessageApiService>();
-            services.AddScoped<IWebRequestMessageApiService, WebRequestMessageApiService>();
-
-            // AI: Register business rules for the module
-            DomainCreateDateRule<LogMessage>.Register(BusinessRuleRegistry.Instance);
-            LogMessageCreateRule.Register(BusinessRuleRegistry.Instance);
-            LogMessageQueryRule.Register(BusinessRuleRegistry.Instance);
-
-            DomainCreateDateRule<WebRequestMessage>.Register(BusinessRuleRegistry.Instance);
-            WebRequestMessageCreateRule.Register(BusinessRuleRegistry.Instance);
-            WebRequestMessageQueryRule.Register(BusinessRuleRegistry.Instance);
+            // AI: Add module business rules
+            LoggingAzureDataTablesModuleAddRule.Register(BusinessRuleRegistry.Instance);
+            LoggingAzureDataTablesModuleStartRule.Register(BusinessRuleRegistry.Instance);
+            ModuleSetStartedRule<LoggingAzureDataTablesModule>.Register(BusinessRuleRegistry.Instance);
 
             return services;
         }

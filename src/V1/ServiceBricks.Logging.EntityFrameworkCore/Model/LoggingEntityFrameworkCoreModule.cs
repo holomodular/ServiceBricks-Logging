@@ -5,8 +5,10 @@ namespace ServiceBricks.Logging.EntityFrameworkCore
     /// <summary>
     /// The module definition for the ServiceBricks Logging EntityFrameworkCore module.
     /// </summary>
-    public partial class LoggingEntityFrameworkCoreModule : IModule
+    public partial class LoggingEntityFrameworkCoreModule : ServiceBricks.Module
     {
+        public static LoggingEntityFrameworkCoreModule Instance = new LoggingEntityFrameworkCoreModule();
+
         /// <summary>
         /// Constructor for the ServiceBricks Logging EntityFrameworkCore module.
         /// </summary>
@@ -21,20 +23,5 @@ namespace ServiceBricks.Logging.EntityFrameworkCore
                 new LoggingModule()
             };
         }
-
-        /// <summary>
-        /// The list of dependent modules for the ServiceBricks Logging EntityFrameworkCore module.
-        /// </summary>
-        public List<IModule> DependentModules { get; }
-
-        /// <summary>
-        /// The list of Automapper assemblies for the ServiceBricks Logging EntityFrameworkCore module.
-        /// </summary>
-        public List<Assembly> AutomapperAssemblies { get; }
-
-        /// <summary>
-        /// The list of view assemblies for the ServiceBricks Logging EntityFrameworkCore module.
-        /// </summary>
-        public List<Assembly> ViewAssemblies { get; }
     }
 }

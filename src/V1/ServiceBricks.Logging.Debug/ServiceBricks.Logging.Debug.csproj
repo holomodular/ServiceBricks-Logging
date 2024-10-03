@@ -11,9 +11,8 @@
 	  <Compile Include="..\ServiceBricks.Logging\Dto\WebRequestMessageDto.cs" Link="WebRequestMessageDto.cs" />
 	  <Compile Include="..\ServiceBricks.Logging\Background\CustomLoggerWriteMessageTask.cs" Link="CustomLoggerWriteMessageTask.cs" />
 	  <Compile Include="..\ServiceBricks.Logging\Background\CustomLoggerWriteMessageTimer.cs" Link="CustomLoggerWriteMessageTimer.cs" />
-	  <Compile Include="..\ServiceBricks.Logging\Controller\LogMessageApiController.cs" Link="LogMessageApiController.cs" />
-	  <Compile Include="..\ServiceBricks.Logging\Controller\WebRequestMessageApiController.cs" Link="WebRequestMessageApiController.cs" />
-	  <Compile Include="..\ServiceBricks.Logging\Extensions\ApplicationBuilderExtensions.cs" Link="ApplicationBuilderExtensions.cs" />
+	  <Compile Include="..\ServiceBricks.Logging\Controllers\LogMessageApiController.cs" Link="LogMessageApiController.cs" />
+	  <Compile Include="..\ServiceBricks.Logging\Controllers\WebRequestMessageApiController.cs" Link="WebRequestMessageApiController.cs" />
 	  <Compile Include="..\ServiceBricks.Logging\Extensions\LoggingBuilderExtensions.cs" Link="LoggingBuilderExtensions.cs" />
 	  <Compile Include="..\ServiceBricks.Logging\Extensions\ServiceCollectionExtensions.cs" Link="ServiceCollectionExtensions.cs" />
 	  <Compile Include="..\ServiceBricks.Logging\Interface\ILogMessageApiClient.cs" Link="ILogMessageApiClient.cs" />
@@ -32,12 +31,13 @@
 	  <Compile Include="..\ServiceBricks.Logging\Model\LoggingModule.cs" Link="LoggingModule.cs" />
 	  <Compile Include="..\ServiceBricks.Logging\Model\WebRequestMessageOptions.cs" Link="WebRequestMessageOptions.cs" />
 	  <Compile Include="..\ServiceBricks.Logging\Rule\CreateApplicationLogRule.cs" Link="CreateApplicationLogRule.cs" />
-	  <Compile Include="..\ServiceBricks.Logging\Service\LogMessageApiClient.cs" Link="LogMessageApiClient.cs" />
-	  <Compile Include="..\ServiceBricks.Logging\Service\WebRequestMessageApiClient.cs" Link="WebRequestMessageApiClient.cs" />
+	  <Compile Include="..\ServiceBricks.Logging\Rule\LoggingModuleAddRule.cs" Link="LoggingModuleAddRule.cs" />
+	  <Compile Include="..\ServiceBricks.Logging\Client\LogMessageApiClient.cs" Link="LogMessageApiClient.cs" />
+	  <Compile Include="..\ServiceBricks.Logging\Client\WebRequestMessageApiClient.cs" Link="WebRequestMessageApiClient.cs" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="ServiceBricks" Version="1.1.0-g" />
+		<PackageReference Include="ServiceBricks" Version="1.1.0-l" />
 	</ItemGroup>
 
 </Project>

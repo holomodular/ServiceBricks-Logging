@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
-using ServiceBricks.Storage.AzureDataTables;
+﻿using ServiceBricks.Storage.AzureDataTables;
 
 namespace ServiceBricks.Logging.AzureDataTables
 {
@@ -8,15 +7,11 @@ namespace ServiceBricks.Logging.AzureDataTables
     /// </summary>
     public sealed class WebRequestMessageCreateRule : BusinessRule
     {
-        private readonly ILogger _logger;
-
         /// <summary>
         /// Constructor.
         /// </summary>
-        /// <param name="loggerFactory"></param>
-        public WebRequestMessageCreateRule(ILoggerFactory loggerFactory)
+        public WebRequestMessageCreateRule()
         {
-            _logger = loggerFactory.CreateLogger<WebRequestMessageCreateRule>();
             Priority = PRIORITY_LOW;
         }
 
@@ -47,31 +42,32 @@ namespace ServiceBricks.Logging.AzureDataTables
         {
             var response = new Response();
 
-            try
+            // AI: Make sure the context object is the correct type
+            if (context == null || context.Object == null)
             {
-                // AI: Make sure the context object is the correct type
-                if (context.Object is DomainCreateBeforeEvent<WebRequestMessage> ei)
-                {
-                    // AI: Set the Key, PartitionKey, and RowKey
-                    var item = ei.DomainObject;
-                    item.Key = Guid.NewGuid();
-
-                    // AI: Set the PartitionKey to be the year, month and day so that the data is partitioned
-                    item.PartitionKey = item.CreateDate.ToString("yyyyMMdd");
-
-                    // AI: Set the RowKey to be the reverse date and time so that the newest items are at the top when querying
-                    var reverseDate = DateTimeOffset.MaxValue.Ticks - item.CreateDate.Ticks;
-                    item.RowKey =
-                        reverseDate.ToString("d19") +
-                        StorageAzureDataTablesConstants.KEY_DELIMITER +
-                        item.Key.ToString();
-                }
+                response.AddMessage(ResponseMessage.CreateError(LocalizationResource.PARAMETER_MISSING, "context"));
+                return response;
             }
-            catch (Exception ex)
+            var ei = context.Object as DomainCreateBeforeEvent<WebRequestMessage>;
+            if (ei == null)
             {
-                _logger.LogError(ex, ex.Message);
-                response.AddMessage(ResponseMessage.CreateError(LocalizationResource.ERROR_BUSINESS_RULE));
+                response.AddMessage(ResponseMessage.CreateError(LocalizationResource.PARAMETER_MISSING, "context"));
+                return response;
             }
+
+            // AI: Set the Key, PartitionKey, and RowKey
+            var item = ei.DomainObject;
+            item.Key = Guid.NewGuid();
+
+            // AI: Set the PartitionKey to be the year, month and day so that the data is partitioned
+            item.PartitionKey = item.CreateDate.ToString("yyyyMMdd");
+
+            // AI: Set the RowKey to be the reverse date and time so that the newest items are at the top when querying
+            var reverseDate = DateTimeOffset.MaxValue.Ticks - item.CreateDate.Ticks;
+            item.RowKey =
+                reverseDate.ToString("d19") +
+                StorageAzureDataTablesConstants.KEY_DELIMITER +
+                item.Key.ToString();
 
             return response;
         }

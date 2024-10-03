@@ -1,13 +1,17 @@
 ﻿using ServiceBricks.Logging.EntityFrameworkCore;
-using System.Reflection;
 
 namespace ServiceBricks.Logging.SqlServer
 {
     /// <summary>
     /// The module definition for the ServiceBricks.Logging.SqlServer module.
     /// </summary>
-    public partial class LoggingSqlServerModule : IModule
+    public partial class LoggingSqlServerModule : ServiceBricks.Module
     {
+        /// <summary>
+        /// Instance
+        /// </summary>
+        public static LoggingSqlServerModule Instance = new LoggingSqlServerModule();
+
         /// <summary>
         /// Constructor.
         /// </summary>
@@ -18,20 +22,5 @@ namespace ServiceBricks.Logging.SqlServer
                 new LoggingEntityFrameworkCoreModule()
             };
         }
-
-        /// <summary>
-        /// The list of dependent modules.
-        /// </summary>
-        public List<IModule> DependentModules { get; }
-
-        /// <summary>
-        /// The list of Automapper assemblies.
-        /// </summary>
-        public List<Assembly> AutomapperAssemblies { get; }
-
-        /// <summary>
-        /// The list of view assemblies.
-        /// </summary>
-        public List<Assembly> ViewAssemblies { get; }
     }
 }

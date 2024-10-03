@@ -50,7 +50,7 @@ namespace ServiceBricks.Logging
         public override bool TimerTickShouldProcessRun()
         {
             // AI: Check if the module has started, the timer is not currently running, and there are messages in the queue
-            return ApplicationBuilderExtensions.ModuleStarted &&
+            return LoggingModule.Instance.Started &&
                 !IsCurrentlyRunning &&
                 CustomLogger.MessageQueue.Count > 0;
         }

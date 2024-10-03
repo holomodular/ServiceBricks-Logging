@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFrameworks>net6.0;net7.0;net8.0</TargetFrameworks>
@@ -7,10 +7,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <Compile Include="..\ServiceBricks.Logging.InMemory\Extensions\ApplicationBuilderExtensions.cs" Link="ApplicationBuilderExtensions.cs" />
 	  <Compile Include="..\ServiceBricks.Logging.InMemory\Extensions\ServiceCollectionExtensions.cs" Link="ServiceCollectionExtensions.cs" />
 	  <Compile Include="..\ServiceBricks.Logging.InMemory\Model\LoggingInMemoryContext.cs" Link="LoggingInMemoryContext.cs" />
 	  <Compile Include="..\ServiceBricks.Logging.InMemory\Model\LoggingInMemoryModule.cs" Link="LoggingInMemoryModule.cs" />
+	  <Compile Include="..\ServiceBricks.Logging.InMemory\Rule\LoggingInMemoryModuleAddRule.cs" Link="LoggingInMemoryModuleAddRule.cs" />
 	  <Compile Include="..\ServiceBricks.Logging.InMemory\Storage\LoggingStorageRepository.cs" Link="LoggingStorageRepository.cs" />
 	</ItemGroup>
 
@@ -19,7 +19,7 @@
 	</ItemGroup>
 	
 	<ItemGroup>
-		<PackageReference Include="ServiceBricks.Storage.InMemory" Version="1.1.0-g" />
+		<PackageReference Include="ServiceBricks.Storage.InMemory" Version="1.1.0-l" />
 	</ItemGroup>
 	
 </Project>

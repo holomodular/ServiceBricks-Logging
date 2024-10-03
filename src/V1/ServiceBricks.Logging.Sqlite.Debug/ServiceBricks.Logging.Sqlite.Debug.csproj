@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFrameworks>net6.0;net7.0;net8.0</TargetFrameworks>
@@ -7,7 +7,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <Compile Include="..\ServiceBricks.Logging.Sqlite\Extensions\ApplicationBuilderExtensions.cs" Link="ApplicationBuilderExtensions.cs" />
 	  <Compile Include="..\ServiceBricks.Logging.Sqlite\Extensions\ServiceCollectionExtensions.cs" Link="ServiceCollectionExtensions.cs" />
 	  <Compile Include="..\ServiceBricks.Logging.Sqlite\Migrations\20240913102251_LoggingV1.cs" Link="20240913102251_LoggingV1.cs" />
 	  <Compile Include="..\ServiceBricks.Logging.Sqlite\Migrations\20240913102251_LoggingV1.Designer.cs" Link="20240913102251_LoggingV1.Designer.cs" />
@@ -15,6 +14,7 @@
 	  <Compile Include="..\ServiceBricks.Logging.Sqlite\Model\LoggingSqliteConstants.cs" Link="LoggingSqliteConstants.cs" />
 	  <Compile Include="..\ServiceBricks.Logging.Sqlite\Model\LoggingSqliteContext.cs" Link="LoggingSqliteContext.cs" />
 	  <Compile Include="..\ServiceBricks.Logging.Sqlite\Model\LoggingSqliteModule.cs" Link="LoggingSqliteModule.cs" />
+	  <Compile Include="..\ServiceBricks.Logging.Sqlite\Rule\LoggingSqliteModuleAddRule.cs" Link="LoggingSqliteModuleAddRule.cs" />
 	  <Compile Include="..\ServiceBricks.Logging.Sqlite\Storage\LoggingStorageRepository.cs" Link="LoggingStorageRepository.cs" />
 	</ItemGroup>
 
@@ -23,7 +23,7 @@
   </ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="ServiceBricks.Storage.Sqlite" Version="1.1.0-g" />
+		<PackageReference Include="ServiceBricks.Storage.Sqlite" Version="1.1.0-l" />
 	</ItemGroup>
 	
 </Project>
