@@ -29,7 +29,7 @@ namespace ServiceBricks.Logging.Sqlite
             // AI: Add module business rules
             LoggingSqliteModuleAddRule.Register(BusinessRuleRegistry.Instance);
             ModuleSetStartedRule<LoggingSqliteModule>.Register(BusinessRuleRegistry.Instance);
-            SqliteDatabaseMigrationRule<LoggingSqliteModule, LoggingSqliteContext>.Register(BusinessRuleRegistry.Instance);
+            SqliteDatabaseMigrationRule<LoggingModule, LoggingSqliteContext>.Register(BusinessRuleRegistry.Instance);
 
             return services;
         }

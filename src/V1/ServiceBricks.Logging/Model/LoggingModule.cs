@@ -21,6 +21,11 @@ namespace ServiceBricks.Logging
              {
                  typeof(LoggingModule).Assembly
              };
+            DataTransferObjects = new List<Type>()
+            {
+                typeof(LogMessageDto),
+                typeof(WebRequestMessageDto)
+            };
         }
     }
 }

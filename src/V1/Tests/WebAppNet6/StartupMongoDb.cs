@@ -17,8 +17,9 @@ namespace WebApp
         {
             services.AddServiceBricks(Configuration);
             services.AddServiceBricksLoggingMongoDb(Configuration);
-            services.AddCustomWebsite(Configuration);
+            ModuleRegistry.Instance.Register(new WebApp.Model.WebAppModule()); // Just for automapper registration
             services.AddServiceBricksComplete(Configuration);
+            services.AddCustomWebsite(Configuration);
         }
 
         public virtual void Configure(IApplicationBuilder app, IWebHostEnvironment webHostEnvironment)

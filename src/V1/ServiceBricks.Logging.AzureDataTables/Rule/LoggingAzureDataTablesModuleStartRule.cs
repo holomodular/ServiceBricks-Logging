@@ -11,12 +11,20 @@ namespace ServiceBricks.Logging.AzureDataTables
     public sealed class LoggingAzureDataTablesModuleStartRule : BusinessRule
     {
         /// <summary>
+        /// Constructor.
+        /// </summary>
+        public LoggingAzureDataTablesModuleStartRule()
+        {
+            Priority = PRIORITY_HIGH;
+        }
+
+        /// <summary>
         /// Register the rule
         /// </summary>
         public static void Register(IBusinessRuleRegistry registry)
         {
             registry.Register(
-                typeof(ModuleStartEvent<LoggingAzureDataTablesModule>),
+                typeof(ModuleStartEvent<LoggingModule>),
                 typeof(LoggingAzureDataTablesModuleStartRule));
         }
 
@@ -26,7 +34,7 @@ namespace ServiceBricks.Logging.AzureDataTables
         public static void UnRegister(IBusinessRuleRegistry registry)
         {
             registry.UnRegister(
-                typeof(ModuleStartEvent<LoggingAzureDataTablesModule>),
+                typeof(ModuleStartEvent<LoggingModule>),
                 typeof(LoggingAzureDataTablesModuleStartRule));
         }
 
@@ -45,7 +53,7 @@ namespace ServiceBricks.Logging.AzureDataTables
                 response.AddMessage(ResponseMessage.CreateError(LocalizationResource.PARAMETER_MISSING, "context"));
                 return response;
             }
-            var e = context.Object as ModuleStartEvent<LoggingAzureDataTablesModule>;
+            var e = context.Object as ModuleStartEvent<LoggingModule>;
             if (e == null || e.DomainObject == null || e.ApplicationBuilder == null)
             {
                 response.AddMessage(ResponseMessage.CreateError(LocalizationResource.PARAMETER_MISSING, "context"));

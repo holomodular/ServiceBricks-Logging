@@ -27,7 +27,7 @@ namespace ServiceBricks.Logging.Postgres
             // AI: Add module business rules
             LoggingPostgresModuleAddRule.Register(BusinessRuleRegistry.Instance);
             ModuleSetStartedRule<LoggingPostgresModule>.Register(BusinessRuleRegistry.Instance);
-            PostgresDatabaseMigrationRule<LoggingPostgresModule, LoggingPostgresContext>.Register(BusinessRuleRegistry.Instance);
+            PostgresDatabaseMigrationRule<LoggingModule, LoggingPostgresContext>.Register(BusinessRuleRegistry.Instance);
 
             return services;
         }

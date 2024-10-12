@@ -27,7 +27,7 @@ namespace ServiceBricks.Logging.SqlServer
             // AI: Add module business rules
             LoggingSqlServerModuleAddRule.Register(BusinessRuleRegistry.Instance);
             ModuleSetStartedRule<LoggingSqlServerModule>.Register(BusinessRuleRegistry.Instance);
-            SqlServerDatabaseMigrationRule<LoggingSqlServerModule, LoggingSqlServerContext>.Register(BusinessRuleRegistry.Instance);
+            SqlServerDatabaseMigrationRule<LoggingModule, LoggingSqlServerContext>.Register(BusinessRuleRegistry.Instance);
 
             return services;
         }

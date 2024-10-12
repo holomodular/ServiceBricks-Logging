@@ -26,8 +26,8 @@ namespace ServiceBricks.Logging.Cosmos
 
             // AI: Add module business rules
             LoggingCosmosModuleAddRule.Register(BusinessRuleRegistry.Instance);
-            EntityFrameworkCoreDatabaseEnsureCreatedRule<LoggingCosmosModule, LoggingCosmosContext>.Register(BusinessRuleRegistry.Instance);
             ModuleSetStartedRule<LoggingCosmosModule>.Register(BusinessRuleRegistry.Instance);
+            EntityFrameworkCoreDatabaseEnsureCreatedRule<LoggingModule, LoggingCosmosContext>.Register(BusinessRuleRegistry.Instance);
 
             return services;
         }
