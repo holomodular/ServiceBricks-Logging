@@ -15,7 +15,7 @@ namespace ServiceBricks.Logging.Sqlite.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "8.0.8");
+            modelBuilder.HasAnnotation("ProductVersion", "8.0.10");
 
             modelBuilder.Entity("ServiceBricks.Logging.EntityFrameworkCore.LogMessage", b =>
                 {
@@ -58,7 +58,7 @@ namespace ServiceBricks.Logging.Sqlite.Migrations
 
                     b.HasIndex("Application", "Level", "CreateDate");
 
-                    b.ToTable("LogMessages");
+                    b.ToTable("LogMessage");
                 });
 
             modelBuilder.Entity("ServiceBricks.Logging.EntityFrameworkCore.WebRequestMessage", b =>
@@ -159,7 +159,7 @@ namespace ServiceBricks.Logging.Sqlite.Migrations
 
                     b.HasIndex("Application", "UserStorageKey", "CreateDate");
 
-                    b.ToTable("WebRequestMessages");
+                    b.ToTable("WebRequestMessage");
                 });
 #pragma warning restore 612, 618
         }

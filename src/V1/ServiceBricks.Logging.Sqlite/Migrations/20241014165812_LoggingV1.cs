@@ -11,7 +11,7 @@ namespace ServiceBricks.Logging.Sqlite.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "LogMessages",
+                name: "LogMessage",
                 columns: table => new
                 {
                     Key = table.Column<long>(type: "INTEGER", nullable: false)
@@ -29,11 +29,11 @@ namespace ServiceBricks.Logging.Sqlite.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_LogMessages", x => x.Key);
+                    table.PrimaryKey("PK_LogMessage", x => x.Key);
                 });
 
             migrationBuilder.CreateTable(
-                name: "WebRequestMessages",
+                name: "WebRequestMessage",
                 columns: table => new
                 {
                     Key = table.Column<long>(type: "INTEGER", nullable: false)
@@ -70,17 +70,17 @@ namespace ServiceBricks.Logging.Sqlite.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_WebRequestMessages", x => x.Key);
+                    table.PrimaryKey("PK_WebRequestMessage", x => x.Key);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_LogMessages_Application_Level_CreateDate",
-                table: "LogMessages",
+                name: "IX_LogMessage_Application_Level_CreateDate",
+                table: "LogMessage",
                 columns: new[] { "Application", "Level", "CreateDate" });
 
             migrationBuilder.CreateIndex(
-                name: "IX_WebRequestMessages_Application_UserStorageKey_CreateDate",
-                table: "WebRequestMessages",
+                name: "IX_WebRequestMessage_Application_UserStorageKey_CreateDate",
+                table: "WebRequestMessage",
                 columns: new[] { "Application", "UserStorageKey", "CreateDate" });
         }
 
@@ -88,10 +88,10 @@ namespace ServiceBricks.Logging.Sqlite.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "LogMessages");
+                name: "LogMessage");
 
             migrationBuilder.DropTable(
-                name: "WebRequestMessages");
+                name: "WebRequestMessage");
         }
     }
 }

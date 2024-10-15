@@ -8,8 +8,8 @@
 
 	<ItemGroup>
 	  <Compile Include="..\ServiceBricks.Logging.Postgres\Extensions\ServiceCollectionExtensions.cs" Link="ServiceCollectionExtensions.cs" />
-	  <Compile Include="..\ServiceBricks.Logging.Postgres\Migrations\20240913102131_LoggingV1.cs" Link="20240913102131_LoggingV1.cs" />
-	  <Compile Include="..\ServiceBricks.Logging.Postgres\Migrations\20240913102131_LoggingV1.Designer.cs" Link="20240913102131_LoggingV1.Designer.cs" />
+	  <Compile Include="..\ServiceBricks.Logging.Postgres\Migrations\20241014165653_LoggingV1.cs" Link="20241014165653_LoggingV1.cs" />
+	  <Compile Include="..\ServiceBricks.Logging.Postgres\Migrations\20241014165653_LoggingV1.Designer.cs" Link="20241014165653_LoggingV1.Designer.cs" />
 	  <Compile Include="..\ServiceBricks.Logging.Postgres\Migrations\LoggingPostgresContextModelSnapshot.cs" Link="LoggingPostgresContextModelSnapshot.cs" />
 	  <Compile Include="..\ServiceBricks.Logging.Postgres\Model\LoggingPostgresConstants.cs" Link="LoggingPostgresConstants.cs" />
 	  <Compile Include="..\ServiceBricks.Logging.Postgres\Model\LoggingPostgresContext.cs" Link="LoggingPostgresContext.cs" />

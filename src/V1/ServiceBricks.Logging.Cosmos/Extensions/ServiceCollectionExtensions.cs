@@ -21,6 +21,9 @@ namespace ServiceBricks.Logging.Cosmos
             // AI: Add the parent module
             services.AddServiceBricksLoggingEntityFrameworkCore(configuration);
 
+            // AI: Remove the EFC rule since we are using a different models
+            LoggingEntityFrameworkCoreModuleAddRule.UnRegister(BusinessRuleRegistry.Instance);
+
             // AI: Add the module to the ModuleRegistry
             ModuleRegistry.Instance.Register(LoggingCosmosModule.Instance);
 

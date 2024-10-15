@@ -46,12 +46,12 @@ namespace ServiceBricks.Logging.SqlServer
         /// <summary>
         /// Log Messages.
         /// </summary>
-        public virtual DbSet<LogMessage> LogMessages { get; set; }
+        public virtual DbSet<LogMessage> LogMessage { get; set; }
 
         /// <summary>
         /// Web Request Messages.
         /// </summary>
-        public virtual DbSet<WebRequestMessage> WebRequestMessages { get; set; }
+        public virtual DbSet<WebRequestMessage> WebRequestMessage { get; set; }
 
         /// <summary>
         /// OnModelCreating.

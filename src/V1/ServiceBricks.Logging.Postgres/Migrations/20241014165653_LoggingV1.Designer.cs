@@ -12,7 +12,7 @@ using ServiceBricks.Logging.Postgres;
 namespace ServiceBricks.Logging.Postgres.Migrations
 {
     [DbContext(typeof(LoggingPostgresContext))]
-    [Migration("20240913102131_LoggingV1")]
+    [Migration("20241014165653_LoggingV1")]
     partial class LoggingV1
     {
         /// <inheritdoc />
@@ -21,7 +21,7 @@ namespace ServiceBricks.Logging.Postgres.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasDefaultSchema("Logging")
-                .HasAnnotation("ProductVersion", "8.0.8")
+                .HasAnnotation("ProductVersion", "8.0.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -68,7 +68,7 @@ namespace ServiceBricks.Logging.Postgres.Migrations
 
                     b.HasIndex("Application", "Level", "CreateDate");
 
-                    b.ToTable("LogMessages", "Logging");
+                    b.ToTable("LogMessage", "Logging");
                 });
 
             modelBuilder.Entity("ServiceBricks.Logging.EntityFrameworkCore.WebRequestMessage", b =>
@@ -170,7 +170,7 @@ namespace ServiceBricks.Logging.Postgres.Migrations
 
                     b.HasIndex("Application", "UserStorageKey", "CreateDate");
 
-                    b.ToTable("WebRequestMessages", "Logging");
+                    b.ToTable("WebRequestMessage", "Logging");
                 });
 #pragma warning restore 612, 618
         }

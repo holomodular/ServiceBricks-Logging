@@ -18,7 +18,7 @@ namespace ServiceBricks.Logging.SqlServer.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasDefaultSchema("Logging")
-                .HasAnnotation("ProductVersion", "8.0.8")
+                .HasAnnotation("ProductVersion", "8.0.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -65,7 +65,7 @@ namespace ServiceBricks.Logging.SqlServer.Migrations
 
                     b.HasIndex("Application", "Level", "CreateDate");
 
-                    b.ToTable("LogMessages", "Logging");
+                    b.ToTable("LogMessage", "Logging");
                 });
 
             modelBuilder.Entity("ServiceBricks.Logging.EntityFrameworkCore.WebRequestMessage", b =>
@@ -167,7 +167,7 @@ namespace ServiceBricks.Logging.SqlServer.Migrations
 
                     b.HasIndex("Application", "UserStorageKey", "CreateDate");
 
-                    b.ToTable("WebRequestMessages", "Logging");
+                    b.ToTable("WebRequestMessage", "Logging");
                 });
 #pragma warning restore 612, 618
         }

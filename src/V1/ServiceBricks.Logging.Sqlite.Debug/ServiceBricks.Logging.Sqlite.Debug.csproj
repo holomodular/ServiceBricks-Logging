@@ -8,8 +8,8 @@
 
 	<ItemGroup>
 	  <Compile Include="..\ServiceBricks.Logging.Sqlite\Extensions\ServiceCollectionExtensions.cs" Link="ServiceCollectionExtensions.cs" />
-	  <Compile Include="..\ServiceBricks.Logging.Sqlite\Migrations\20240913102251_LoggingV1.cs" Link="20240913102251_LoggingV1.cs" />
-	  <Compile Include="..\ServiceBricks.Logging.Sqlite\Migrations\20240913102251_LoggingV1.Designer.cs" Link="20240913102251_LoggingV1.Designer.cs" />
+	  <Compile Include="..\ServiceBricks.Logging.Sqlite\Migrations\20241014165812_LoggingV1.cs" Link="20241014165812_LoggingV1.cs" />
+	  <Compile Include="..\ServiceBricks.Logging.Sqlite\Migrations\20241014165812_LoggingV1.Designer.cs" Link="20241014165812_LoggingV1.Designer.cs" />
 	  <Compile Include="..\ServiceBricks.Logging.Sqlite\Migrations\LoggingSqliteContextModelSnapshot.cs" Link="LoggingSqliteContextModelSnapshot.cs" />
 	  <Compile Include="..\ServiceBricks.Logging.Sqlite\Model\LoggingSqliteConstants.cs" Link="LoggingSqliteConstants.cs" />
 	  <Compile Include="..\ServiceBricks.Logging.Sqlite\Model\LoggingSqliteContext.cs" Link="LoggingSqliteContext.cs" />

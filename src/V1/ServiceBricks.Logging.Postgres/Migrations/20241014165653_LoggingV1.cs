@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
@@ -15,7 +16,7 @@ namespace ServiceBricks.Logging.Postgres.Migrations
                 name: "Logging");
 
             migrationBuilder.CreateTable(
-                name: "LogMessages",
+                name: "LogMessage",
                 schema: "Logging",
                 columns: table => new
                 {
@@ -34,11 +35,11 @@ namespace ServiceBricks.Logging.Postgres.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_LogMessages", x => x.Key);
+                    table.PrimaryKey("PK_LogMessage", x => x.Key);
                 });
 
             migrationBuilder.CreateTable(
-                name: "WebRequestMessages",
+                name: "WebRequestMessage",
                 schema: "Logging",
                 columns: table => new
                 {
@@ -76,19 +77,19 @@ namespace ServiceBricks.Logging.Postgres.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_WebRequestMessages", x => x.Key);
+                    table.PrimaryKey("PK_WebRequestMessage", x => x.Key);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_LogMessages_Application_Level_CreateDate",
+                name: "IX_LogMessage_Application_Level_CreateDate",
                 schema: "Logging",
-                table: "LogMessages",
+                table: "LogMessage",
                 columns: new[] { "Application", "Level", "CreateDate" });
 
             migrationBuilder.CreateIndex(
-                name: "IX_WebRequestMessages_Application_UserStorageKey_CreateDate",
+                name: "IX_WebRequestMessage_Application_UserStorageKey_CreateDate",
                 schema: "Logging",
-                table: "WebRequestMessages",
+                table: "WebRequestMessage",
                 columns: new[] { "Application", "UserStorageKey", "CreateDate" });
         }
 
@@ -96,11 +97,11 @@ namespace ServiceBricks.Logging.Postgres.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "LogMessages",
+                name: "LogMessage",
                 schema: "Logging");
 
             migrationBuilder.DropTable(
-                name: "WebRequestMessages",
+                name: "WebRequestMessage",
                 schema: "Logging");
         }
     }
