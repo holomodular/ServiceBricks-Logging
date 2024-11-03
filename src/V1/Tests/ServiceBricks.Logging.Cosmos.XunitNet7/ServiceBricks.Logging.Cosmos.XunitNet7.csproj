@@ -24,7 +24,6 @@
 
 
 	<ItemGroup>
-	  <ProjectReference Include="..\..\ServiceBricks.Logging.Cosmos.Debug\ServiceBricks.Logging.Cosmos.Debug.csproj" />
 	  <ProjectReference Include="..\ServiceBricks.Logging.XunitNet7\ServiceBricks.Logging.XunitNet7.csproj" />
 	</ItemGroup>
 
@@ -45,5 +44,8 @@
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 	</ItemGroup>
-
+	<ItemGroup>
+		<ProjectReference Include="..\ServiceBricks.Logging.XunitNet7\ServiceBricks.Logging.XunitNet7.csproj" />
+		<ProjectReference Include="..\..\ServiceBricks.Logging.Cosmos\ServiceBricks.Logging.Cosmos.csproj" />
+	</ItemGroup>
 </Project>

@@ -23,13 +23,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-
-
-	<ItemGroup>
-	  <ProjectReference Include="..\..\ServiceBricks.Logging.MongoDb.Debug\ServiceBricks.Logging.MongoDb.Debug.csproj" />
-	  <ProjectReference Include="..\ServiceBricks.Logging.XunitNet6\ServiceBricks.Logging.XunitNet6.csproj" />
-	</ItemGroup>
-
 	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
 		<PackageReference Include="Microsoft.AspNetCore.TestHost" Version="6.0.35" />
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
@@ -47,5 +40,9 @@
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 	</ItemGroup>
-	
+
+	<ItemGroup>
+		<ProjectReference Include="..\ServiceBricks.Logging.XunitNet6\ServiceBricks.Logging.XunitNet6.csproj" />
+		<ProjectReference Include="..\..\ServiceBricks.Logging.MongoDb\ServiceBricks.Logging.MongoDb.csproj" />
+	</ItemGroup>
 </Project>

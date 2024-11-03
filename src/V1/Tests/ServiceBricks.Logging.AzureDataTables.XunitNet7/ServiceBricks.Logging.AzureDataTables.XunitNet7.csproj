@@ -22,12 +22,6 @@
     </Content>
   </ItemGroup>
 
-
-	<ItemGroup>
-	  <ProjectReference Include="..\..\ServiceBricks.Logging.AzureDataTables.Debug\ServiceBricks.Logging.AzureDataTables.Debug.csproj" />
-	  <ProjectReference Include="..\ServiceBricks.Logging.XunitNet7\ServiceBricks.Logging.XunitNet7.csproj" />
-	</ItemGroup>
-
 	<ItemGroup Condition="'$(TargetFramework)' == 'net7.0'">
 		<PackageReference Include="Microsoft.AspNetCore.TestHost" Version="7.0.20" />
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
@@ -45,5 +39,8 @@
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 	</ItemGroup>
-	
+	<ItemGroup>
+		<ProjectReference Include="..\ServiceBricks.Logging.XunitNet7\ServiceBricks.Logging.XunitNet7.csproj" />
+		<ProjectReference Include="..\..\ServiceBricks.Logging.AzureDataTables\ServiceBricks.Logging.AzureDataTables.csproj" />
+	</ItemGroup>
 </Project>

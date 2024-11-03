@@ -17,11 +17,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="ServiceBricks.Xunit" Version="1.1.0-m" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <ProjectReference Include="..\..\ServiceBricks.Logging.Debug\ServiceBricks.Logging.Debug.csproj" />
+		<PackageReference Include="ServiceBricks.Xunit" Version="1.1.0-o" />
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net7.0'">
@@ -41,5 +37,7 @@
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 	</ItemGroup>
-	
+	<ItemGroup>
+		<ProjectReference Include="..\..\ServiceBricks.Logging\ServiceBricks.Logging.csproj" />
+	</ItemGroup>
 </Project>

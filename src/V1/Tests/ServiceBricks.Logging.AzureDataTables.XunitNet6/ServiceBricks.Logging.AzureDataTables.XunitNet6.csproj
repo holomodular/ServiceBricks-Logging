@@ -23,11 +23,6 @@
   </ItemGroup>
 
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\ServiceBricks.Logging.AzureDataTables.Debug\ServiceBricks.Logging.AzureDataTables.Debug.csproj" />
-    <ProjectReference Include="..\ServiceBricks.Logging.XunitNet6\ServiceBricks.Logging.XunitNet6.csproj" />
-  </ItemGroup>
-
 	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
 		<PackageReference Include="Microsoft.AspNetCore.TestHost" Version="6.0.35" />
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
@@ -44,5 +39,10 @@
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\ServiceBricks.Logging.XunitNet6\ServiceBricks.Logging.XunitNet6.csproj" />
+		<ProjectReference Include="..\..\ServiceBricks.Logging.AzureDataTables\ServiceBricks.Logging.AzureDataTables.csproj" />
 	</ItemGroup>
 </Project>

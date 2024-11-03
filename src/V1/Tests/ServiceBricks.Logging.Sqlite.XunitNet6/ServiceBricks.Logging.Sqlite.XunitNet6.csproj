@@ -24,7 +24,6 @@
 
 
 	<ItemGroup>
-	  <ProjectReference Include="..\..\ServiceBricks.Logging.Sqlite.Debug\ServiceBricks.Logging.Sqlite.Debug.csproj" />
 	  <ProjectReference Include="..\ServiceBricks.Logging.XunitNet6\ServiceBricks.Logging.XunitNet6.csproj" />
 	</ItemGroup>
 
@@ -45,5 +44,8 @@
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 	</ItemGroup>
-	
+	<ItemGroup>
+		<ProjectReference Include="..\ServiceBricks.Logging.XunitNet6\ServiceBricks.Logging.XunitNet6.csproj" />
+		<ProjectReference Include="..\..\ServiceBricks.Logging.Sqlite\ServiceBricks.Logging.Sqlite.csproj" />
+	</ItemGroup>
 </Project>

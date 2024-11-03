@@ -22,13 +22,6 @@
     </Content>
   </ItemGroup>
 
-
-
-	<ItemGroup>
-	  <ProjectReference Include="..\..\ServiceBricks.Logging.Cosmos.Debug\ServiceBricks.Logging.Cosmos.Debug.csproj" />
-	  <ProjectReference Include="..\ServiceBricks.Logging.XunitNet8\ServiceBricks.Logging.XunitNet8.csproj" />
-	</ItemGroup>
-
 	<ItemGroup Condition="'$(TargetFramework)' == 'net8.0'">
 		<PackageReference Include="Microsoft.AspNetCore.TestHost" Version="8.0.10" />
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
@@ -46,5 +39,8 @@
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 	</ItemGroup>
-	
+	<ItemGroup>
+		<ProjectReference Include="..\ServiceBricks.Logging.XunitNet8\ServiceBricks.Logging.XunitNet8.csproj" />
+		<ProjectReference Include="..\..\ServiceBricks.Logging.Cosmos\ServiceBricks.Logging.Cosmos.csproj" />
+	</ItemGroup>
 </Project>

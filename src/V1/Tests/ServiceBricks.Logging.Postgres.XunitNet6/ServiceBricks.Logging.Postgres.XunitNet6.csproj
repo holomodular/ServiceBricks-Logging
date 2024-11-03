@@ -26,7 +26,6 @@
 
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\ServiceBricks.Logging.Postgres.Debug\ServiceBricks.Logging.Postgres.Debug.csproj" />
 		<ProjectReference Include="..\ServiceBricks.Logging.XunitNet6\ServiceBricks.Logging.XunitNet6.csproj" />
 	</ItemGroup>
 
@@ -47,5 +46,8 @@
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 	</ItemGroup>
-	
+	<ItemGroup>
+		<ProjectReference Include="..\ServiceBricks.Logging.XunitNet6\ServiceBricks.Logging.XunitNet6.csproj" />
+		<ProjectReference Include="..\..\ServiceBricks.Logging.Postgres\ServiceBricks.Logging.Postgres.csproj" />
+	</ItemGroup>
 </Project>

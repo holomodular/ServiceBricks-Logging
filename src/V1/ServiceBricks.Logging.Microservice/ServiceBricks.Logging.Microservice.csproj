@@ -1,0 +1,82 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<Version>1.1.0-o</Version>
+		<Description>The open source microservices platform. Visit https://ServiceBricks.com to learn more.</Description>
+		<PackageId>ServiceBricks.Logging.Microservice</PackageId>
+		<Title>ServiceBricks.Logging.Microservice</Title>
+		<AssemblyTitle>ServiceBricks.Logging.Microservice</AssemblyTitle>
+		<Authors>holomodular</Authors>
+		<Company>HoloModular LLC</Company>
+		<Product>ServiceBricks</Product>
+		<TargetFrameworks>net6.0;net7.0;net8.0</TargetFrameworks>
+		<Nullable>disable</Nullable>
+		<Copyright>Copyright © 2024 HoloModular LLC. All Rights Reserved. Visit https://HoloModular.com to learn more.</Copyright>
+		<PackageProjectUrl>https://ServiceBricks.com</PackageProjectUrl>
+		<PackageIcon>logo.png</PackageIcon>
+		<PackageTags>servicebricks;logging;microservice</PackageTags>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<SignAssembly>True</SignAssembly>
+		<AssemblyOriginatorKeyFile>Resource\ServiceBricks.Logging.Microservice.snk</AssemblyOriginatorKeyFile>
+		<PackageReadmeFile>readme.md</PackageReadmeFile>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
+		<RepositoryType>git</RepositoryType>
+		<RepositoryUrl>https://github.com/holomodular/ServiceBricks-Logging</RepositoryUrl>
+		<TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);CopyProjectReferencesToPackage</TargetsForTfmSpecificBuildOutput>
+		<IsPackable>True</IsPackable>
+	</PropertyGroup>
+	<ItemGroup>
+		<None Include="Resource\readme.md" Pack="True" PackagePath="\" />
+		<None Include="Resource\logo.png">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="ServiceBricks.Core" Version="1.1.0-o" />
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\ServiceBricks.Logging\ServiceBricks.Logging.csproj" PrivateAssets="All">
+			<ReferenceOutputAssembly>true</ReferenceOutputAssembly>
+			<IncludeAssets>ServiceBricks.Logging.dll</IncludeAssets>
+		</ProjectReference>
+		<ProjectReference Include="..\ServiceBricks.Logging.AzureDataTables\ServiceBricks.Logging.AzureDataTables.csproj" PrivateAssets="All">
+			<ReferenceOutputAssembly>true</ReferenceOutputAssembly>
+			<IncludeAssets>ServiceBricks.Logging.AzureDataTables.dll</IncludeAssets>
+		</ProjectReference>
+		<ProjectReference Include="..\ServiceBricks.Logging.Cosmos\ServiceBricks.Logging.Cosmos.csproj" PrivateAssets="All">
+			<ReferenceOutputAssembly>true</ReferenceOutputAssembly>
+			<IncludeAssets>ServiceBricks.Logging.Cosmos.dll</IncludeAssets>
+		</ProjectReference>
+		<ProjectReference Include="..\ServiceBricks.Logging.EntityFrameworkCore\ServiceBricks.Logging.EntityFrameworkCore.csproj" PrivateAssets="All">
+			<ReferenceOutputAssembly>true</ReferenceOutputAssembly>
+			<IncludeAssets>ServiceBricks.Logging.EntityFrameworkCore.dll</IncludeAssets>
+		</ProjectReference>
+		<ProjectReference Include="..\ServiceBricks.Logging.InMemory\ServiceBricks.Logging.InMemory.csproj" PrivateAssets="All">
+			<ReferenceOutputAssembly>true</ReferenceOutputAssembly>
+			<IncludeAssets>ServiceBricks.Logging.InMemory.dll</IncludeAssets>
+		</ProjectReference>
+		<ProjectReference Include="..\ServiceBricks.Logging.MongoDb\ServiceBricks.Logging.MongoDb.csproj" PrivateAssets="All">
+			<ReferenceOutputAssembly>true</ReferenceOutputAssembly>
+			<IncludeAssets>ServiceBricks.Logging.MongoDb.dll</IncludeAssets>
+		</ProjectReference>
+		<ProjectReference Include="..\ServiceBricks.Logging.Postgres\ServiceBricks.Logging.Postgres.csproj" PrivateAssets="All">
+			<ReferenceOutputAssembly>true</ReferenceOutputAssembly>
+			<IncludeAssets>ServiceBricks.Logging.Postgres.dll</IncludeAssets>
+		</ProjectReference>
+		<ProjectReference Include="..\ServiceBricks.Logging.Sqlite\ServiceBricks.Logging.Sqlite.csproj" PrivateAssets="All">
+			<ReferenceOutputAssembly>true</ReferenceOutputAssembly>
+			<IncludeAssets>ServiceBricks.Logging.Sqlite.dll</IncludeAssets>
+		</ProjectReference>
+		<ProjectReference Include="..\ServiceBricks.Logging.SqlServer\ServiceBricks.Logging.SqlServer.csproj" PrivateAssets="All">
+			<ReferenceOutputAssembly>true</ReferenceOutputAssembly>
+			<IncludeAssets>ServiceBricks.Logging.SqlServer.dll</IncludeAssets>
+		</ProjectReference>
+	</ItemGroup>
+	<Target DependsOnTargets="ResolveReferences" Name="CopyProjectReferencesToPackage">
+		<ItemGroup>
+			<BuildOutputInPackage Include="@(ReferenceCopyLocalPaths->WithMetadataValue('ReferenceSourceTarget', 'ProjectReference'))"/>
+		</ItemGroup>
+	</Target>
+</Project>

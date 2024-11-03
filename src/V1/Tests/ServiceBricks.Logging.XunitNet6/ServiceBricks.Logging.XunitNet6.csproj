@@ -17,12 +17,8 @@
   </ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="ServiceBricks.Xunit" Version="1.1.0-m" />
+		<PackageReference Include="ServiceBricks.Xunit" Version="1.1.0-o" />
 	</ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\ServiceBricks.Logging.Debug\ServiceBricks.Logging.Debug.csproj" />
-  </ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
 		<PackageReference Include="Microsoft.AspNetCore.TestHost" Version="6.0.35" />
@@ -41,5 +37,8 @@
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 	</ItemGroup>
-	
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\ServiceBricks.Logging\ServiceBricks.Logging.csproj" />
+	</ItemGroup>
 </Project>
