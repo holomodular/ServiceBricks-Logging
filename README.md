@@ -1,6 +1,6 @@
 ![ServiceBricks Logo](https://github.com/holomodular/ServiceBricks/blob/main/Logo.png)  
 
-[![NuGet version](https://badge.fury.io/nu/ServiceBricks.Logging.svg)](https://badge.fury.io/nu/ServiceBricks.Logging.Microservice)
+[![NuGet version](https://badge.fury.io/nu/ServiceBricks.Logging.Microservice.svg)](https://badge.fury.io/nu/ServiceBricks.Logging.Microservice)
 ![badge](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/holomodular-support/2214c3b2c703476cbafeb647eb655fc8/raw/servicebrickslogging-codecoverage.json)
 [![License: MIT](https://img.shields.io/badge/License-MIT-389DA0.svg)](https://opensource.org/licenses/MIT)
 
