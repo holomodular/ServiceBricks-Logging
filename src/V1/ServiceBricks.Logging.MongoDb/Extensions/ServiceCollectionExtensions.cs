@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using ServiceBricks.Storage.MongoDb;
 
 namespace ServiceBricks.Logging.MongoDb
 {
@@ -24,6 +25,7 @@ namespace ServiceBricks.Logging.MongoDb
 
             // AI: Add module business rules
             LoggingMongoDbModuleAddRule.Register(BusinessRuleRegistry.Instance);
+            MongoDbGuidSerializerStandardRule.Register(BusinessRuleRegistry.Instance);
             ModuleSetStartedRule<LoggingMongoDbModule>.Register(BusinessRuleRegistry.Instance);
 
             return services;
