@@ -154,7 +154,7 @@ namespace ServiceBricks.Logging
                 responseContentLength = Encoding.UTF8.GetBytes(_responseBody).Length;
 
             // AI: Create record in the WebRequestMessageDto API service
-            await _webRequestMessageApiService.CreateAsync(new WebRequestMessageDto()
+            var msg = new WebRequestMessageDto()
             {
                 CreateDate = DateTimeOffset.UtcNow,
                 Application = _applicationOptions.Name,
@@ -185,7 +185,8 @@ namespace ServiceBricks.Logging
                 ResponseStatusCode = _webRequestOptions.EnableResponseStatusCode ? context.Response.StatusCode : null,
                 ResponseTotalMilliseconds = _webRequestOptions.EnableResponseTotalMilliseconds ? _watch.ElapsedMilliseconds : null,
                 Exception = _webRequestOptions.EnableExceptions && exception != null ? exception.ToString() : null
-            });
+            };
+            WebRequestMessageLogger.MessageQueue.Enqueue(msg);
         }
 
         /// <summary>
@@ -197,12 +198,12 @@ namespace ServiceBricks.Logging
         {
             // AI: Enable buffering to read the body
             request.EnableBuffering();
-            var buffer = new byte[Convert.ToInt32(request.ContentLength)];
-            await request.Body.ReadAsync(buffer, 0, buffer.Length);
-            var bodyAsText = Encoding.UTF8.GetString(buffer);
+            // do not add using statement, will dispose stream
+            StreamReader sr = new StreamReader(request.Body);
+            string text = await sr.ReadToEndAsync();
             if (request.Body.CanSeek)
                 request.Body.Position = 0;
-            return bodyAsText;
+            return text;
         }
 
         /// <summary>
@@ -214,7 +215,9 @@ namespace ServiceBricks.Logging
         {
             // AI: Get the response body
             response.Body.Seek(0, SeekOrigin.Begin);
-            string text = await new StreamReader(response.Body).ReadToEndAsync();
+            // do not add using statement, will dispose stream
+            var sr = new StreamReader(response.Body);
+            string text = await sr.ReadToEndAsync();
             response.Body.Seek(0, SeekOrigin.Begin);
             return text;
         }

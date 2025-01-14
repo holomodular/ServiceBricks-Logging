@@ -58,9 +58,11 @@ namespace ServiceBricks.Logging
 
             // AI: Add hosted services for the module
             services.AddHostedService<CustomLoggerWriteMessageTimer>();
+            services.AddHostedService<WebRequestMessageWriteTimer>();
 
             // AI: Add workers for tasks in the module
             services.AddScoped<CustomLoggerWriteMessageTask.Worker>();
+            services.AddScoped<WebRequestMessageWriteTask.Worker>();
 
             // AI: Configure all options for the module
             services.Configure<WebRequestMessageOptions>(configuration.GetSection(LoggingConstants.APPSETTING_WEBREQUESTMESSAGE));

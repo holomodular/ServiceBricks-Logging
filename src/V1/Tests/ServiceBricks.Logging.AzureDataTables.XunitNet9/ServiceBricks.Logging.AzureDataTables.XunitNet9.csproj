@@ -1,0 +1,48 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\TestFiles\LogMessageApiControllerTestAzureDataTables.cs" Link="LogMessageApiControllerTestAzureDataTables.cs" />
+    <Compile Include="..\TestFiles\MappingTestAzureDataTables.cs" Link="MappingTestAzureDataTables.cs" />
+    <Compile Include="..\TestFiles\StartupAzureDataTables.cs" Link="StartupAzureDataTables.cs" />
+	  <Compile Include="..\TestFiles\WebRequestMessageApiControllerTestAzureDataTables.cs" Link="WebRequestMessageApiControllerTestAzureDataTables.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="..\TestFiles\appsettings.json" Link="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'net9.0'">
+		<PackageReference Include="Microsoft.AspNetCore.TestHost" Version="9.0.0" />
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
+		<PackageReference Include="xunit" Version="2.9.3" />
+		<PackageReference Include="xunit.runner.visualstudio" Version="3.0.1">
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+			<PrivateAssets>all</PrivateAssets>
+		</PackageReference>
+		<PackageReference Include="coverlet.collector" Version="6.0.3">
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+			<PrivateAssets>all</PrivateAssets>
+		</PackageReference>
+		<PackageReference Include="coverlet.msbuild" Version="6.0.3">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\ServiceBricks.Logging.XunitNet8\ServiceBricks.Logging.XunitNet8.csproj" />
+		<ProjectReference Include="..\..\ServiceBricks.Logging.AzureDataTables\ServiceBricks.Logging.AzureDataTables.csproj" />
+	</ItemGroup>
+	
+</Project>

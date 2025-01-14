@@ -1,3 +1,17 @@
+# 1.2.0
+- Upgrade ServiceBricks Version and all related packages to latest version
+- Fix for WebRequestMessage to write to in-memory queue and save on background timer and task, same as CustomLogger
+- Remove resources folder from webapp projects
+
+# 1.1.3
+- Upgrade ServiceBricks Version
+
+# 1.1.2
+- Upgrade ServiceBricks Version
+
+# 1.1.1
+- Upgrade ServiceBricks Version
+
 # 1.1.0
 - Official Production Release
 

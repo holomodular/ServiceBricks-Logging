@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using ServiceBricks.Storage.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace ServiceBricks.Logging.Cosmos
 {
@@ -58,13 +59,24 @@ namespace ServiceBricks.Logging.Cosmos
             // AI: Create the model for each table
             builder.Entity<LogMessage>().HasKey(p => p.Key);
             builder.Entity<LogMessage>().HasPartitionKey(p => p.PartitionKey);
-            builder.Entity<LogMessage>().HasIndex(key => new { key.Application, key.Level, key.CreateDate });
             builder.Entity<LogMessage>().ToContainer(LoggingCosmosConstants.GetContainerName(nameof(LogMessage)));
 
             builder.Entity<WebRequestMessage>().HasKey(p => p.Key);
             builder.Entity<WebRequestMessage>().HasPartitionKey(p => p.PartitionKey);
-            builder.Entity<WebRequestMessage>().HasIndex(key => new { key.Application, key.UserStorageKey, key.CreateDate });
             builder.Entity<WebRequestMessage>().ToContainer(LoggingCosmosConstants.GetContainerName(nameof(WebRequestMessage)));
+        }
+
+        /// <summary>
+        /// OnConfiguring
+        /// </summary>
+        /// <param name="optionsBuilder"></param>
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+#if NET9_0
+            optionsBuilder.ConfigureWarnings(w => w.Ignore(CosmosEventId.SyncNotSupported));
+#endif
+
+            base.OnConfiguring(optionsBuilder);
         }
 
         /// <summary>
