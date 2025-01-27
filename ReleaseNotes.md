@@ -1,3 +1,6 @@
+v1.3.0-a prerelease
+- Update all nuget package references
+
 # 1.2.0
 - Upgrade ServiceBricks Version and all related packages to latest version
 - Fix for WebRequestMessage to write to in-memory queue and save on background timer and task, same as CustomLogger

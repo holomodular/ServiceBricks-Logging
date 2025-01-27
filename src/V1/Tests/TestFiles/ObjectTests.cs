@@ -227,5 +227,37 @@ namespace ServiceBricks.Xunit
             // Assert
             Assert.True(response.Success);
         }
+
+        [Fact]
+        public virtual Task ModuleTests()
+        {
+            LoggingModule module = new LoggingModule();
+
+            var dep = module.DependentModules;
+            var au = module.AutomapperAssemblies;
+            var vi = module.ViewAssemblies;
+
+            return Task.CompletedTask;
+        }
+
+        [Fact]
+        public virtual Task AddLoggingClientTests()
+        {
+            IServiceCollection services = new ServiceCollection();
+            IConfiguration config = new ConfigurationBuilder().Build();
+
+            services.AddServiceBricksLoggingClient(config);
+            return Task.CompletedTask;
+        }
+
+        [Fact]
+        public virtual Task AddLoggingClientForServiceTests()
+        {
+            IServiceCollection services = new ServiceCollection();
+            IConfiguration config = new ConfigurationBuilder().Build();
+
+            services.AddServiceBricksLoggingClientForService(config);
+            return Task.CompletedTask;
+        }
     }
 }
