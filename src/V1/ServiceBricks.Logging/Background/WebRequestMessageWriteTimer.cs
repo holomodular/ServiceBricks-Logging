@@ -17,22 +17,8 @@ namespace ServiceBricks.Logging
             IServiceProvider serviceProvider,
             ILoggerFactory logger) : base(serviceProvider, logger)
         {
-        }
-
-        /// <summary>
-        /// The interval at which the timer will tick.
-        /// </summary>
-        public override TimeSpan TimerTickInterval
-        {
-            get { return TimeSpan.FromSeconds(1); }
-        }
-
-        /// <summary>
-        /// The initial delay before the timer will tick.
-        /// </summary>
-        public override TimeSpan TimerDueTime
-        {
-            get { return TimeSpan.FromSeconds(1); }
+            TimerTickInterval = TimeSpan.FromSeconds(1);
+            TimerDueTime = TimeSpan.FromSeconds(1);
         }
 
         /// <summary>

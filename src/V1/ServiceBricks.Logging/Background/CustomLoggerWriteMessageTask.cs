@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 
 namespace ServiceBricks.Logging
 {
@@ -79,7 +78,7 @@ namespace ServiceBricks.Logging
                                 Server = msg.Server,
                                 UserStorageKey = msg.UserStorageKey,
                                 Path = msg.Path,
-                                Properties = msg.Properties != null ? JsonConvert.SerializeObject(msg.Properties) : null
+                                Properties = msg.Properties != null ? JsonSerializer.Instance.SerializeObject(msg.Properties) : null
                             };
 
                             // AI: Create record

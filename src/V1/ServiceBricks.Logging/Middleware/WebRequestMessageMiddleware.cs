@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
 using System.Diagnostics;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -164,24 +163,24 @@ namespace ServiceBricks.Logging
                 RequestBody = _webRequestOptions.EnableRequestBody || (_webRequestOptions.EnableRequestBodyOnError && exception != null) ? _requestBody : null,
                 RequestContentLength = _webRequestOptions.EnableRequestContentLength ? context.Request.ContentLength : null,
                 RequestContentType = _webRequestOptions.EnableRequestContentType ? context.Request.ContentType : null,
-                RequestCookies = _webRequestOptions.EnableRequestCookies && context.Request.Cookies != null ? JsonConvert.SerializeObject(context.Request.Cookies) : null,
+                RequestCookies = _webRequestOptions.EnableRequestCookies && context.Request.Cookies != null ? JsonSerializer.Instance.SerializeObject(context.Request.Cookies) : null,
                 RequestHasFormContentType = _webRequestOptions.EnableRequestHasFormContentType ? context.Request.HasFormContentType : new Nullable<bool>(),
-                RequestHeaders = _webRequestOptions.EnableRequestHeaders && context.Request.Headers != null ? JsonConvert.SerializeObject(context.Request.Headers) : null,
-                RequestHost = _webRequestOptions.EnableRequestHost ? JsonConvert.SerializeObject(context.Request.Host) : null,
+                RequestHeaders = _webRequestOptions.EnableRequestHeaders && context.Request.Headers != null ? JsonSerializer.Instance.SerializeObject(context.Request.Headers) : null,
+                RequestHost = _webRequestOptions.EnableRequestHost ? JsonSerializer.Instance.SerializeObject(context.Request.Host) : null,
                 RequestIsHttps = _webRequestOptions.EnableRequestIsHttps ? context.Request.IsHttps : null,
                 RequestMethod = _webRequestOptions.EnableRequestMethod ? context.Request.Method : null,
                 RequestPath = _webRequestOptions.EnableRequestPath && context.Request.Path.HasValue ? context.Request.Path.Value : null,
                 RequestPathBase = _webRequestOptions.EnableRequestPathBase && context.Request.PathBase.HasValue ? context.Request.PathBase.Value : null,
                 RequestProtocol = _webRequestOptions.EnableRequestProtocol ? context.Request.Protocol : null,
-                RequestQuery = _webRequestOptions.EnableRequestQuery && context.Request.Query != null ? JsonConvert.SerializeObject(context.Request.Query) : null,
+                RequestQuery = _webRequestOptions.EnableRequestQuery && context.Request.Query != null ? JsonSerializer.Instance.SerializeObject(context.Request.Query) : null,
                 RequestQueryString = _webRequestOptions.EnableRequestQueryString && context.Request.QueryString.HasValue ? context.Request.QueryString.Value : null,
-                RequestRouteValues = _webRequestOptions.EnableRequestRouteValues && context.Request.RouteValues != null ? JsonConvert.SerializeObject(context.Request.RouteValues) : null,
+                RequestRouteValues = _webRequestOptions.EnableRequestRouteValues && context.Request.RouteValues != null ? JsonSerializer.Instance.SerializeObject(context.Request.RouteValues) : null,
                 RequestScheme = _webRequestOptions.EnableRequestScheme ? context.Request.Scheme : null,
                 ResponseBody = _webRequestOptions.EnableResponseBody ? _responseBody : null,
                 ResponseContentLength = _webRequestOptions.EnableResponseContentLength ? responseContentLength : null,
                 ResponseContentType = _webRequestOptions.EnableResponseContentType ? context.Response.ContentType : null,
-                ResponseCookies = _webRequestOptions.EnableResponseCookies && context.Response.Cookies != null ? JsonConvert.SerializeObject(context.Response.Cookies) : null,
-                ResponseHeaders = _webRequestOptions.EnableResponseHeaders && context.Response.Headers != null ? JsonConvert.SerializeObject(context.Response.Headers) : null,
+                ResponseCookies = _webRequestOptions.EnableResponseCookies && context.Response.Cookies != null ? JsonSerializer.Instance.SerializeObject(context.Response.Cookies) : null,
+                ResponseHeaders = _webRequestOptions.EnableResponseHeaders && context.Response.Headers != null ? JsonSerializer.Instance.SerializeObject(context.Response.Headers) : null,
                 ResponseStatusCode = _webRequestOptions.EnableResponseStatusCode ? context.Response.StatusCode : null,
                 ResponseTotalMilliseconds = _webRequestOptions.EnableResponseTotalMilliseconds ? _watch.ElapsedMilliseconds : null,
                 Exception = _webRequestOptions.EnableExceptions && exception != null ? exception.ToString() : null
