@@ -14,10 +14,6 @@ namespace ServiceBricks.Logging.EntityFrameworkCore
         /// </summary>
         public LoggingEntityFrameworkCoreModule()
         {
-            AutomapperAssemblies = new List<Assembly>()
-            {
-                typeof(LoggingEntityFrameworkCoreModule).Assembly
-            };
             DependentModules = new List<IModule>()
             {
                 new LoggingModule()

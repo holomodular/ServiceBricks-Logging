@@ -1,6 +1,4 @@
-﻿using AutoMapper;
-
-namespace ServiceBricks.Logging.MongoDb
+﻿namespace ServiceBricks.Logging.MongoDb
 {
     /// <summary>
     /// This is an API service for the LogMessage domain object.

@@ -1,3 +1,9 @@
+# 1.4.0-a
+- Net10 support and update nuget packages
+- Upgrade mapping profiles
+- Cosmos context changes
+- Fix WebRequestMessageMiddleware when logging not enabled
+
 # 1.3.0
 - Rollup quarterly release. See previous release notes.
 

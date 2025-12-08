@@ -1,6 +1,4 @@
-﻿using AutoMapper;
-
-namespace ServiceBricks.Logging.AzureDataTables
+﻿namespace ServiceBricks.Logging.AzureDataTables
 {
     /// <summary>
     /// This is a REST API service for the LogMessage domain object.

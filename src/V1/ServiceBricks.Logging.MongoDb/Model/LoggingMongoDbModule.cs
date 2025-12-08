@@ -17,10 +17,6 @@ namespace ServiceBricks.Logging.MongoDb
         /// </summary>
         public LoggingMongoDbModule()
         {
-            AutomapperAssemblies = new List<Assembly>()
-            {
-                typeof(LoggingMongoDbModule).Assembly
-            };
             DependentModules = new List<IModule>()
             {
                 new LoggingModule()

@@ -1,5 +1,5 @@
 ﻿using Asp.Versioning;
-using Microsoft.OpenApi.Models;
+using Microsoft.OpenApi;
 using ServiceBricks;
 using WebApp.Model;
 
@@ -14,7 +14,7 @@ namespace WebApp.Extensions
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddCors();
 
-            // Add Authorization
+            // Add Authorization, disable all security policies
             services.AddAuthorization(options =>
             {
                 //Add Built-in Security Policies

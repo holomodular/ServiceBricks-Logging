@@ -18,10 +18,6 @@ namespace ServiceBricks.Logging.Cosmos
         /// </summary>
         public LoggingCosmosModule()
         {
-            AutomapperAssemblies = new List<Assembly>()
-            {
-                typeof(LoggingCosmosModule).Assembly
-            };
             DependentModules = new List<IModule>()
             {
                 new LoggingEntityFrameworkCoreModule()

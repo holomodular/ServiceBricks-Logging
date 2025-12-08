@@ -1,6 +1,4 @@
-﻿using System.Reflection;
-
-namespace ServiceBricks.Logging
+﻿namespace ServiceBricks.Logging
 {
     /// <summary>
     /// This is the module definition for the ServiceBricks Logging module.
@@ -17,10 +15,6 @@ namespace ServiceBricks.Logging
         /// </summary>
         public LoggingModule()
         {
-            AutomapperAssemblies = new List<Assembly>()
-             {
-                 typeof(LoggingModule).Assembly
-             };
             DataTransferObjects = new List<Type>()
             {
                 typeof(LogMessageDto),

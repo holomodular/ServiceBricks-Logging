@@ -1,50 +1,86 @@
-﻿using AutoMapper;
-
-namespace ServiceBricks.Logging.EntityFrameworkCore
+﻿namespace ServiceBricks.Logging.EntityFrameworkCore
 {
     /// <summary>
-    /// This is an automapper profile for the WebRequestMessage domain object.
+    /// This is an mapping profile for the WebRequestMessage domain object.
     /// </summary>
-    public partial class WebRequestMessageMappingProfile : Profile
+    public partial class WebRequestMessageMappingProfile
     {
         /// <summary>
-        /// Contructor
+        /// Register the mapping
         /// </summary>
-        public WebRequestMessageMappingProfile()
+        public static void Register(IMapperRegistry registry)
         {
-            // AI: Add mappings for WebRequestMessageDto and WebRequestMessage
-            CreateMap<WebRequestMessageDto, WebRequestMessage>()
-                .ForMember(x => x.CreateDate, y => y.Ignore())
-                .ForMember(x => x.Key, y => y.MapFrom<KeyResolver>());
+            registry.Register<WebRequestMessage, WebRequestMessageDto>(
+                (s, d) =>
+                {
+                    d.Application = s.Application;
+                    d.CreateDate = s.CreateDate;
+                    d.Exception = s.Exception;
+                    d.RequestBody = s.RequestBody;
+                    d.RequestContentLength = s.RequestContentLength;
+                    d.RequestContentType = s.RequestContentType;
+                    d.RequestCookies = s.RequestCookies;
+                    d.RequestHasFormContentType = s.RequestHasFormContentType;
+                    d.RequestHeaders = s.RequestHeaders;
+                    d.RequestHost = s.RequestHost;
+                    d.RequestIPAddress = s.RequestIPAddress;
+                    d.RequestIsHttps = s.RequestIsHttps;
+                    d.RequestMethod = s.RequestMethod;
+                    d.RequestPath = s.RequestPath;
+                    d.RequestPathBase = s.RequestPathBase;
+                    d.RequestProtocol = s.RequestProtocol;
+                    d.RequestQuery = s.RequestQuery;
+                    d.RequestQueryString = s.RequestQueryString;
+                    d.RequestRouteValues = s.RequestRouteValues;
+                    d.RequestScheme = s.RequestScheme;
+                    d.ResponseBody = s.ResponseBody;
+                    d.ResponseContentLength = s.ResponseContentLength;
+                    d.ResponseContentType = s.ResponseContentType;
+                    d.ResponseCookies = s.ResponseCookies;
+                    d.ResponseHeaders = s.ResponseHeaders;
+                    d.ResponseStatusCode = s.ResponseStatusCode;
+                    d.ResponseTotalMilliseconds = s.ResponseTotalMilliseconds;
+                    d.Server = s.Server;
+                    d.StorageKey = s.Key.ToString();
+                    d.UserStorageKey = s.UserStorageKey;
+                });
 
-            CreateMap<WebRequestMessage, WebRequestMessageDto>()
-                .ForMember(x => x.StorageKey, y => y.MapFrom(z => z.Key));
-        }
-
-        /// <summary>
-        /// Resolver for the WebRequestMessageDto to WebRequestMessage mapping.
-        /// </summary>
-        public class KeyResolver : IValueResolver<DataTransferObject, object, long>
-        {
-            /// <summary>
-            /// Resolve the key from the StorageKey property.
-            /// </summary>
-            /// <param name="source"></param>
-            /// <param name="destination"></param>
-            /// <param name="sourceMember"></param>
-            /// <param name="context"></param>
-            /// <returns></returns>
-            public long Resolve(DataTransferObject source, object destination, long sourceMember, ResolutionContext context)
-            {
-                if (string.IsNullOrEmpty(source.StorageKey))
-                    return 0;
-
-                // AI: Parse the value and make sure it is valid
-                long tempKey;
-                if (long.TryParse(source.StorageKey, out tempKey))
-                    return tempKey;
-                return 0;
-            }
+            registry.Register<WebRequestMessageDto, WebRequestMessage>(
+                (s, d) =>
+                {
+                    d.Application = s.Application;
+                    //d.CreateDate ignore by rule
+                    d.Exception = s.Exception;
+                    d.RequestBody = s.RequestBody;
+                    d.RequestContentLength = s.RequestContentLength;
+                    d.RequestContentType = s.RequestContentType;
+                    d.RequestCookies = s.RequestCookies;
+                    d.RequestHasFormContentType = s.RequestHasFormContentType;
+                    d.RequestHeaders = s.RequestHeaders;
+                    d.RequestHost = s.RequestHost;
+                    d.RequestIPAddress = s.RequestIPAddress;
+                    d.RequestIsHttps = s.RequestIsHttps;
+                    d.RequestMethod = s.RequestMethod;
+                    d.RequestPath = s.RequestPath;
+                    d.RequestPathBase = s.RequestPathBase;
+                    d.RequestProtocol = s.RequestProtocol;
+                    d.RequestQuery = s.RequestQuery;
+                    d.RequestQueryString = s.RequestQueryString;
+                    d.RequestRouteValues = s.RequestRouteValues;
+                    d.RequestScheme = s.RequestScheme;
+                    d.ResponseBody = s.ResponseBody;
+                    d.ResponseContentLength = s.ResponseContentLength;
+                    d.ResponseContentType = s.ResponseContentType;
+                    d.ResponseCookies = s.ResponseCookies;
+                    d.ResponseHeaders = s.ResponseHeaders;
+                    d.ResponseStatusCode = s.ResponseStatusCode;
+                    d.ResponseTotalMilliseconds = s.ResponseTotalMilliseconds;
+                    d.Server = s.Server;
+                    long tempKey;
+                    if (long.TryParse(s.StorageKey, out tempKey))
+                        d.Key = tempKey;
+                    d.UserStorageKey = s.UserStorageKey;
+                });
         }
     }
 }

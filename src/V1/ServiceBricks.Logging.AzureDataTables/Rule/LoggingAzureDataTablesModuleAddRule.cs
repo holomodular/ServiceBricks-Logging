@@ -66,6 +66,10 @@ namespace ServiceBricks.Logging.AzureDataTables
             services.AddScoped<IApiService<WebRequestMessageDto>, WebRequestMessageApiService>();
             services.AddScoped<IWebRequestMessageApiService, WebRequestMessageApiService>();
 
+            // AI: Register mappings
+            LogMessageMappingProfile.Register(MapperRegistry.Instance);
+            WebRequestMessageMappingProfile.Register(MapperRegistry.Instance);
+
             // AI: Register business rules for the module
             DomainCreateDateRule<LogMessage>.Register(BusinessRuleRegistry.Instance);
             LogMessageCreateRule.Register(BusinessRuleRegistry.Instance);

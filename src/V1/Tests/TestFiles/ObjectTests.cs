@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -160,7 +159,6 @@ namespace ServiceBricks.Xunit
             var appoptions = new OptionsWrapper<ApplicationOptions>(new ApplicationOptions() { Name = "test" });
             var wrmoptions = new OptionsWrapper<WebRequestMessageOptions>(new WebRequestMessageOptions() { EnableLogging = true });
             WebRequestMessageMiddleware middleware = new WebRequestMessageMiddleware(
-                SystemManager.ServiceProvider.GetRequiredService<IWebRequestMessageApiService>(),
                 wrmoptions,
                 appoptions);
 
@@ -234,7 +232,6 @@ namespace ServiceBricks.Xunit
             LoggingModule module = new LoggingModule();
 
             var dep = module.DependentModules;
-            var au = module.AutomapperAssemblies;
             var vi = module.ViewAssemblies;
 
             return Task.CompletedTask;

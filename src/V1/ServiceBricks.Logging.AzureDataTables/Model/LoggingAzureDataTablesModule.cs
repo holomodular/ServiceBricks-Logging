@@ -17,10 +17,6 @@ namespace ServiceBricks.Logging.AzureDataTables
         /// </summary>
         public LoggingAzureDataTablesModule()
         {
-            AutomapperAssemblies = new List<Assembly>()
-            {
-                typeof(LoggingAzureDataTablesModule).Assembly
-            };
             DependentModules = new List<IModule>()
             {
                 new LoggingModule()

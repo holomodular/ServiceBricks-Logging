@@ -77,6 +77,9 @@ namespace ServiceBricks.Logging
             // AI: Add any miscellaneous services for the module
             services.AddTransient<WebRequestMessageMiddleware>();
 
+            // AI: Register mappings
+            ApplicationLogDtoMappingProfile.Register(MapperRegistry.Instance);
+
             // AI: Register business rules for the module
             CreateApplicationLogRule.Register(BusinessRuleRegistry.Instance);
 

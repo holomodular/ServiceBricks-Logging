@@ -11,7 +11,6 @@ namespace ServiceBricks.Logging
     /// </summary>
     public sealed class WebRequestMessageMiddleware : IMiddleware
     {
-        private readonly IWebRequestMessageApiService _webRequestMessageApiService;
         private readonly WebRequestMessageOptions _webRequestOptions;
         private readonly ApplicationOptions _applicationOptions;
 
@@ -22,15 +21,12 @@ namespace ServiceBricks.Logging
         /// <summary>
         /// Constructor.
         /// </summary>
-        /// <param name="webRequestMessageApiService"></param>
         /// <param name="webRequestOptions"></param>
         /// <param name="applicationOptions"></param>
         public WebRequestMessageMiddleware(
-            IWebRequestMessageApiService webRequestMessageApiService,
             IOptions<WebRequestMessageOptions> webRequestOptions,
             IOptions<ApplicationOptions> applicationOptions)
         {
-            _webRequestMessageApiService = webRequestMessageApiService;
             _webRequestOptions = webRequestOptions.Value;
             _applicationOptions = applicationOptions.Value;
         }
@@ -46,7 +42,11 @@ namespace ServiceBricks.Logging
             // AI: Check if we should log at all
             if (!_webRequestOptions.EnableLogging)
             {
-                await next(context);
+                try
+                {
+                    await next(context);
+                }
+                catch { }
                 return;
             }
 

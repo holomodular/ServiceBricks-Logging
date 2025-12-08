@@ -1,24 +1,46 @@
-﻿using AutoMapper;
-
-namespace ServiceBricks.Logging.MongoDb
+﻿namespace ServiceBricks.Logging.MongoDb
 {
     /// <summary>
-    /// This is an automapper profile for the LogMessage domain object.
+    /// This is an mapping profile for the LogMessage domain object.
     /// </summary>
-    public partial class LogMessageMappingProfile : Profile
+    public partial class LogMessageMappingProfile
     {
         /// <summary>
-        /// Constructor
+        /// Register the mapping
         /// </summary>
-        public LogMessageMappingProfile()
+        public static void Register(IMapperRegistry registry)
         {
-            // AI: Map the LogMessageDto to the LogMessage
-            CreateMap<LogMessageDto, LogMessage>()
-                .ForMember(x => x.CreateDate, y => y.Ignore())
-                .ForMember(x => x.Key, y => y.MapFrom(z => z.StorageKey));
+            registry.Register<LogMessage, LogMessageDto>(
+                (s, d) =>
+                {
+                    d.Application = s.Application;
+                    d.Category = s.Category;
+                    d.CreateDate = s.CreateDate;
+                    d.Exception = s.Exception;
+                    d.Level = s.Level;
+                    d.Message = s.Message;
+                    d.Path = s.Path;
+                    d.Properties = s.Properties;
+                    d.Server = s.Server;
+                    d.StorageKey = s.Key;
+                    d.UserStorageKey = s.UserStorageKey;
+                });
 
-            CreateMap<LogMessage, LogMessageDto>()
-                .ForMember(x => x.StorageKey, y => y.MapFrom(z => z.Key));
+            registry.Register<LogMessageDto, LogMessage>(
+                (s, d) =>
+                {
+                    d.Application = s.Application;
+                    d.Category = s.Category;
+                    //d.CreateDate ignore by rule
+                    d.Exception = s.Exception;
+                    d.Level = s.Level;
+                    d.Message = s.Message;
+                    d.Path = s.Path;
+                    d.Properties = s.Properties;
+                    d.Server = s.Server;
+                    d.Key = s.StorageKey;
+                    d.UserStorageKey = s.UserStorageKey;
+                });
         }
     }
 }

@@ -1,6 +1,4 @@
-﻿using AutoMapper;
-
-namespace ServiceBricks.Logging.EntityFrameworkCore
+﻿namespace ServiceBricks.Logging.EntityFrameworkCore
 {
     /// <summary>
     /// This is an API service for the LogMessage domain object.

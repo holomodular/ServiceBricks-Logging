@@ -1,6 +1,4 @@
-﻿using AutoMapper;
-
-namespace ServiceBricks.Logging.Cosmos
+﻿namespace ServiceBricks.Logging.Cosmos
 {
     /// <summary>
     /// This is an API service for the WebRequestMessage domain object.

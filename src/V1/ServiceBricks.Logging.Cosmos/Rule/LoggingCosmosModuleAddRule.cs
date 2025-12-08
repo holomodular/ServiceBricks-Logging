@@ -77,6 +77,10 @@ namespace ServiceBricks.Logging.Cosmos
             services.AddScoped<IApiService<WebRequestMessageDto>, WebRequestMessageApiService>();
             services.AddScoped<IWebRequestMessageApiService, WebRequestMessageApiService>();
 
+            // AI: Register mappings
+            LogMessageMappingProfile.Register(MapperRegistry.Instance);
+            WebRequestMessageMappingProfile.Register(MapperRegistry.Instance);
+
             // AI: Register business rules for the module
             DomainCreateDateRule<LogMessage>.Register(BusinessRuleRegistry.Instance);
             DomainQueryPropertyRenameRule<LogMessage>.Register(BusinessRuleRegistry.Instance, "StorageKey", "Key");

@@ -1,50 +1,48 @@
-﻿using AutoMapper;
-
-namespace ServiceBricks.Logging.EntityFrameworkCore
+﻿namespace ServiceBricks.Logging.EntityFrameworkCore
 {
     /// <summary>
-    /// This is an automapper profile for the LogMessage domain object.
+    /// This is an mapping profile for the LogMessage domain object.
     /// </summary>
-    public partial class LogMessageMappingProfile : Profile
+    public partial class LogMessageMappingProfile
     {
         /// <summary>
-        /// Constructor
+        /// Register the mapping
         /// </summary>
-        public LogMessageMappingProfile()
+        public static void Register(IMapperRegistry registry)
         {
-            // AI: Add mappings for LogMessageDto and LogMessage
-            CreateMap<LogMessageDto, LogMessage>()
-                .ForMember(x => x.CreateDate, y => y.Ignore())
-                .ForMember(x => x.Key, y => y.MapFrom<KeyResolver>());
+            registry.Register<LogMessage, LogMessageDto>(
+                (s, d) =>
+                {
+                    d.Application = s.Application;
+                    d.Category = s.Category;
+                    d.CreateDate = s.CreateDate;
+                    d.Exception = s.Exception;
+                    d.Level = s.Level;
+                    d.Message = s.Message;
+                    d.Path = s.Path;
+                    d.Properties = s.Properties;
+                    d.Server = s.Server;
+                    d.StorageKey = s.Key.ToString();
+                    d.UserStorageKey = s.UserStorageKey;
+                });
 
-            CreateMap<LogMessage, LogMessageDto>()
-                .ForMember(x => x.StorageKey, y => y.MapFrom(z => z.Key));
-        }
-
-        /// <summary>
-        /// Key resolver for the LogMessageDto to LogMessage mapping.
-        /// </summary>
-        public class KeyResolver : IValueResolver<DataTransferObject, object, long>
-        {
-            /// <summary>
-            /// Resolve the key from the StorageKey property.
-            /// </summary>
-            /// <param name="source"></param>
-            /// <param name="destination"></param>
-            /// <param name="sourceMember"></param>
-            /// <param name="context"></param>
-            /// <returns></returns>
-            public long Resolve(DataTransferObject source, object destination, long sourceMember, ResolutionContext context)
-            {
-                if (string.IsNullOrEmpty(source.StorageKey))
-                    return 0;
-
-                // AI: Parse the value and make sure it is valid
-                long tempKey;
-                if (long.TryParse(source.StorageKey, out tempKey))
-                    return tempKey;
-                return 0;
-            }
+            registry.Register<LogMessageDto, LogMessage>(
+                (s, d) =>
+                {
+                    d.Application = s.Application;
+                    d.Category = s.Category;
+                    //d.CreateDate ignore by rule
+                    d.Exception = s.Exception;
+                    d.Level = s.Level;
+                    d.Message = s.Message;
+                    d.Path = s.Path;
+                    d.Properties = s.Properties;
+                    d.Server = s.Server;
+                    long tempKey;
+                    if (long.TryParse(s.StorageKey, out tempKey))
+                        d.Key = tempKey;
+                    d.UserStorageKey = s.UserStorageKey;
+                });
         }
     }
 }

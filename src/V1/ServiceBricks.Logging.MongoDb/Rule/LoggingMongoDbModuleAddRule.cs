@@ -67,6 +67,10 @@ namespace ServiceBricks.Logging.MongoDb
             services.AddScoped<IApiService<WebRequestMessageDto>, WebRequestMessageApiService>();
             services.AddScoped<IWebRequestMessageApiService, WebRequestMessageApiService>();
 
+            // AI: Register mappings
+            LogMessageMappingProfile.Register(MapperRegistry.Instance);
+            WebRequestMessageMappingProfile.Register(MapperRegistry.Instance);
+
             // AI: Add business rules for the module
             DomainCreateDateRule<LogMessage>.Register(BusinessRuleRegistry.Instance);
             DomainQueryPropertyRenameRule<LogMessage>.Register(BusinessRuleRegistry.Instance, "StorageKey", "Key");

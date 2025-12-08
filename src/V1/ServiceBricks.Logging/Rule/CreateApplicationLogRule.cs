@@ -1,6 +1,4 @@
-﻿using AutoMapper;
-
-namespace ServiceBricks.Logging
+﻿namespace ServiceBricks.Logging
 {
     /// <summary>
     /// This business rule occurs when an CreateApplicationLogBroadcast servicebus event is received.
@@ -69,7 +67,7 @@ namespace ServiceBricks.Logging
             }
 
             // AI: Map the ApplicationLogBroadcast to a LogMessageDto
-            var message = _mapper.Map<LogMessageDto>(e.DomainObject);
+            var message = _mapper.Map<ApplicationLogDto, LogMessageDto>(e.DomainObject);
 
             // AI: Call the API service to create the log message
             var respCreate = _logMessageApiService.Create(message);
@@ -102,7 +100,7 @@ namespace ServiceBricks.Logging
             }
 
             // AI: Map the ApplicationLogBroadcast to a LogMessageDto
-            var message = _mapper.Map<LogMessageDto>(e.DomainObject);
+            var message = _mapper.Map<ApplicationLogDto, LogMessageDto>(e.DomainObject);
 
             // AI: Call the API service to create the log message
             var respCreate = await _logMessageApiService.CreateAsync(message);

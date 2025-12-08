@@ -1,50 +1,48 @@
-﻿using AutoMapper;
-
-namespace ServiceBricks.Logging.Cosmos
+﻿namespace ServiceBricks.Logging.Cosmos
 {
     /// <summary>
     /// This is an automapper profile for the LogMessage domain object.
     /// </summary>
-    public partial class LogMessageMappingProfile : Profile
+    public partial class LogMessageMappingProfile
     {
         /// <summary>
-        /// Constructor
+        /// Register the mapping
         /// </summary>
-        public LogMessageMappingProfile()
+        public static void Register(IMapperRegistry registry)
         {
-            // AI: Add mappings for LogMessageDto and LogMessage
-            CreateMap<LogMessageDto, LogMessage>()
-                .ForMember(x => x.CreateDate, y => y.Ignore())
-                .ForMember(x => x.PartitionKey, y => y.Ignore())
-                .ForMember(x => x.Key, y => y.MapFrom<KeyResolver>());
+            registry.Register<LogMessage, LogMessageDto>(
+                (s, d) =>
+                {
+                    d.Application = s.Application;
+                    d.Category = s.Category;
+                    d.CreateDate = s.CreateDate;
+                    d.Exception = s.Exception;
+                    d.Level = s.Level;
+                    d.Message = s.Message;
+                    d.Path = s.Path;
+                    d.Properties = s.Properties;
+                    d.Server = s.Server;
+                    d.StorageKey = s.Key.ToString();
+                    d.UserStorageKey = s.UserStorageKey;
+                });
 
-            CreateMap<LogMessage, LogMessageDto>()
-                .ForMember(x => x.StorageKey, y => y.MapFrom(z => z.Key));
-        }
-
-        /// <summary>
-        /// Resolve the key from the storage key.
-        /// </summary>
-        public class KeyResolver : IValueResolver<DataTransferObject, object, Guid>
-        {
-            /// <summary>
-            /// Resolve the key from the storage key.
-            /// </summary>
-            /// <param name="source"></param>
-            /// <param name="destination"></param>
-            /// <param name="sourceMember"></param>
-            /// <param name="context"></param>
-            /// <returns></returns>
-            public Guid Resolve(DataTransferObject source, object destination, Guid sourceMember, ResolutionContext context)
-            {
-                if (string.IsNullOrEmpty(source.StorageKey))
-                    return Guid.Empty;
-
-                Guid tempKey;
-                if (Guid.TryParse(source.StorageKey, out tempKey))
-                    return tempKey;
-                return Guid.Empty;
-            }
+            registry.Register<LogMessageDto, LogMessage>(
+                (s, d) =>
+                {
+                    d.Application = s.Application;
+                    d.Category = s.Category;
+                    //d.CreateDate ignore by rule
+                    d.Exception = s.Exception;
+                    d.Level = s.Level;
+                    d.Message = s.Message;
+                    d.Path = s.Path;
+                    d.Properties = s.Properties;
+                    d.Server = s.Server;
+                    Guid tempKey;
+                    if (Guid.TryParse(s.StorageKey, out tempKey))
+                        d.Key = tempKey;
+                    d.UserStorageKey = s.UserStorageKey;
+                });
         }
     }
 }
