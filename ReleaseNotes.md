@@ -1,3 +1,6 @@
+# 1.4.0-b
+- Create new ServiceBricks.Logging.Model package and include DTOs and contracts
+
 # 1.4.0-a
 - Net10 support and update nuget packages
 - Upgrade mapping profiles

@@ -25,8 +25,5 @@
     <ProjectReference Include="..\..\ServiceBricks.Logging.Sqlite\ServiceBricks.Logging.Sqlite.csproj" />
     <ProjectReference Include="..\..\ServiceBricks.Logging.SqlServer\ServiceBricks.Logging.SqlServer.csproj" />
   </ItemGroup>
-	<ItemGroup>
-		<PackageReference Include="Microsoft.AspNetCore.TestHost" Version="9.0.11" />
-	</ItemGroup>
 
 </Project>

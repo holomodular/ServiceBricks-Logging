@@ -9,9 +9,9 @@ namespace WebApp.Extensions
     {
         public static IServiceCollection AddCustomWebsite(this IServiceCollection services, IConfiguration Configuration)
         {
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson();
             services.AddRazorPages();
-            services.AddControllersWithViews().AddRazorRuntimeCompilation();
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();            
             services.AddCors();
 
             // Add Authorization, disable all security policies

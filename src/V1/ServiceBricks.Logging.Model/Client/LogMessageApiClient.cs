@@ -18,7 +18,7 @@ namespace ServiceBricks.Logging
             ILoggerFactory loggerFactory,
             IHttpClientFactory httpClientFactory,
             IConfiguration configuration)
-            : base(loggerFactory, httpClientFactory, configuration.GetApiConfig(LoggingConstants.APPSETTING_CLIENT_APICONFIG))
+            : base(loggerFactory, httpClientFactory, configuration.GetApiConfig(LoggingModelConstants.APPSETTING_CLIENT_APICONFIG))
         {
             ApiResource = @"Logging/LogMessage";
         }

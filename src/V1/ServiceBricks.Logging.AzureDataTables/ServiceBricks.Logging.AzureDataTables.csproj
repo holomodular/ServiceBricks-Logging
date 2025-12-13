@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<Version>1.4.0-a</Version>
+		<Version>1.4.0-b</Version>
 		<Description>The open source microservices platform. Visit https://ServiceBricks.com to learn more.</Description>
 		<PackageId>ServiceBricks.Logging.AzureDataTables</PackageId>
 		<Title>ServiceBricks.Logging.AzureDataTables</Title>
@@ -36,6 +36,6 @@
 		<ProjectReference Include="..\ServiceBricks.Logging\ServiceBricks.Logging.csproj" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="ServiceBricks.Core" Version="1.4.0-a" />
+		<PackageReference Include="ServiceBricks.Core" Version="1.4.0-b" />
 	</ItemGroup>
 </Project>

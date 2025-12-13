@@ -1,11 +1,11 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<Version>1.4.0-b</Version>
 		<Description>The open source microservices platform. Visit https://ServiceBricks.com to learn more.</Description>
-		<PackageId>ServiceBricks.Logging.Postgres</PackageId>
-		<Title>ServiceBricks.Logging.Postgres</Title>
-		<AssemblyTitle>ServiceBricks.Logging.Postgres</AssemblyTitle>
+		<PackageId>ServiceBricks.Logging.Model</PackageId>
+		<Title>ServiceBricks.Logging.Model</Title>
+		<AssemblyTitle>ServiceBricks.Logging.Model</AssemblyTitle>
 		<Authors>holomodular</Authors>
 		<Company>HoloModular LLC</Company>
 		<Product>ServiceBricks</Product>
@@ -14,16 +14,16 @@
 		<Copyright>Copyright © 2025 HoloModular LLC. All Rights Reserved. Visit https://HoloModular.com to learn more.</Copyright>
 		<PackageProjectUrl>https://ServiceBricks.com</PackageProjectUrl>
 		<PackageIcon>logo.png</PackageIcon>
-		<PackageTags>servicebricks;logging;postgres;postgresql</PackageTags>
+		<PackageTags>servicebricks;logging;model</PackageTags>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<SignAssembly>True</SignAssembly>
-		<AssemblyOriginatorKeyFile>Resource\ServiceBricks.Logging.Postgres.snk</AssemblyOriginatorKeyFile>
+		<AssemblyOriginatorKeyFile>Resource\ServiceBricks.Logging.Model.snk</AssemblyOriginatorKeyFile>
 		<PackageReadmeFile>readme.md</PackageReadmeFile>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
 		<RepositoryType>git</RepositoryType>
-		<RepositoryUrl>https://github.com/holomodular/ServiceBricks-Logging</RepositoryUrl>
-		<IsPackable>False</IsPackable>
+		<RepositoryUrl>https://github.com/holomodular/ServiceBricks-Logging</RepositoryUrl>		
+		<IsPackable>True</IsPackable>
 	</PropertyGroup>
 	<ItemGroup>
 		<None Include="Resource\readme.md" Pack="True" PackagePath="\" />
@@ -33,10 +33,6 @@
 		</None>
 	</ItemGroup>
 	<ItemGroup>
-		<ProjectReference Include="..\ServiceBricks.Logging.EntityFrameworkCore\ServiceBricks.Logging.EntityFrameworkCore.csproj" />
+		<PackageReference Include="ServiceBricks" Version="1.4.0-b" />
 	</ItemGroup>
-	<ItemGroup>
-		<PackageReference Include="ServiceBricks.Core" Version="1.4.0-b" />
-	</ItemGroup>
-	
 </Project>

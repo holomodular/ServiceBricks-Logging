@@ -30,11 +30,11 @@ namespace ServiceBricks.Logging
         /// <returns></returns>
         public async Task InvokeAsync(HttpContext httpContext)
         {
-            var logState = GetStateObject(httpContext);
+            var logState = GetStateObject(httpContext);            
             using (_logger.BeginScope(logState))
             {
                 await _next(httpContext);
-            }
+            }            
         }
 
         /// <summary>
@@ -55,8 +55,7 @@ namespace ServiceBricks.Logging
             logState.TryAdd(StateProp.METHOD, GetMethod(httpContext));
             logState.TryAdd(StateProp.PATH, GetPath(httpContext));
             logState.TryAdd(StateProp.QUERYSTRING, GetQueryString(httpContext));
-            logState.TryAdd(StateProp.CONTENT_TYPE, GetContentType(httpContext));
-            logState.TryAdd(StateProp.FORM, GetForm(httpContext));
+            logState.TryAdd(StateProp.CONTENT_TYPE, GetContentType(httpContext));            
             logState.TryAdd(StateProp.HEADERS, GetHeaders(httpContext));
             return logState;
         }
@@ -88,7 +87,7 @@ namespace ServiceBricks.Logging
         /// <returns></returns>
         private string GetStatusCode(HttpContext context)
         {
-            return context?.Response.StatusCode.ToString();
+            return context?.Response?.StatusCode.ToString();
         }
 
         /// <summary>
@@ -120,7 +119,7 @@ namespace ServiceBricks.Logging
         {
             try
             {
-                return context?.Request?.Query?.Keys.ToDictionary(x => x, x => context.Request.Query[x].ToString());
+                return context?.Request?.Query?.Keys?.ToDictionary(x => x, x => context.Request.Query[x].ToString());
             }
             catch (Exception)
             {
@@ -128,22 +127,6 @@ namespace ServiceBricks.Logging
             }
         }
 
-        /// <summary>
-        /// Get the form from the http context.
-        /// </summary>
-        /// <param name="context"></param>
-        /// <returns></returns>
-        private Dictionary<string, string> GetForm(HttpContext context)
-        {
-            try
-            {
-                return context?.Request?.Form?.Keys.ToDictionary(x => x, x => context.Request.Form[x].ToString());
-            }
-            catch (Exception)
-            {
-                return new Dictionary<string, string>();
-            }
-        }
 
         /// <summary>
         /// Get the content type from the request.
@@ -174,7 +157,7 @@ namespace ServiceBricks.Logging
         {
             try
             {
-                return context?.Request?.Headers?.Keys.ToDictionary(x => x, x => context.Request.Headers[x].ToString());
+                return context?.Request?.Headers?.Keys?.ToDictionary(x => x, x => context.Request.Headers[x].ToString());
             }
             catch (Exception)
             {

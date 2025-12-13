@@ -11,12 +11,10 @@
 
 	<ItemGroup>
 		<Compile Include="..\TestFiles\LogMessageApiControllerTestInMemory.cs" Link="LogMessageApiControllerTestInMemory.cs" />
-		<Compile Include="..\TestFiles\LogMessageStubApiClientTests.cs" Link="LogMessageStubApiClientTests.cs" />
 		<Compile Include="..\TestFiles\MappingTestInMemory.cs" Link="MappingTestInMemory.cs" />
 		<Compile Include="..\TestFiles\ObjectTests.cs" Link="ObjectTests.cs" />
 		<Compile Include="..\TestFiles\StartupInMemory.cs" Link="StartupInMemory.cs" />
 		<Compile Include="..\TestFiles\WebRequestMessageApiControllerTestInMemory.cs" Link="WebRequestMessageApiControllerTestInMemory.cs" />
-		<Compile Include="..\TestFiles\WebRequestMessageStubApiClientTests.cs" Link="WebRequestMessageStubApiClientTests.cs" />
 	</ItemGroup>
 
   <ItemGroup>
