@@ -1,3 +1,7 @@
+# 1.4.0-c
+- Move IController interfaces root project
+- Fixes for stub apiclient tests
+
 # 1.4.0-b
 - Create new ServiceBricks.Logging.Model package and include DTOs and contracts
 
