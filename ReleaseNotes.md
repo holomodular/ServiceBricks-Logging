@@ -1,3 +1,6 @@
+# 1.4.0-d
+- Verified all tests run successfully for all providers and versions
+
 # 1.4.0-c
 - Move IController interfaces root project
 - Fixes for stub apiclient tests
