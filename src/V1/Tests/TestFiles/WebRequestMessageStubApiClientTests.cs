@@ -27,7 +27,7 @@ namespace ServiceBricks.Xunit
         public override IApiClient<WebRequestMessageDto> GetClient(IServiceProvider serviceProvider)
         {
             var config = new ConfigurationBuilder()
-            .AddInMemoryCollection(new Dictionary<string, string?>
+            .AddInMemoryCollection(new Dictionary<string, string>
             {
                             { ServiceBricksConstants.APPSETTING_CLIENT_APIOPTIONS + ":ReturnResponseObject", "false" },
                             { ServiceBricksConstants.APPSETTING_CLIENT_APIOPTIONS + ":DisableAuthentication", "false" },
@@ -52,7 +52,7 @@ namespace ServiceBricks.Xunit
         public override IApiClient<WebRequestMessageDto> GetClientReturnResponse(IServiceProvider serviceProvider)
         {
             var config = new ConfigurationBuilder()
-            .AddInMemoryCollection(new Dictionary<string, string?>
+            .AddInMemoryCollection(new Dictionary<string, string>
             {
                             { ServiceBricksConstants.APPSETTING_CLIENT_APIOPTIONS + ":ReturnResponseObject", "true" },
                             { ServiceBricksConstants.APPSETTING_CLIENT_APIOPTIONS + ":DisableAuthentication", "false" },

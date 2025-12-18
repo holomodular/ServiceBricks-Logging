@@ -44,7 +44,7 @@ namespace ServiceBricks.Xunit
             var appconfig = serviceProvider.GetRequiredService<IConfiguration>();
             var config = new ConfigurationBuilder()
                 .AddConfiguration(appconfig)
-                .AddInMemoryCollection(new Dictionary<string, string?>
+                .AddInMemoryCollection(new Dictionary<string, string>
                 {
                     { ServiceBricksConstants.APPSETTING_CLIENT_APIOPTIONS + ":ReturnResponseObject", "false" },
                     { ServiceBricksConstants.APPSETTING_CLIENT_APIOPTIONS + ":ExposeSystemErrors", "true" }
@@ -62,7 +62,7 @@ namespace ServiceBricks.Xunit
             var appconfig = serviceProvider.GetRequiredService<IConfiguration>();
             var config = new ConfigurationBuilder()
                 .AddConfiguration(appconfig)
-                .AddInMemoryCollection(new Dictionary<string, string?>
+                .AddInMemoryCollection(new Dictionary<string, string>
                 {
                     { ServiceBricksConstants.APPSETTING_CLIENT_APIOPTIONS + ":ReturnResponseObject", "true" },
                     { ServiceBricksConstants.APPSETTING_CLIENT_APIOPTIONS + ":ExposeSystemErrors", "true" }

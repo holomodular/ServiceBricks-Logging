@@ -12,12 +12,6 @@ namespace WebApp.Controllers
     [Route("Home")]
     public class HomeController : Controller
     {
-        private IServiceBus _serviceBus;
-
-        public HomeController(IServiceBus serviceBus)
-        {
-            _serviceBus = serviceBus;
-        }
 
         [HttpGet]
         [Route("")]
@@ -28,29 +22,6 @@ namespace WebApp.Controllers
             return View(model);
         }
 
-        [HttpGet]
-        [Route("ServiceBus")]
-        public IActionResult ServiceBus()
-        {
-            var log = new CreateApplicationLogBroadcast(new ApplicationLogDto()
-            {
-                Application = "ApplicationTest",
-                CreateDate = DateTimeOffset.UtcNow,
-                Category = "CategoryTest",
-                Exception = "ExceptionTest",
-                Level = "LevelTest",
-                Message = "MessageTest",
-                Path = "PathTest",
-                Properties = "PropertiesTest",
-                Server = "ServerTest",
-                StorageKey = "StorageKeyTest",
-                UserStorageKey = "UserStorageKeyTest"
-            });
-            _serviceBus.Send(log);
-
-            HomeViewModel model = new HomeViewModel();
-            return View("Index", model);
-        }
 
         [HttpGet]
         [Route("Error")]
