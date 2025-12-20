@@ -1,4 +1,4 @@
-![ServiceBricks Logo](https://github.com/holomodular/ServiceBricks/blob/main/Logo.png)  
+![ServiceBricks Logo](https://raw.githubusercontent.com/holomodular/ServiceBricks/main/Logo.png) 
 
 [![NuGet version](https://badge.fury.io/nu/ServiceBricks.Logging.Microservice.svg)](https://badge.fury.io/nu/ServiceBricks.Logging.Microservice)
 ![badge](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/holomodular-support/2214c3b2c703476cbafeb647eb655fc8/raw/servicebrickslogging-codecoverage.json)
@@ -8,15 +8,15 @@
 
 ## Overview
 
-This repository contains a logging microservice built using the ServiceBricks foundation.
+This repository contains the logging microservice built using the ServiceBricks foundation.
 The logging microservice provides logging support for any hosted application using the Microsoft.Extensions.Logging library.
-It also provides web request logging functionality, so you can audit all url-based web requests and their properties coming into the application.
+It provides web request logging functionality, so you can audit all web requests coming into the application.
 
 
 ## Data Transfer Objects
 
 ### LogMessageDto - Admin Policy
-Logging message storage object.
+Used to store application diagnositics.
 
 ```csharp
 
@@ -41,7 +41,7 @@ public class LogMessageDto : DataTransferObject
 * DomainCreateDateRule - CreateDate property
 
 ### WebRequestMessageDto - Admin Policy
-Used to store web request logging messages.
+Used to store web request auditing messages.
 
 ```csharp
 
@@ -85,7 +85,7 @@ Used to store web request logging messages.
 ## Background Tasks and Timers
 
 ### LoggingWriteMessageTimer class
-This background timer runs by default every 1 second, with an initial delay of 1 second. Executes the LoggingWriteMessageTask.
+This background timer runs executes the LoggingWriteMessageTask.
 
 [View Source](https://github.com/holomodular/ServiceBricks-Logging/blob/main/src/V1/ServiceBricks.Logging/BackgroundTask/LoggingWriteMessageTimer.cs)
 
@@ -99,8 +99,8 @@ None
 
 ## Middleware
 
-### CustomLoggerMiddleware
-This middleware is responsible for plugging into the pipeline and storing minimal HttpRequest information (such as user, request path, etc) to store along with log messages.
+### LogMessageMiddleware
+This middleware is responsible for plugging into the pipeline and storing minimal HttpRequest information (such as user, request, path, etc) to store along with log messages.
 
 In your program.cs file, add the custom logger with **AddServiceBricksLogging()** in the ConfigureLogging section.
 ```csharp
@@ -116,12 +116,12 @@ In your program.cs file, add the custom logger with **AddServiceBricksLogging()*
 ```
 
 
-The following code should be added to your web application's startup. This middleware should be added to the pipeline after UseAuth(), so that any authenticated user is available.
+The following code should be added to your web application's startup. This middleware should be added to the pipeline after UseAuth() so that any authenticated user is available.
 ```csharp
-  app.UseMiddleware<CustomLoggerMiddleware>();
+  app.UseMiddleware<LogMessageMiddleware>();
 ```
 
-[View Source](https://github.com/holomodular/ServiceBricks-Logging/blob/main/src/V1/ServiceBricks.Logging/Middleware/CustomLoggerMiddleware.cs)
+[View Source](https://github.com/holomodular/ServiceBricks-Logging/blob/main/src/V1/ServiceBricks.Logging/Middleware/LogMessageMiddleware.cs)
 
 ### WebRequestMessageMiddleware class
 This middleware is responsible for plugging into the pipeline and pulling the HttpRequest and HttpResponse properties of the current web request and storing them for auditing purposes.
@@ -142,6 +142,7 @@ None
 This microservice subscribes to the CreateApplicationLogBroadcast message.
 It is associated to the [CreateApplicationLogRule](https://github.com/holomodular/ServiceBricks-Logging/blob/main/src/V1/ServiceBricks.Logging/Rule/CreateApplicationLogRule.cs) Business Rule.
 When receiving the message, it will simply create a record in storage.
+
 ```csharp
 
 public class CreateApplicationLogBroadcast : DomainBroadcast<ApplicationLogDto>
@@ -160,7 +161,8 @@ None
 ## Application Settings
 
 ```json
-{    
+{
+  // System default logging option
   "Logging": {
     "LogLevel": {
       // Specify custom logging levels for components here
@@ -171,52 +173,55 @@ None
     }
   },
 
-  // ServiceBricks Root Configuration
+  // ServiceBricks Settings
   "ServiceBricks": {
 
     // Logging Microservice Settings
     "Logging": {
 
-      // WebRequestMessageMiddleware options
+      // WebRequestMessageMiddleware Settings
       "WebRequestMessage": {
-        "EnableLogging": true,
-        "EnableLocalIpRequests": true,
-        "EnableRequestIPAddress": true,
-        "EnableRequestBody": false,
-        "EnableRequestBodyOnError": true,
-        "EnableRequestProtocol": true,
-        "EnableRequestScheme": true,
-        "EnableRequestMethod": true,
-        "EnableRequestPath": true,
-        "EnableRequestPathBase": true,
-        "EnableRequestQueryString": true,
-        "EnableRequestQuery": false,
-        "EnableRequestRouteValues": false,
-        "EnableRequestHost": false,
-        "EnableRequestHasFormContentType": true,
-        "EnableRequestCookies": false,
-        "EnableRequestContentType": true,
-        "EnableRequestContentLength": true,
-        "EnableRequestHeaders": false,
-        "EnableRequestIsHttps": true,
-        "EnableRequestUserId": true,
-        "EnableResponseStatusCode": true,
-        "EnableResponseHeaders": false,
-        "EnableResponseCookies": false,
-        "EnableResponseContentType": true,
-        "EnableResponseContentLength": true,
-        "EnableResponseTotalMilliseconds": true,
-        "EnableResponseBody": false,
-        "EnableExcludeRequestPaths": true,
-        "ExcludeRequestPaths": [
-          "/css/",
-          "/img/",
-          "/js/",
-          "/lib/",
-          "/webfonts/"
-        ]
-      }
+      "EnableLogging": false,
+      "EnableExceptions": true,
+      "EnableUserStorageKey": true,
+      "EnableRequestIPAddress": true,
+      "EnableRequestBody": true,
+      "EnableRequestBodyOnError": true,
+      "EnableRequestProtocol": true,
+      "EnableRequestScheme": true,
+      "EnableRequestMethod": true,
+      "EnableRequestPath": true,
+      "EnableRequestPathBase": true,
+      "EnableRequestQueryString": true,
+      "EnableRequestQuery": true,
+      "EnableRequestRouteValues": true,
+      "EnableRequestHost": true,
+      "EnableRequestHasFormContentType": true,
+      "EnableRequestCookies": true,
+      "EnableRequestContentType": true,
+      "EnableRequestContentLength": true,
+      "EnableRequestHeaders": true,
+      "EnableRequestIsHttps": true,
+      "EnableResponseStatusCode": true,
+      "EnableResponseHeaders": true,
+      "EnableResponseCookies": true,
+      "EnableResponseContentType": true,
+      "EnableResponseContentLength": true,
+      "EnableResponseTotalMilliseconds": true,
+      "EnableResponseBody": true,
+      "EnableExcludeRequestPathsRegExExpressions": false,
+      "ExcludeRequestPaths": [
+        //"/css/",
+        //"/img/",
+        //"/js/",
+      ],
+      "EnableExcludeIpAddressesRegExExpressions": false,
+      "ExcludeIpAddresses": [
+        // "127.0.0.1",
+        // "::1"
+      ]
     }
+   }
   }
 }
 ```
@@ -226,5 +231,5 @@ None
 # About ServiceBricks
 
 ServiceBricks is the cornerstone for building a microservices foundation.
-Visit http://ServiceBricks.com to learn more.
+Visit https://ServiceBricks.com to learn more.
 
