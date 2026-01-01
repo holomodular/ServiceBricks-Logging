@@ -1,64 +1,235 @@
-﻿![ServiceBricks Logo](https://raw.githubusercontent.com/holomodular/ServiceBricks/main/Logo.png)  
+﻿![ServiceBricks Logo](https://raw.githubusercontent.com/holomodular/ServiceBricks/main/Logo.png) 
 
-[![NuGet version](https://badge.fury.io/nu/ServiceBricks.svg)](https://badge.fury.io/nu/ServiceBricks)
-![badge](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/holomodular-support/bdb5c7c570a7a88ffb3efb3505273e34/raw/servicebricks-codecoverage.json)
+[![NuGet version](https://badge.fury.io/nu/ServiceBricks.Logging.Microservice.svg)](https://badge.fury.io/nu/ServiceBricks.Logging.Microservice)
+![badge](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/holomodular-support/2214c3b2c703476cbafeb647eb655fc8/raw/servicebrickslogging-codecoverage.json)
 [![License: MIT](https://img.shields.io/badge/License-MIT-389DA0.svg)](https://opensource.org/licenses/MIT)
 
-# ServiceBricks: The Microservices Foundation
+# ServiceBricks Logging Microservice
 
 ## Overview
 
-[ServiceBricks](https://ServiceBricks.com) is a powerful microservices platform designed to streamline the development, deployment, and maintenance of distributed systems using artificial intelligence. 
-Leveraging Domain-Driven Design (DDD), Event-Driven Architecture (EDA), and a host of advanced features, ServiceBricks empowers teams to create scalable, customizable services tailored to specific business domains.
-
-## Why ServiceBricks?
-
-* **Artificial Intelligence:** Use our online generator to create production-grade microservices in seconds using only a single human sentence as input.
-* **Advanced Architecture:** Provides the core architectural patterns, implementation, standardization, and governance for your microservices.
-* **REST APIs:** Expose standardized, secure REST APIs to manage your data.
-* **Storage Agnostic:** Interchangeably supports relational, document, cloud or embedded database engines
-* **Seamless Integration:** Switch storage providers without impacting microservice operations and avoid vendor lock-in.
+This repository contains the logging microservice built using the ServiceBricks foundation.
+The logging microservice provides logging support for any hosted application using the Microsoft.Extensions.Logging library.
+It provides web request logging functionality, so you can audit all web requests coming into the application.
 
 
-## Major Features
+## Data Transfer Objects
 
-* **Artificial Intelligence Integration:** Use large language models to build, query and manipulate your microservice data using simple human input.
-* **Generics:** Extensive use of generics, allowing the compiler to generate most of the required source code.
-* **REST API Services:** Templated, repository-based services for quickly exposing standard CRUD+QPV (Query, Patch, Validate) methods or custom methods.
-* **[ServiceQuery Integration](https://github.com/holomodular/ServiceQuery):** Supports standardized, polyglot, dynamic data querying for all database engines.
-* **[Business Rule Engine](https://github.com/holomodular/ServiceBricks-Documentation/blob/main/V1/BusinessRuleEngine.md):** Polymorphic techniques to build reusable business logic.
-* **[Domain-Driven Design (DDD)](https://github.com/holomodular/ServiceBricks-Documentation/blob/main/V1/FlowOfData.md) & [Event-Driven Architecture (EDA)](https://github.com/holomodular/ServiceBricks-Documentation/blob/main/V1/EventDrivenArchitecture.md):** Customize business logic for any supported object and method.
-* **[Background Processing](https://github.com/holomodular/ServiceBricks-Documentation/blob/main/V1/BackgroundTasks.md):** Supports asynchronous processes, tasks, and rules.
-* **[Relational, Document, Cloud and Embedded Database Support](https://github.com/holomodular/ServiceBricks-Documentation/blob/main/V1/SupportedDatabaseEngines.md):** Works standard with Azure Data Tables, Cosmos DB, InMemory, MongoDB, Postgres, SQLite, SQL Server and more.
-* **[Service Bus Engine](https://github.com/holomodular/ServiceBricks-Documentation/blob/main/V1/BroadcastsAndServiceBus.md):** Supports broadcasts of system data with InMemory and Azure Service Bus.
-* **[Classic or Modern REST API Design](https://github.com/holomodular/ServiceBricks-Documentation/blob/main/V1/ClassicVsModernRestApi.md):** Choose between Classic or Modern modes, with various response formats.
-* **[NuGet Packages](https://github.com/holomodular/ServiceBricks-Documentation/blob/main/V1/NuGet.md):** Quickly build new services and applications.
-* **Testing Framework:** Comprehensive Xunit test framework for robust unit and integration testing with thousands of tests available.
-* **Open Source:** All referenced assemblies are open source and licensed under MIT or an equivalent license.
+### LogMessageDto - Admin Policy
+Used to store application diagnositics.
+
+```csharp
+
+public class LogMessageDto : DataTransferObject
+{
+    public virtual DateTimeOffset CreateDate { get; set; }
+    public virtual string Application { get; set; }
+    public virtual string Server { get; set; }
+    public virtual string Category { get; set; }
+    public virtual string UserStorageKey { get; set; }
+    public virtual string Path { get; set; }
+    public virtual string Level { get; set; }
+    public virtual string Message { get; set; }
+    public virtual string Exception { get; set; }
+    public virtual string Properties { get; set; }
+}
+
+```
+
+#### Business Rules
+
+* DomainCreateDateRule - CreateDate property
+
+### WebRequestMessageDto - Admin Policy
+Used to store web request auditing messages.
+
+```csharp
+
+ public class WebRequestMessageDto : DataTransferObject
+ {
+     public DateTimeOffset CreateDate { get; set; }
+     public string RequestIPAddress { get; set; }
+     public string RequestProtocol { get; set; }
+     public string RequestScheme { get; set; }
+     public string RequestMethod { get; set; }
+     public string RequestBody { get; set; }
+     public string RequestPath { get; set; }
+     public string RequestPathBase { get; set; }
+     public string RequestQueryString { get; set; }
+     public string RequestQuery { get; set; }
+     public string RequestRouteValues { get; set; }
+     public string RequestHost { get; set; }
+     public bool? RequestHasFormContentType { get; set; }
+     public string RequestCookies { get; set; }
+     public string RequestContentType { get; set; }
+     public long? RequestContentLength { get; set; }
+     public string RequestHeaders { get; set; }
+     public bool? RequestIsHttps { get; set; }
+     public string RequestUserId { get; set; }
+     public int? ResponseStatusCode { get; set; }
+     public string ResponseHeaders { get; set; }
+     public string ResponseCookies { get; set; }
+     public string ResponseContentType { get; set; }
+     public long? ResponseContentLength { get; set; }
+     public long? ResponseTotalMilliseconds { get; set; }
+     public string ResponseBody { get; set; }
+ }
+
+```
+
+#### Business Rules
+
+* DomainCreateDateRule - CreateDate property
 
 
-## Getting Started with Examples
+## Background Tasks and Timers
 
-Explore our [ServiceBricks-Examples](https://github.com/holomodular/ServiceBricks-Examples) repository for practical examples on hosting and deploying your ServiceBricks foundation. From single, monolithic web applications to distributed, multi-deployment, containerized web applications, these examples provide the building blocks to create and scale your own foundations quickly.
+### LoggingWriteMessageTimer class
+This background timer runs executes the LoggingWriteMessageTask.
 
-## Documentation
+[View Source](https://github.com/holomodular/ServiceBricks-Logging/blob/main/src/V1/ServiceBricks.Logging/BackgroundTask/LoggingWriteMessageTimer.cs)
 
-Check out our [ServiceBricks-Documentation](https://github.com/holomodular/ServiceBricks-Documentation) repository for comprehensive documentation on the platform, including guides on using all components and developing your own microservices.
+### LoggingWriteMessageTask class
+This background task pulls records off of custom logger inmemory queue and writes them to the ILogMessageAPIService.
 
-## Official Pre-Built Microservices
+[View Source](https://github.com/holomodular/ServiceBricks-Logging/blob/main/src/V1/ServiceBricks.Logging/BackgroundTask/LoggingWriteMessageTask.cs)
 
-Get started quickly with our pre-built microservices:
+## Events
+None
 
-* [ServiceBricks-Cache](https://github.com/holomodular/ServiceBricks-Cache): Generic data storage microservice with a built in expiration process and a distributed semaphore for cache-level locking for multi-instance deployments.
-* [ServiceBricks-Logging](https://github.com/holomodular/ServiceBricks-Logging): Service-scoped or centralized logging and a web request auditing microservice.
-* [ServiceBricks-Notification](https://github.com/holomodular/ServiceBricks-Notification): Notification and delivery for emails and SMS messages.
-* [ServiceBricks-Security](https://github.com/holomodular/ServiceBricks-Security): Authentication, authorization, and application security with JWT bearer token support for multi-instance deployments.
-* [ServiceBricks-Work](https://github.com/holomodular/ServiceBricks-Work): Work queue microservice for reliable, event-driven background processing.
+## Middleware
 
-## Trademarks
+### LogMessageMiddleware
+This middleware is responsible for plugging into the pipeline and storing minimal HttpRequest information (such as user, request, path, etc) to store along with log messages.
 
-“ServiceBricks”, "ServiceQuery" and “HoloModular” are trademarks of HoloModular LLC. The MIT License covers code only; it does not grant rights to use our trademarks, logos, or brand assets (including in modified or redistributed versions) without permission.
+In your program.cs file, add the custom logger with **AddServiceBricksLogging()** in the ConfigureLogging section.
+```csharp
 
-## About
+    .ConfigureLogging((hostingContext, logging) =>
+    {
+        logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
+        logging.AddConsole();
+        logging.AddDebug();
+        logging.AddServiceBricksLogging();
+    })
 
-ServiceBricks is owned and maintained by HoloModular LLC and authored by Danny Logsdon (Founder). Visit our websites at https://HoloModular.com, https://ServiceBricks.com or https://www.linkedin.com/in/danlogsdon to learn more.
+```
+
+
+The following code should be added to your web application's startup. This middleware should be added to the pipeline after UseAuth() so that any authenticated user is available.
+```csharp
+  app.UseMiddleware<LogMessageMiddleware>();
+```
+
+[View Source](https://github.com/holomodular/ServiceBricks-Logging/blob/main/src/V1/ServiceBricks.Logging/Middleware/LogMessageMiddleware.cs)
+
+### WebRequestMessageMiddleware class
+This middleware is responsible for plugging into the pipeline and pulling the HttpRequest and HttpResponse properties of the current web request and storing them for auditing purposes.
+
+The following code should be added to your web application's startup. 
+This middleware should be added to the pipeline after UseAuth(), so that any authenticated user is available.
+```csharp
+  app.UseMiddleware<WebRequestMessageMiddleware>();
+```
+[View Source](https://github.com/holomodular/ServiceBricks-Logging/blob/main/src/V1/ServiceBricks.Logging/Middleware/WebRequestMessageMiddleware.cs)
+
+## Processes
+None
+
+## Service Bus
+
+### CreateApplicationLogBroadcast
+This microservice subscribes to the CreateApplicationLogBroadcast message.
+It is associated to the [CreateApplicationLogRule](https://github.com/holomodular/ServiceBricks-Logging/blob/main/src/V1/ServiceBricks.Logging/Rule/CreateApplicationLogRule.cs) Business Rule.
+When receiving the message, it will simply create a record in storage.
+
+```csharp
+
+public class CreateApplicationLogBroadcast : DomainBroadcast<ApplicationLogDto>
+{
+    public CreateApplicationLogBroadcast(ApplicationLogDto obj)
+    {
+        DomainObject = obj;
+    }
+}
+
+```
+
+## Additional
+None
+
+## Application Settings
+
+```json
+{
+  // System default logging option
+  "Logging": {
+    "LogLevel": {
+      // Specify custom logging levels for components here
+      "Default": "Information",
+      "Microsoft": "Warning",
+      "Microsoft.AspNetCore": "Warning",
+      "Microsoft.Hosting.Lifetime": "Warning"
+    }
+  },
+
+  // ServiceBricks Settings
+  "ServiceBricks": {
+
+    // Logging Microservice Settings
+    "Logging": {
+
+      // WebRequestMessageMiddleware Settings
+      "WebRequestMessage": {
+      "EnableLogging": false,
+      "EnableExceptions": true,
+      "EnableUserStorageKey": true,
+      "EnableRequestIPAddress": true,
+      "EnableRequestBody": true,
+      "EnableRequestBodyOnError": true,
+      "EnableRequestProtocol": true,
+      "EnableRequestScheme": true,
+      "EnableRequestMethod": true,
+      "EnableRequestPath": true,
+      "EnableRequestPathBase": true,
+      "EnableRequestQueryString": true,
+      "EnableRequestQuery": true,
+      "EnableRequestRouteValues": true,
+      "EnableRequestHost": true,
+      "EnableRequestHasFormContentType": true,
+      "EnableRequestCookies": true,
+      "EnableRequestContentType": true,
+      "EnableRequestContentLength": true,
+      "EnableRequestHeaders": true,
+      "EnableRequestIsHttps": true,
+      "EnableResponseStatusCode": true,
+      "EnableResponseHeaders": true,
+      "EnableResponseCookies": true,
+      "EnableResponseContentType": true,
+      "EnableResponseContentLength": true,
+      "EnableResponseTotalMilliseconds": true,
+      "EnableResponseBody": true,
+      "EnableExcludeRequestPathsRegExExpressions": false,
+      "ExcludeRequestPaths": [
+        //"/css/",
+        //"/img/",
+        //"/js/",
+      ],
+      "EnableExcludeIpAddressesRegExExpressions": false,
+      "ExcludeIpAddresses": [
+        // "127.0.0.1",
+        // "::1"
+      ]
+    }
+   }
+  }
+}
+```
+
+
+
+# About ServiceBricks
+
+ServiceBricks is the cornerstone for building a microservices foundation.
+Visit https://ServiceBricks.com to learn more.
+
